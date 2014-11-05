@@ -13,6 +13,8 @@ Goal
 
 To model nginx configurations in Hiera, extracting those configurations from the Puppet DSL, and create a Puppet Profile to combine that with the nginx module.
 
+<!-- more -->
+
 Links
 =====
 
@@ -61,8 +63,6 @@ disparate SOA applications.
 
 This is essentially a model to build a nginx based proxy layer sitting
 in front of a multi-tenant SOA application stack.
-
-<!-- more -->
 
 Approach
 --------
