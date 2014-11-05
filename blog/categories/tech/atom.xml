@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-05T16:45:27+00:00</updated>
+  <updated>2014-11-05T16:45:48+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<h1>Goal</h1>
 
 <p>To model nginx configurations in Hiera, extracting those configurations from the Puppet DSL, and create a Puppet Profile to combine that with the nginx module.</p>
+
+<!-- more -->
+
 
 <h1>Links</h1>
 
@@ -78,9 +81,6 @@ disparate SOA applications.</p>
 
 <p>This is essentially a model to build a nginx based proxy layer sitting
 in front of a multi-tenant SOA application stack.</p>
-
-<!-- more -->
-
 
 <h2>Approach</h2>
 
