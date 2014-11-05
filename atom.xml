@@ -4,7 +4,7 @@
   <title><![CDATA[Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-05T10:07:12+00:00</updated>
+  <updated>2014-11-05T11:30:24+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -96,7 +96,7 @@
 
 <p>The toolkit has gained backing from some well known companies like Tivo, Prezi and Zynga to name a few and also has a growing open source community which should mean further advances in the native API&rsquo;s. Where this struggles in my opinion is there will always be issues for transpiled languages where some areas of the API dont work cross platform so you maybe forced to restrict functionality in your app to cater for this. That said I imagine the API&rsquo;s available will cater for the majority of apps.</p>
 
-<p>I&rsquo;m not usually a fan of transpilers, I&rsquo;ll stop now before I start a rant about CoffeeScript (one for another post!), but this on certainly looks to have its place in the market and I will be looking into this more in the near future.</p>
+<p>I&rsquo;m not usually a fan of transpilers, I&rsquo;ll stop now before I start a rant about CoffeeScript (one for another post!), but this one certainly looks to have its place in the market and I will be looking into this more in the near future.</p>
 
 <h4>HTML5 and beyond!</h4>
 
