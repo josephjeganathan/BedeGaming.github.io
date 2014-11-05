@@ -365,6 +365,57 @@ task :setup_github_pages, :repo do |t, args|
   puts "\n---\n## Now you can deploy to #{repo_url} with `rake deploy` ##"
 end
 
+
+desc "Set up _deploy folder and deploy branch for deployment BedeGaming's github.io pages account"
+task :setup_bede_github_pages, :repo do |t, args|
+
+  repo_url = "git@github.com:BedeGaming/BedeGaming.github.io.git"
+  protocol = "git"
+  user = "BedeGaming"
+  branch = 'master'
+  project = ''
+  unless (`git remote -v` =~ /origin.+?octopress(?:\.git)?/).nil?
+    # If octopress is still the origin remote (from cloning) rename it to octopress
+    system "git remote rename origin octopress"
+    if branch == 'master'
+      # If this is a user/organization pages repository, add the correct origin remote
+      # and checkout the source branch for committing changes to the blog source.
+      system "git remote add origin #{repo_url}"
+      puts "Added remote #{repo_url} as origin"
+      system "git config branch.master.remote origin"
+      puts "Set origin as default remote"
+      system "git branch -m master source"
+      puts "Master branch renamed to 'source' for committing your blog source files"
+    else
+      unless !public_dir.match("#{project}").nil?
+        system "rake set_root_dir[#{project}]"
+      end
+    end
+  end
+  jekyll_config = IO.read('_config.yml')
+  jekyll_config.sub!(/^url:.*$/, "url: #{blog_url(user, project)}")
+  File.open('_config.yml', 'w') do |f|
+    f.write jekyll_config
+  end
+  rm_rf deploy_dir
+  mkdir deploy_dir
+  cd "#{deploy_dir}" do
+    system "git init"
+    system "echo 'My Octopress Page is coming soon &hellip;' > index.html"
+    system "git add ."
+    system "git commit -m \"Octopress init\""
+    system "git branch -m gh-pages" unless branch == 'master'
+    system "git remote add origin #{repo_url}"
+    rakefile = IO.read(__FILE__)
+    rakefile.sub!(/deploy_branch(\s*)=(\s*)(["'])[\w-]*["']/, "deploy_branch\\1=\\2\\3#{branch}\\3")
+    rakefile.sub!(/deploy_default(\s*)=(\s*)(["'])[\w-]*["']/, "deploy_default\\1=\\2\\3push\\3")
+    File.open(__FILE__, 'w') do |f|
+      f.write rakefile
+    end
+  end
+  puts "\n---\n## Now you can deploy to #{repo_url} with `rake deploy` ##"
+end
+
 def ok_failed(condition)
   if (condition)
     puts "OK"
