@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How the current mobile landscape affects developers - Bede Engineering</title>
+  <meta name="author" content="Bede Gaming Ltd">
+
+  
+  <meta name="description" content="A colleague pointed me towards an interesting presentation that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Bede Engineering" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:engineering.bedegaming.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+            Bede Engineering
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How the Current Mobile Landscape Affects Developers</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-20T15:55:00+00:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
+
+<!-- more -->
+
+
+<h2>The mobile OS battle</h2>
+
+<p>Whether this can be classed as a battle anymore is up for debate but currently Android leads the way and now owns approximately 85% of the market, compare that to 2012 when it was hitting 69% and in 2011 it was only 36%! Looking across at iOS which has dropped from 18% to 11% in the same time period it is certainly looking like the two big players are still the main targets for users, Blackberry has virtually disappeared and Windows Phone seems more appealing to developers than consumers.</p>
+
+<p>Another interesting point is the disappearance of the &ldquo;Other&rdquo; OS&rsquo;s. In 2011 this figure occupied 30% of the market, it now comprises a tiny 0.7%. My opinion here is that this is mainly to do with some of the big mobile handset manufactors moving away from Symbian as their primary platform. Samsung and Sony Ericsson have of course moved to Android whereas Nokia have adopted the Windows Phone OS. So what does this mean for developers?</p>
+
+<p><img class="center" src="/images/smartphone-os-market-share.png" title="Smartphone OS Market Share" alt="Smartphone OS Market Share"></p>
+
+<p><em>Source: <a href="http://www.idc.com/prodserv/smartphone-os-market-share.jsp">idc.com</a></em></p>
+
+<h3>Android fragmentation</h3>
+
+<p>Firstly, the fragmentation of the Android market means there are many devices to support whereas on iOS there are a known set of devices to target. This leads to problems with differing device performance levels, screen resolutions and OS versions. For mobile web apps or sites you can add the usual cross browsers incompatibilities to that list.</p>
+
+<h3>High end devices</h3>
+
+<p>Despite Android&rsquo;s 85% market share dwarfing iOS&rsquo;s 11%, you may be surprised to hear that iOS still holds the greater market share when it comes to the high end devices. This is a key consideration to take into account when you analyse the target audience for your app or wesbite.</p>
+
+<h3>App distribution</h3>
+
+<p>Each OS comes with its own app distribution channel, on iOS we have the App Store and Android the Play Store (we should also try not to forget about the Windows Store). The different stores have their own restrictions on the types of app they host, the Play Store for example does not allow gambling apps and also a varying review process. The native language used to develop apps for each OS also varies:</p>
+
+<ul>
+<li>Android - Java</li>
+<li>iOS - Objective-C / Swift</li>
+<li>Windows - C++ / .NET</li>
+</ul>
+
+
+<p>This sets an obvious challenge to developers looking to publish on each store, is it really worth writing an app 3 times?</p>
+
+<h2>So what can we do about it?</h2>
+
+<p>Ok, I&rsquo;ve listed some of the issues that can arise when thinking about developing your latest app or website now how do we solve these isssues? Lets take a look at dealing with the many different devices on the market today. For me, the key here is to know your target audience and plenty of research. Its also useful to consider what your app or site is going to do, ask yourself these questions:</p>
+
+<ol>
+<li>What does my app do?</li>
+<li>Will it need good hardware?</li>
+<li>Am I willing compromise app experience?</li>
+</ol>
+
+
+<p>Three questions that sound obvious but once answered, can really help narrow down that extensive device list - if your app doesnt include rich graphics or intensive animations then its probably safe to widen the range of handsets you are going to target or if it&rsquo;s a game for example then you probably want to stick with the higher end of the market. Likewise if your app is heavily reliant on rich animations and graphics and a reduced experience is not really an option then again this will limit you to the high end devices.</p>
+
+<h3>Development approach</h3>
+
+<p>So we&rsquo;ve limited our device range but we still have a problem in that we need to build the same app 3 times in a different language to reach the maximum number of people. Or do we? No of course not - there are lots of tools available now that allow developers to write once, run anywhere (and no I dont mean Java!). In fact the aforementioned document talks about how almost half of mobile app developers choose to write apps using something other than the native language.</p>
+
+<h4>Unity3D</h4>
+
+<p>Unity is a hugely popular game development tool, it allows its users to create games for a wide variety of platforms. Its performance is a near match for its native equivilents and the quality of games rendering is second to none.</p>
+
+<p>Skills for Unity tend be more difficult to find when compared to native iOS/Android and HTML5, probably because its popularity mainly stems from the games industry, however there is a large community behind it and a new Unity Store where developers can download assets and plugins for their games.</p>
+
+<p>In my opinion, aside from the skill shortage, where Unity falls down is when it comes to app distruption. As with most channels you still have the review process for the various app stores and each new version must go through a similar review.</p>
+
+<h4>Haxe</h4>
+
+<p>Haxe is a relatively new tool that has been brought to my attention recently, it is source to source complier or <em>transpiler</em> for a more appropriate term. This gives developers the ability to write their app once in the Haxe language and &lsquo;transpile&rsquo; into a variety of native languages, current language support includes:</p>
+
+<ul>
+<li>iOS</li>
+<li>Android</li>
+<li>HTML5</li>
+<li>Flash</li>
+<li>C#</li>
+<li>PHP</li>
+<li>C++ and more</li>
+</ul>
+
+
+<p>The toolkit has gained backing from some well known companies like Tivo, Prezi and Zynga to name a few and also has a growing open source community which should mean further advances in the native API&rsquo;s. Where this struggles in my opinion is there will always be issues for transpiled languages where some areas of the API dont work cross platform so you maybe forced to restrict functionality in your app to cater for this. That said I imagine the API&rsquo;s available will cater for the majority of apps.</p>
+
+<p>I&rsquo;m not usually a fan of transpilers, I&rsquo;ll stop now before I start a rant about CoffeeScript (one for another post!), but this one certainly looks to have its place in the market and I will be looking into this more in the near future.</p>
+
+<h4>HTML5 and beyond!</h4>
+
+<p>At Bede we are big adovcates of HTML5 and its surrounding technologies. Our games clients make use of the latest HTML5 API&rsquo;s, Javascript frameworks and CSS3 and our CMS uses a variant of responsive design to cater for varying screen resolutions and devices.</p>
+
+<p>All the major mobile platforms support apps built in HTML5. Whether its an app to be published on the app store built with something like <a href="http://cordova.apache.org/">Apache Cordova</a> or one of its distributions, <a href="http://phonegap.com/">PhoneGap</a> is one of the more popular names or a web app saved from the web - Google and Apple are definitely getting behind the HTML5 revolution! An article over at <a href="http://www.sencha.com/blog/apple-shows-love-for-html5-with-ios-8">Sencha</a> details how iOS 8 adds support for many more HTML5 features, couple this with the recent addition of the &lsquo;Nitro&rsquo; Javascript engine to UIWebView and you can see how Apple are embracing HTML5.</p>
+
+<p><img class="center" src="/images/ios-html5-support.png" title="iOS HTML5 feature support comparison" alt="iOS HTML5 feature support comparison"></p>
+
+<p><em>Source: <a href="http://caniuse.com">caniuse.com</a></em></p>
+
+<p>Google continue to improve the Android experience by making Chrome the default browser in the latest versions of Android, finally ridding HTML5 developers of the native Android browser (or &lsquo;the IE6 of mobile&rsquo; as I like to call it). Performance used to be the main drawback of this approach but the latest developments with full webGL support meaning  hardware accerlation for HTML5 canvas and more powerful devices hitting the market, this is less of a concern these days.</p>
+
+<p>In my opinion HTML5 is succeeding in becoming <em>the</em> write once, run everywhere choice for mobile app development. Maybe only the ultra high performance games have the performance concern now - for the vast majority of developers we can safely rely on HTML5 to deliver what we need in terms of app development. If done correctly the performance difference should be barely noticeable.</p>
+
+<p>An added bonus is that creating a hybrid app with HTML5 means you can auto update you app without needing to go through a review in the app stores for the new content, deploying the latest version to the web will in turn update the app content. This may seem like a small advantage at first but for an app that may require frequent improvements and many iterations it is an invaluable feature.</p>
+
+<p>As described above HTML5 plays a big part in the products delivered by Bede and based on some figures I was shown recently that indicated 40% of traffic on a popular client site came from mobile devices, I believe we are a good case study on the benefits the technology can bring. Aside from the aesthetics of sites and the rich interfaces we can create using the stack, topics like team structure and recruitment strategy are also key bonus points. Across the different teams in Bede a lot of shared code can be utilised - a repository of less mixins is available to developers and our games clients are written using our Javascript framework. Traditionally HTML5 skills have been easier to recruit for than traditional tech skills associated with mobile development, this has allowed Bede to quickly grow a highly talented team.</p>
+
+<p>The main advantage HTML5 gives Bede over its competitors is the ability to rapidly produce rich applications that are highly configurable to the point where it is difficult to identify the software running underneath, compare 2 of our Bingo clients with 2 from a competitor and you will see what I mean!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Andrew Humphreys</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-20T15:55:00+00:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/html5/'>html5</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/mobile/'>mobile</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+ 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2014-11-04-developers-and-the-changing-mobile-landscape.markdown">Fork me on github</a>		
+	</p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/16/who-is-your-brent/" title="Previous Post: Who is your Brent?">&laquo; Who is your Brent?</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<img src="/images/bede-logo.png" border="0">
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/20/developers-and-the-changing-mobile-landscape/">How the current mobile landscape affects developers</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/16/who-is-your-brent/">Who is your Brent?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/16/the-dev-ops-80-20-rule-for-selecting-a-database/">The Dev-ops 80-20 Rule For Selecting A Database</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/15/introducing-engineering-dot-bedegaming-dot-com/">Introducing Bede Engineering</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/BedeGaming">@BedeGaming</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'BedeGaming',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Bede_Engineers"  data-widget-id=""  data-link-color="#1863a1" data-tweet-limit="" data-chrome="noheader nofooter transparent noscrollbar">Tweets by @Bede_Engineers</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </ul>
+  
+    <a href="http://twitter.com/Bede_Engineers" class="twitter-follow-button" data-show-count="false">Follow @Bede_Engineers</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Bede Gaming Ltd -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

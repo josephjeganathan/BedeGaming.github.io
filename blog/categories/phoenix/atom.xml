@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: phoenix | Bede Engineering]]></title>
+  <link href="http://engineering.bedegaming.com/blog/categories/phoenix/atom.xml" rel="self"/>
+  <link href="http://engineering.bedegaming.com/"/>
+  <updated>2014-11-05T13:31:43+00:00</updated>
+  <id>http://engineering.bedegaming.com/</id>
+  <author>
+    <name><![CDATA[Bede Gaming Ltd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Who is your Brent?]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2014/10/16/who-is-your-brent/"/>
+    <updated>2014-10-16T17:19:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2014/10/16/who-is-your-brent</id>
+    <content type="html"><![CDATA[<p>In the book <a href="http://www.amazon.co.uk/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B00AZRBLHO/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1413480244&amp;sr=1-1&amp;keywords=the+phoenix+project">The Phoenix Project</a> one of the primary foils of the &ldquo;hero&rdquo; is a guy named Brent. Brent is critical to successful work. Production incident? Call Brent. Complex database query? Brent&rsquo;s your guy. Tracing down network packet drops? Brent is already on it.  On the face of it, he is what every ops team wants twenty of, but as the book shows it is easy to become so critically dependent on one person that they become a bottleneck for the organisation. Also, Brent has several bad habits. He drops everything he&rsquo;s doing to sort out what ever is being screamed about loudest, regardless of its actual priority. He&rsquo;s also a knowledge silo - because Brent built half the complex systems in the business, he knows <!-- more -->how to solve tricky problems with them all, but all the knowledge is in his head, to the point where most of the rest of the team won&rsquo;t touch those areas. Why would they? Brent can solve the issue in a tenth of the time, and more safely.</p>
+
+<h2>Removing the Bottleneck</h2>
+
+<p>Much of the middle of the book is about how a mentor gets our hero thinking about how to remove that bottleneck. They tried hiring expensive experienced ops people. That failed because they still didn&rsquo;t have the knowledge of Brent, or if they gained it, it was also only in their heads. Part of the solution is to ensure that Brent is literally not allowed to touch the keyboard in production incidents, rather he must explain to a junior staff member how to step through the problems, and document the steps taken, and how to deal with the issue in future. The second part is ensuring visibility of all the work that Brent actually does, not just the stuff that was planned for him. This is one of the other key themes of the book - planned work vs unplanned work.</p>
+
+<h2>Unplanned Work</h2>
+
+<p>Unplanned work is a killer. Production incidents, sneaky off-the-books &ldquo;can you just get something working for me&rdquo; projects from senior management bypassing the project management / prioritisation functions, fixing another persons work because it&rsquo;s been &ldquo;done wrong&rdquo;. Not only does it not appear on your projections of how well you are doing, but it also involves parking what you should be doing, called <em>context switching</em>, or leaving <em>work in progress</em> (WIP). Gaining visibility of all the unplanned work Brent was doing was key to reducing that unplanned work. Sometimes this was even achieved by yelling at very senior management who were demanding that they &ldquo;wanted Brent to look at the issue because he&rsquo;s the best&rdquo;, despite the fact that others were already doing that piece of work.</p>
+
+<p>As Brent&rsquo;s unplanned work went down, it became possible to leverage his actual skillset in high value operations - such as early design review and planning. Without the fire-fighting he is able to take part in processes that reduce the amount of fire-fighting! A virtuous cycle indeed.</p>
+
+<h2>A Person is not a workstation</h2>
+
+<p>In a twist in the later part of the book, the mysterious mentor points out to the hero, via manufacturing analogies, that a Brent is not a work centre or work station. That is, on on the macro level, a person is not a bottleneck, the function that they are carrying out is. In manufacturing you slow down your production of new work items to the speed where they can all be consumed by the next stage without queueing. One of these stations will be the slowest. That is your limiting factor or your bottleneck. (Note - a bottleneck does not specifically mean &ldquo;bad&rdquo;. No matter how optimal your process gets <em>something</em> will be the slowest part).</p>
+
+<h2>Software Development Workstations</h2>
+
+<p>In the software development world, your &ldquo;work stations&rdquo; are things like requirements gathering, planning, architecture and design, implementation, code review, QA testing, deployment to an environment (including production or testing environments). Where is your limiting factor? What stage holds you up the most. One of the great messages in the book is (paraphrased)</p>
+
+<blockquote><p>Any improvements to a process that is not your bottleneck is a fake improvement</p></blockquote>
+
+<p>Basically - because WIP is so bad, anything that does not stop WIP building up at one cost centre is not really reducing the overall turnaround time for work from inception to successful production. You should <em>only</em> focus on improving the bottleneck. When that is no longer the bottleneck, look to the next one.</p>
+
+<h2>Identifying your Bottleneck</h2>
+
+<p>It&rsquo;s actually quite easy to do. Draw a diagram with a box for each process you have from requirements through to in production (generally a straight flow diagram). For each, identify whether they generally have a queue of items from the previous step. Now go from right to left until you find the first item that has a queue. That is your bottle neck.</p>
+
+<p><strong>Example</strong></p>
+
+<blockquote><p>The average queue of stories in the backlog awaiting development work is about 15 items. The average number of stories awaiting QA is 5. The &ldquo;quick&rdquo; answer is to say that clearly the biggest problem is in development - they are coping least well! But think what would happen if you improved that part of the process. QA already has a queue of work - it would only get bigger. There is no point in resolving how much work development can process until QA is no longer the bottleneck.</p></blockquote>
+
+<p>As a real world reminder - here is an recent example from our own boards. You can see that we are building up a bottleneck on QA process. We&rsquo;ve already gone through reviewing the underlying causes. We&rsquo;re tackling this area before re-assessing our next bottleneck.</p>
+
+<p><img class="center" src="/images/QA-bottleneck-example.png" width="500" height="750" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
+
+<h2>Conclusion</h2>
+
+<p>Where is your bottleneck? Who is your Brent? Find them and improve them first, because all other improvements are irrelevant!</p>
+]]></content>
+  </entry>
+  
+</feed>
