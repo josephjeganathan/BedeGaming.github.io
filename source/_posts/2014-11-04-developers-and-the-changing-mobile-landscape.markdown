@@ -77,7 +77,7 @@ Haxe is a relatively new tool that has been brought to my attention recently, it
 
 The toolkit has gained backing from some well known companies like Tivo, Prezi and Zynga to name a few and also has a growing open source community which should mean further advances in the native API's. Where this struggles in my opinion is there will always be issues for transpiled languages where some areas of the API dont work cross platform so you maybe forced to restrict functionality in your app to cater for this. That said I imagine the API's available will cater for the majority of apps.
 
-I'm not usually a fan of transpilers, I'll stop now before I start a rant about CoffeeScript (one for another post!), but this on certainly looks to have its place in the market and I will be looking into this more in the near future.
+I'm not usually a fan of transpilers, I'll stop now before I start a rant about CoffeeScript (one for another post!), but this one certainly looks to have its place in the market and I will be looking into this more in the near future.
 
 
 #### HTML5 and beyond!
