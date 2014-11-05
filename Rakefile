@@ -403,7 +403,7 @@ task :setup_bede_github_pages, :repo do |t, args|
     system "git init"
     system "cp ../deploy_git_config ./.git/config"
     system "git config --global user.name 'bedeCI'"
-    system "git config --global user.email 'rob.rankin@bedegaming.com'"
+    system "git config --global user.email 'rob.rankin+10@bedegaming.com'"
 #    system "git remote add origin #{repo_url}"
     rakefile = IO.read(__FILE__)
     rakefile.sub!(/deploy_branch(\s*)=(\s*)(["'])[\w-]*["']/, "deploy_branch\\1=\\2\\3#{branch}\\3")
