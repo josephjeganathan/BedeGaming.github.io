@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How the current mobile landscape effects developers"
+title: "How the current mobile landscape affects developers"
 date: 2014-10-20 16:55:00 +0100
 comments: true
 author: Andrew Humphreys
