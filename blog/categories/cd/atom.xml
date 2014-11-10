@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cd | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/cd/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-10T12:30:28+00:00</updated>
+  <updated>2014-11-10T13:00:06+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -45,7 +45,7 @@
 
 <p><img class="center" src="/images/octopus-dashboard.png" title="&lsquo;Continuous Integration Dashboard&rsquo; &lsquo;Continuous Integration Dashboard&rsquo;" ></p>
 
-<p>Secondly, uptime in production - Bede manages the production environments for it&rsquo;s clients, so relentless monitoring of servers and applications is required to keep the status green and exceed stated SLA uptimes. Of course Nissan&rsquo;s relationship with their product continues long after delivery too, though a most shared approach for managing that client relationship exists in the form of dealerships.</p>
+<p>Secondly, uptime in production - Bede manages the production environments for its clients, so relentless monitoring of servers and applications is required to keep the status green and exceed stated SLA uptimes. Of course Nissan&rsquo;s relationship with their product continues long after delivery too, though a most shared approach for managing that client relationship exists in the form of dealerships.</p>
 
 <p><img class="center" src="/images/ops-nr-dashboard.jpg" title="&lsquo;Environment Monitoring&rsquo; &lsquo;Environment Monitoring&rsquo;" ></p>
 
