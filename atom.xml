@@ -4,7 +4,7 @@
   <title><![CDATA[Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-10T10:59:26+00:00</updated>
+  <updated>2014-11-10T12:28:24+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -1080,7 +1080,7 @@ me know at mahhy at undertow dot ca.</p>
   <entry>
     <title type="html"><![CDATA[How the current mobile landscape affects developers]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/"/>
-    <updated>2014-10-20T15:55:00+00:00</updated>
+    <updated>2014-10-20T16:55:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape</id>
     <content type="html"><![CDATA[<p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
 
@@ -1187,7 +1187,7 @@ me know at mahhy at undertow dot ca.</p>
   <entry>
     <title type="html"><![CDATA[Who is your Brent?]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/16/who-is-your-brent/"/>
-    <updated>2014-10-16T17:19:00+00:00</updated>
+    <updated>2014-10-16T18:19:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/16/who-is-your-brent</id>
     <content type="html"><![CDATA[<p>In the book <a href="http://www.amazon.co.uk/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B00AZRBLHO/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1413480244&amp;sr=1-1&amp;keywords=the+phoenix+project">The Phoenix Project</a> one of the primary foils of the &ldquo;hero&rdquo; is a guy named Brent. Brent is critical to successful work. Production incident? Call Brent. Complex database query? Brent&rsquo;s your guy. Tracing down network packet drops? Brent is already on it.  On the face of it, he is what every ops team wants twenty of, but as the book shows it is easy to become so critically dependent on one person that they become a bottleneck for the organisation. Also, Brent has several bad habits. He drops everything he&rsquo;s doing to sort out what ever is being screamed about loudest, regardless of its actual priority. He&rsquo;s also a knowledge silo - because Brent built half the complex systems in the business, he knows <!-- more -->how to solve tricky problems with them all, but all the knowledge is in his head, to the point where most of the rest of the team won&rsquo;t touch those areas. Why would they? Brent can solve the issue in a tenth of the time, and more safely.</p>
 
@@ -1234,7 +1234,7 @@ me know at mahhy at undertow dot ca.</p>
   <entry>
     <title type="html"><![CDATA[The Dev-ops 80-20 Rule For Selecting A Database]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/16/the-dev-ops-80-20-rule-for-selecting-a-database/"/>
-    <updated>2014-10-16T14:23:57+00:00</updated>
+    <updated>2014-10-16T15:23:57+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/16/the-dev-ops-80-20-rule-for-selecting-a-database</id>
     <content type="html"><![CDATA[<p>You&rsquo;re probably already familiar with the 80-20 rule, less catchily known as the <a href="http://en.wikipedia.org/wiki/Pareto_principle">pareto principle</a> - the idea that you spend about 20% of the time it takes to complete a project building out the first 80% of the features, with the remaining 80% of the duration to complete the elusive final 20%.  There are countless applications of this idea - kind of like when you’ve just learnt a new word, examples start to crop up everywhere.  The most recent example I’ve come across describes the amount of time spent working with persistence technologies from the point of view of developers and operations.  But first some background.
  <!-- more -->
@@ -1257,7 +1257,7 @@ In the days of working on back office software, if there wasn’t a strong opini
   <entry>
     <title type="html"><![CDATA[Introducing Bede Engineering]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/15/introducing-engineering-dot-bedegaming-dot-com/"/>
-    <updated>2014-10-15T17:13:05+00:00</updated>
+    <updated>2014-10-15T18:13:05+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/15/introducing-engineering-dot-bedegaming-dot-com</id>
     <content type="html"><![CDATA[<p>A long time in the hoping, not so long in the making (thanks to <a href="octopress.org">Octopress</a> and <a href="https://github.com/wallace/justin-kelly-theme">Justin Kelly&rsquo;s Theme</a>), we&rsquo;re pretty excited to finally be able to show you our new engineering microsite.</p>
 
