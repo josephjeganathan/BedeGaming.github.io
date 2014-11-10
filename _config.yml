@@ -78,6 +78,9 @@ twitter_tweet_button: true
 twitter_show_replies: false
 twitter_follow_button: true
 twitter_show_follower_count: false
+twitter_widget_id: 531784519318134784
+twitter_tweet_count: 6
+
 
 # Google +1
 google_plus_one: false
