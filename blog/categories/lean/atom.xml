@@ -4,7 +4,7 @@
   <title><![CDATA[Category: lean | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/lean/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-10T10:44:46+00:00</updated>
+  <updated>2014-11-10T10:57:38+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -18,7 +18,7 @@
     <link href="http://engineering.bedegaming.com/blog/2014/11/06/cd-in-action-at-nissan-sunderland/"/>
     <updated>2014-11-06T12:54:14+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/11/06/cd-in-action-at-nissan-sunderland</id>
-    <content type="html"><![CDATA[<p>The Nissan UK car plant at Sunderland produces almost as many cars every year as Italy’s entire automative industry. It’s a mammoth site.  Each of the four production lines in this factory is capable of producing one car every minute, continuously. As in 24x7x365. True continuous delivery into production. I was lucky enough to be invited on a factory tour by the good people at the <a href="entrepreneursforum.net">entrepreneurs forum</a> recently. It was fascinating to see how Nissan have engineered every aspect of production to minimise waste and keep the line flowing. At Bede I&rsquo;ve spent a lot of my time trying to enable agile teams to deliver high quality software into production as fast as possible, so after the factory tour my mind was left reeling with comparisons between Nissan and Bede&rsquo;s approaches to Continuous Delivery.</p>
+    <content type="html"><![CDATA[<p>The Nissan UK car plant at Sunderland produces almost as many cars every year as Italy’s entire automative industry. It’s a mammoth site.  Each of the four production lines in this factory is capable of producing one car every minute, continuously. As in 24x7x365. True continuous delivery into production. I was lucky enough to be invited on a factory tour by the good people at the <a href="http://www.entrepreneursforum.net">entrepreneurs forum</a> recently. It was fascinating to see how Nissan have engineered every aspect of production to minimise waste and keep the line flowing. At Bede I&rsquo;ve spent a lot of my time trying to enable agile teams to deliver high quality software into production as fast as possible, so after the factory tour my mind was left reeling with comparisons between Nissan and Bede&rsquo;s approaches to Continuous Delivery.</p>
 
 <p><img class="center" src="/images/nissan-plant.jpg" title="&lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo; &lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo;" >
 <em>Source: <a href="http://www.themanufacturer.com/articles/nissan-smashes-uk-output-record-at-sunderland-plant/">http://themanufacturer.com</a></em></p>
