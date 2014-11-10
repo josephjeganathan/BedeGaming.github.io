@@ -33,7 +33,7 @@ Production workers understand that nothing can be allowed to stop the line. It's
 
 {% img center /images/octopus-dashboard.png 'Continuous Integration Dashboard' 'Continuous Integration Dashboard' %}
 
-Secondly, uptime in production - Bede manages the production environments for it's clients, so relentless monitoring of servers and applications is required to keep the status green and exceed stated SLA uptimes. Of course Nissan's relationship with their product continues long after delivery too, though a most shared approach for managing that client relationship exists in the form of dealerships.
+Secondly, uptime in production - Bede manages the production environments for its clients, so relentless monitoring of servers and applications is required to keep the status green and exceed stated SLA uptimes. Of course Nissan's relationship with their product continues long after delivery too, though a most shared approach for managing that client relationship exists in the form of dealerships.
 
 {% img center /images/ops-nr-dashboard.jpg 'Environment Monitoring' 'Environment Monitoring' %}
 
