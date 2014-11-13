@@ -11,7 +11,7 @@ Billed as [“The biggest public hackathon ever held in the North East”](http:
 
 <!-- more -->
 
-As co-sponsor, we set a challenge for the competing teams. Bede supplied a Kafka service to public a real-time event stream of messages about deposits, withdrawals and winners for a mock gaming website. We challenged the Hackers to consume the messages and create something beautiful.
+As co-sponsor, we set a challenge for the competing teams. Bede supplied a Kafka service to publish a real-time event stream of messages about deposits, withdrawals and winners for a mock gaming website. We challenged the Hackers to consume the messages and create something beautiful.
 
 ### Day 1, 9AM
 With the hackers seated in the halls of the Hancock museum, and ready to start, Bede MD Dan Smyth took to the podium to deliver an inspired speech about Bede and an introduction to our challenge. This was followed by 5 other sponsors. All told there were 5 prizes on offer, including the actual Hack NE overall champion.
