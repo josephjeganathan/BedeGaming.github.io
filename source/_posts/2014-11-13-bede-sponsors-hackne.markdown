@@ -7,7 +7,7 @@ author: Mark Radford
 categories: hack newcastle
 ---
 
-Billed as [“The biggest public hackathon ever held in the North East”](http://http://www.chroniclelive.co.uk/news/local-news/newcastle-set-north-easts-biggest-8052017), [Hack NE](http://hackne.com), for Bede, was an ideal opportunity to get our name known in the community.  With a largely student based attendee list, people had come from as far away as London to compete. With free t-shirts, face cloths, breath mints, wet wipes and swag bags, Bede'ss branded 8Gig USB sticks looked a good addition for those brave enough to come talk to us.
+Billed as [“The biggest public hackathon ever held in the North East”](http://http://www.chroniclelive.co.uk/news/local-news/newcastle-set-north-easts-biggest-8052017), [Hack NE](http://hackne.com), for Bede, was an ideal opportunity to get our name known in the community.  With a largely student based attendee list, people had come from as far away as London to compete. With free t-shirts, face cloths, breath mints, wet wipes and swag bags, Bede's branded 8Gig USB sticks looked a good addition for those brave enough to come talk to us.
 
 <!-- more -->
 
@@ -16,8 +16,7 @@ As co-sponsor, we set a challenge for the competing teams. Bede supplied a Kafka
 ### Day 1, 9AM
 With the hackers seated in the halls of the Hancock museum, and ready to start, Bede MD Dan Smyth took to the podium to deliver an inspired speech about Bede and an introduction to our challenge. This was followed by 5 other sponsors. All told there were 5 prizes on offer, including the actual Hack NE overall champion.
 
-Representing the tech side of Bede were: Mark Radford, Daniel Lackenby, Amila Prabandhika, Richard Thompson and Anton Jidkov, with Andy Thompson fielding questions about the company and opportunities within.
-As the teams started work on whose services they would use, a few nervous hackers approached us and asked for more details on the service. It seemed that with a prize of £100 Amazon vouchers per team member, we had their interest.
+Representing the tech side of Bede were: Mark Radford, Daniel Lackenby, Amila Prabandhika, Richard Thompson and Anton Jidkov, with Andy Thompson fielding questions about the company and careers opportunities. As the teams started work on whose services they would use, a few nervous hackers approached us and asked for more details on the service. It seemed that with a prize of £100 Amazon vouchers per team member, we had their interest.
 
 By the time the Bede techies had retired for the day, three teams of hackers had incorporated our challenge into their projects, using Java and Ruby Kafka clients respectively to consume the data we had made available. Just from walking around the room and assisting where we could to get teams up and running with the data there was no question that some cool hacks were being undertaken using Bede’s service as well as teams that had gone for their own ideas. We left them to their night of caffeine and code.
 
