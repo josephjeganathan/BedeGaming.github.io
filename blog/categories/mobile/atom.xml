@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mobile | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/mobile/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-13T11:51:29+00:00</updated>
+  <updated>2014-11-13T11:54:03+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[How the current mobile landscape affects developers]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/"/>
-    <updated>2014-10-20T15:55:00+00:00</updated>
+    <updated>2014-10-20T16:55:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape</id>
     <content type="html"><![CDATA[<p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
 
