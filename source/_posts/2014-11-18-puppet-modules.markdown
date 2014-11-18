@@ -10,6 +10,8 @@ description: "BedeGaming Puppet Modules"
 ---
 In the past month or so Bede Gaming has released 2 Puppet Modules, one for FoundationDB and one for Redis.
 
+<!-- more -->
+
 [FoundationDB Module](https://github.com/BedeGaming/puppet-foundationdb)
 ---
 Here at Bede we've been using FoundationDB for some time, and are basically in love with it.  Fully distributed, ACID compliant transactions?  Yes please.  It's fast, it scales, it's reliable and redundant.  From an operations persons point of view it's simply sexy.
