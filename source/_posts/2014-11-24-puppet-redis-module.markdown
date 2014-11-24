@@ -9,7 +9,7 @@ keywords: "pupet, modules, redis"
 description: "BedeGaming Puppet Module for Redis"
 ---
 As of last week we've created and released a Puppet Module for Redis.  While there are other Redis modules available on GitHub and the Forge, we think a lot of them are either overly complex or outdated in their design and methods.  Many of them also install from source packages, which we don't like.
-
+<!-- more -->
 We think our module is a bit better:
 
 * Simple, clean layout
