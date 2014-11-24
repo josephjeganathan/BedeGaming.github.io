@@ -4,7 +4,7 @@
   <title><![CDATA[Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-13T13:37:20+00:00</updated>
+  <updated>2014-11-24T16:53:59+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[BedeGaming Puppet Module for Redis]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module/"/>
+    <updated>2014-11-24T16:30:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module</id>
+    <content type="html"><![CDATA[<p>As of last week we&rsquo;ve created and released a Puppet Module for Redis.  While there are other Redis modules available on GitHub and the Forge, we think a lot of them are either overly complex or outdated in their design and methods.  Many of them also install from source packages, which we don&rsquo;t like.</p>
+
+<p>We think our module is a bit better:</p>
+
+<ul>
+<li>Simple, clean layout</li>
+<li>Offers single entry point (the &lsquo;::redis&rsquo; class)</li>
+<li>Provides a full set of sane defaults</li>
+<li>Provides for all configuration options found in the redis.conf file</li>
+<li>Does all the basic installation, configuration and management you&rsquo;d expect</li>
+</ul>
+
+
+<p>One of the other major reasons for our own module was our desire to not use Redis that came from source packages.  We use CentOS for the Linux portion of our platform, and are pretty religious about only installing from RPM&rsquo;s.  This module expects that there will be a Redis RPM package available somewhere within the yum repos you&rsquo;ve made available on your systems, which we feel is good design, as it leaves it up to you to implement that package source.  That&rsquo;s not the job of a Redis module.</p>
+
+<p>Currently the Redis module is not on the Forge, but probably will be in the near future.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BedeGaming Puppet Module for FoundationDB]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2014/11/18/puppet-foundationdb-module/"/>
+    <updated>2014-11-18T16:30:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2014/11/18/puppet-foundationdb-module</id>
+    <content type="html"><![CDATA[<p>Here at Bede we&rsquo;ve been using <a href="https://foundationdb.com/">FoundationDB</a> for some time, and are basically in love with it.  Fully distributed, ACID compliant transactions?  Yes please.  It&rsquo;s fast, it scales, it&rsquo;s reliable and redundant.  From an operations persons point of view it&rsquo;s simply sexy.</p>
+
+<p>However, it is a relatively new technology, with a small but growing community.  That means that the ecosystem surrounding FDB is not quite as extensive as many of the other, longer lived persistence technologies.  Therefore there was no Puppet modules available to manage installation and configuration, so we had to write our own.</p>
+
+<p>The <a href="https://github.com/BedeGaming/puppet-foundationdb">module</a> can manage installation, configuration, upgrading, etc.  All the usual bits&#8217;n&#8217;bobs you&rsquo;d expect a Puppet module to manage.  This does come with one caveat however:  it doesn&rsquo;t currently manage FDB cluster membership, due to the way FDB itself manages membership.  We&rsquo;re still exploring ways to add at least some amount of membership management into the module, and of course if anyone wants to contribute towards the module, feel free to fork and issue PR&rsquo;s.</p>
+
+<p>The FoundationDB module can be found on the <a href="https://forge.puppetlabs.com/bedegaming/foundationdb">Forge</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bede Gaming Sponsors Biggest Hackathon in the North East]]></title>

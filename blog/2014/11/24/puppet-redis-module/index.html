@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: acid - Bede Engineering</title>
+  <title>BedeGaming Puppet Module for Redis - Bede Engineering</title>
   <meta name="author" content="Bede Gaming Ltd">
 
   
-  <meta name="description" content="Category: acid">
-  
+  <meta name="description" content="BedeGaming Puppet Module for Redis">
+  <meta name="keywords" content="pupet, modules, redis">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://engineering.bedegaming.com/blog/categories/acid/">
+  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -58,35 +58,103 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Acid</h1>
+    
+      <h1 class="entry-title">BedeGaming Puppet Module for Redis</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-24T16:30:00+00:00" pubdate data-updated="true"></time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>As of last week we&rsquo;ve created and released a Puppet Module for Redis.  While there are other Redis modules available on GitHub and the Forge, we think a lot of them are either overly complex or outdated in their design and methods.  Many of them also install from source packages, which we don&rsquo;t like.</p>
 
-  
-  <h2>2014</h2>
+<p>We think our module is a bit better:</p>
 
-<article>
-  
-<h1><a href="/blog/2014/10/16/the-dev-ops-80-20-rule-for-selecting-a-database/">The Dev-ops 80-20 Rule For Selecting A Database</a></h1>
-<time datetime="2014-10-16T14:23:57+00:00" pubdate><span class='month'>Oct</span> <span class='day'>16</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/acid/'>acid</a>, <a class='category' href='/blog/categories/databases/'>databases</a>, <a class='category' href='/blog/categories/foundationdb/'>foundationdb</a></span>
-</footer>
+<ul>
+<li>Simple, clean layout</li>
+<li>Offers single entry point (the &lsquo;::redis&rsquo; class)</li>
+<li>Provides a full set of sane defaults</li>
+<li>Provides for all configuration options found in the redis.conf file</li>
+<li>Does all the basic installation, configuration and management you&rsquo;d expect</li>
+</ul>
 
 
-</article>
+<p>One of the other major reasons for our own module was our desire to not use Redis that came from source packages.  We use CentOS for the Linux portion of our platform, and are pretty religious about only installing from RPM&rsquo;s.  This module expects that there will be a Redis RPM package available somewhere within the yum repos you&rsquo;ve made available on your systems, which we feel is good design, as it leaves it up to you to implement that package source.  That&rsquo;s not the job of a Redis module.</p>
 
+<p>Currently the Redis module is not on the Forge, but probably will be in the near future.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Rob Rankin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-24T16:30:00+00:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tech/'>tech</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+ 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2014-11-24-puppet-redis-module.markdown">Fork me on github</a>		
+	</p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/11/18/puppet-foundationdb-module/" title="Previous Post: BedeGaming Puppet Module for FoundationDB">&laquo; BedeGaming Puppet Module for FoundationDB</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
