@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-11-24T16:54:27+00:00</updated>
+  <updated>2014-11-24T16:54:09+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -19,6 +19,9 @@
     <updated>2014-11-24T16:30:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module</id>
     <content type="html"><![CDATA[<p>As of last week we&rsquo;ve created and released a Puppet Module for Redis.  While there are other Redis modules available on GitHub and the Forge, we think a lot of them are either overly complex or outdated in their design and methods.  Many of them also install from source packages, which we don&rsquo;t like.</p>
+
+<!-- more -->
+
 
 <p>We think our module is a bit better:</p>
 
@@ -43,6 +46,9 @@
     <updated>2014-11-18T16:30:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/11/18/puppet-foundationdb-module</id>
     <content type="html"><![CDATA[<p>Here at Bede we&rsquo;ve been using <a href="https://foundationdb.com/">FoundationDB</a> for some time, and are basically in love with it.  Fully distributed, ACID compliant transactions?  Yes please.  It&rsquo;s fast, it scales, it&rsquo;s reliable and redundant.  From an operations persons point of view it&rsquo;s simply sexy.</p>
+
+<!-- more -->
+
 
 <p>However, it is a relatively new technology, with a small but growing community.  That means that the ecosystem surrounding FDB is not quite as extensive as many of the other, longer lived persistence technologies.  Therefore there was no Puppet modules available to manage installation and configuration, so we had to write our own.</p>
 

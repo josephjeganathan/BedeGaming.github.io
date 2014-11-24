@@ -87,6 +87,9 @@
 
 <div class="entry-content"><p>Here at Bede we&rsquo;ve been using <a href="https://foundationdb.com/">FoundationDB</a> for some time, and are basically in love with it.  Fully distributed, ACID compliant transactions?  Yes please.  It&rsquo;s fast, it scales, it&rsquo;s reliable and redundant.  From an operations persons point of view it&rsquo;s simply sexy.</p>
 
+<!-- more -->
+
+
 <p>However, it is a relatively new technology, with a small but growing community.  That means that the ecosystem surrounding FDB is not quite as extensive as many of the other, longer lived persistence technologies.  Therefore there was no Puppet modules available to manage installation and configuration, so we had to write our own.</p>
 
 <p>The <a href="https://github.com/BedeGaming/puppet-foundationdb">module</a> can manage installation, configuration, upgrading, etc.  All the usual bits&#8217;n&#8217;bobs you&rsquo;d expect a Puppet module to manage.  This does come with one caveat however:  it doesn&rsquo;t currently manage FDB cluster membership, due to the way FDB itself manages membership.  We&rsquo;re still exploring ways to add at least some amount of membership management into the module, and of course if anyone wants to contribute towards the module, feel free to fork and issue PR&rsquo;s.</p>
