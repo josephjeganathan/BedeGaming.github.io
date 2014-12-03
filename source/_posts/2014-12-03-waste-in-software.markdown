@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Waste In Software Development"
+title: "Waste In Software"
 date: 2014-12-01 17:49:00 +0100
 comments: true
 author: Paul Devenney
