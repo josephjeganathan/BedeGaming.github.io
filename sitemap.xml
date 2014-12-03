@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://engineering.bedegaming.com/blog/2014/12/01/Waste-In-Software-Development/</loc>
+    
+    <lastmod>2014-12-01T16:49:00+00:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module/</loc>
     
     <lastmod>2014-11-24T16:30:00+00:00</lastmod>
@@ -77,21 +85,21 @@
   
   <url>
     <loc>http://engineering.bedegaming.com/blog/archives/</loc>
-    <lastmod>2014-11-24T16:55:39+00:00</lastmod>
+    <lastmod>2014-12-03T13:14:34+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://engineering.bedegaming.com/</loc>
-    <lastmod>2014-11-24T16:55:39+00:00</lastmod>
+    <lastmod>2014-12-03T13:14:34+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://engineering.bedegaming.com/blog/</loc>
-    <lastmod>2014-11-24T16:55:39+00:00</lastmod>
+    <lastmod>2014-12-03T13:14:34+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -100,7 +108,7 @@
   
   <url>
     <loc>http://engineering.bedegaming.com/googled2e6b1aedb68ea43.html</loc>
-    <lastmod>2014-11-24T16:55:30Z</lastmod>
+    <lastmod>2014-12-03T13:14:09Z</lastmod>
     <priority>0.6</priority>
   </url>
   
