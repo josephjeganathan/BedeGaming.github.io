@@ -10,11 +10,14 @@ categories: cd, Nissan
 One of several interesting areas to come out of our tour of Nissan in Sunderland today was how they classify wastage into seven different categories
 
 1. **Over-Production**: Making more cars than you need is expensive. you used more people, and now you have to store them somewhere. In the past large car companies might be paying a farmer for use of fields to store the vehicles in until they could be sold. The long term storage is doubly damaging, as rodents tend to love making their homes in the vehicles
-2. **Inventory or Stock**: Again, having more parts in inventory than required takes up storage space, and you may already have paid for the materials. At best, you've paid too soon, at worst those items may never be required.
+2. **Inventory or Stock**: Again, <!-- more --> having more parts in inventory than required takes up storage space, and you may already have paid for the materials. At best, you've paid too soon, at worst those items may never be required.
 3. **Transportation**: This is a big one for manufacturing. Any time you move anything anywhere it costs you money. This could be between factories, where fuel costs add up and traffic delays can ruin your scheduling, or it could be within the factory, where a worker has to cover a part of the floor to get a tool or component. Nissan (and Toyota) take this very seriously. As manufacturing has predictable material costs and value of product, they can actually put a cost "per worker footstep" to every action within the business. Saving 6-10 footsteps for a process could save thousands of pounds per year
 4. **Non Value Adding**: For example legal or safety processes. These things are generally mandatory
 5. **Idle Time**: Time waiting for the next item to be delivered to at your workstation is time that does not add value. In the world of manufacturing this is more opportunity to reduce the number of people required for a workstation
 6. **Operator Motions**: Bending over to pick stuff up, twisting in under a hood, clambering into the cabin to screw in bolts, or two people working on achieving a single task. Nissan have some really awesome solutions to these problems, for example; instead of scrambling into the cabin to tighten bolts (and probably injure yourself on all the various spiky and sharp edges), they now slide into the cabin on a machine mounted seat that can swivel in and out as the car moves down the line
+
+{% img center /images/nissan-chair.jpg 'Nissan sliding chair device' 'Nissan sliding chair device' %}
+
 7. **Poor Quality**: Obvious enough, and one most people are familiar with, but having to fix an item already through the production line is firstly rework, and secondly slower than if it was originally done correctly. Each quality issue is one less car that can go out the factory doors that day. I do find it interesting that its at the bottom of the list for Nissan. They've obviously removed a lot of the occurrences of this to the point where it is maybe not their most pressing problem
 
 
