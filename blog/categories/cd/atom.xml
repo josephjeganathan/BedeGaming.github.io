@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: cd | Bede Engineering]]></title>
+  <title><![CDATA[Category: cd, | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/cd/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-12-03T13:15:29+00:00</updated>
+  <updated>2014-12-03T13:25:48+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -14,62 +14,49 @@
 
   
   <entry>
-    <title type="html"><![CDATA[CD in action at Nissan Sunderland]]></title>
-    <link href="http://engineering.bedegaming.com/blog/2014/11/06/cd-in-action-at-nissan-sunderland/"/>
-    <updated>2014-11-06T12:54:14+00:00</updated>
-    <id>http://engineering.bedegaming.com/blog/2014/11/06/cd-in-action-at-nissan-sunderland</id>
-    <content type="html"><![CDATA[<p>The Nissan UK car plant at Sunderland produces almost as many cars every year as Italy’s entire automative industry. It’s a mammoth site.  Each of the four production lines in this factory is capable of producing one car every minute, continuously. As in 24x7x365. True continuous delivery into production. I was lucky enough to be invited on a factory tour by the good people at the <a href="http://www.entrepreneursforum.net">entrepreneurs forum</a> recently. It was fascinating to see how Nissan have engineered every aspect of production to minimise waste and keep the line flowing. At Bede I&rsquo;ve spent a lot of my time trying to enable agile teams to deliver high quality software into production as fast as possible, so after the factory tour my mind was left reeling with comparisons between Nissan and Bede&rsquo;s approaches to Continuous Delivery.</p>
+    <title type="html"><![CDATA[Waste In Software Development]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2014/12/01/waste-in-software-development/"/>
+    <updated>2014-12-01T16:49:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2014/12/01/waste-in-software-development</id>
+    <content type="html"><![CDATA[<p>One of several interesting areas to come out of our tour of Nissan in Sunderland today was how they classify wastage into seven different categories</p>
 
-<p><img class="center" src="/images/nissan-plant.jpg" title="&lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo; &lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo;" >
-<em>Source: <a href="http://www.themanufacturer.com/articles/nissan-smashes-uk-output-record-at-sunderland-plant/">http://themanufacturer.com</a></em></p>
+<ol>
+<li><strong>Over-Production</strong>: Making more cars than you need is expensive. you used more people, and now you have to store them somewhere. In the past large car companies might be paying a farmer for use of fields to store the vehicles in until they could be sold. The long term storage is doubly damaging, as rodents tend to love making their homes in the vehicles</li>
+<li><strong>Inventory or Stock</strong>: Again, <!-- more --> having more parts in inventory than required takes up storage space, and you may already have paid for the materials. At best, you&rsquo;ve paid too soon, at worst those items may never be required.</li>
+<li><strong>Transportation</strong>: This is a big one for manufacturing. Any time you move anything anywhere it costs you money. This could be between factories, where fuel costs add up and traffic delays can ruin your scheduling, or it could be within the factory, where a worker has to cover a part of the floor to get a tool or component. Nissan (and Toyota) take this very seriously. As manufacturing has predictable material costs and value of product, they can actually put a cost &ldquo;per worker footstep&rdquo; to every action within the business. Saving 6-10 footsteps for a process could save thousands of pounds per year</li>
+<li><strong>Non Value Adding</strong>: For example legal or safety processes. These things are generally mandatory</li>
+<li><strong>Idle Time</strong>: Time waiting for the next item to be delivered to at your workstation is time that does not add value. In the world of manufacturing this is more opportunity to reduce the number of people required for a workstation</li>
+<li><strong>Operator Motions</strong>: Bending over to pick stuff up, twisting in under a hood, clambering into the cabin to screw in bolts, or two people working on achieving a single task. Nissan have some really awesome solutions to these problems, for example; instead of scrambling into the cabin to tighten bolts (and probably injure yourself on all the various spiky and sharp edges), they now slide into the cabin on a machine mounted seat that can swivel in and out as the car moves down the line</li>
+</ol>
 
-<!-- more -->
+
+<p><img class="center" src="/images/nissan-chair.jpg" title="&lsquo;Nissan sliding chair device&rsquo; &lsquo;Nissan sliding chair device&rsquo;" ></p>
+
+<ol>
+<li><strong>Poor Quality</strong>: Obvious enough, and one most people are familiar with, but having to fix an item already through the production line is firstly rework, and secondly slower than if it was originally done correctly. Each quality issue is one less car that can go out the factory doors that day. I do find it interesting that its at the bottom of the list for Nissan. They&rsquo;ve obviously removed a lot of the occurrences of this to the point where it is maybe not their most pressing problem</li>
+</ol>
 
 
-<p>I&rsquo;ve visited a few factories in a previous life, but I&rsquo;ve never visited a car production line: it&rsquo;s quite something to behold. Chassis are on a continuously moving conveyer, separated by a few feet, and move along the factory floor passing a succession of workstations.  The production conveyer moves at a constant speed - every work station has 60 seconds to perform its assigned tasks.  Some workstations have a single task to perform, others fit multiple parts to the chassis. Larger jobs are split up between multiple work stations.  Everything possible is done to ease the job of the fitter.  This is done by minimising the physical movements required, minimising risk of a line stoppage, reducing waste and maximising the amount of useful work that can be done in 60 seconds.</p>
+<p>I&rsquo;ve been thinking on the differences between what we (software developers) do, and what Nissan (manufacturing) does. Off-the-cuff comments after the tour among colleagues suggested that yes, we probably suffered from at least three of these, but because we are writing software we cannot overproduce, and we don&rsquo;t hold inventory or stock.</p>
 
-<p><img class="center" src="/images/nissan-line.jpg" title="&lsquo;Nissan UK Qashqai production line&rsquo; &lsquo;Nissan UK Qashqai production line&rsquo;" >
-<em>Source: <a href="http://petrolblog.com/2012/05/rising-sunderland-a-british-success-story/">http://petrolblog.com/</a></em></p>
+<p>On closer reflection though, I think that there are clear parallels between the two industries. Here is my take on an equivalent &ldquo;seven wastes&rdquo;</p>
 
-<p>Some rambling thoughts from the visit:</p>
+<ol>
+<li><strong>Over-Production</strong>: The feature that was implemented but not asked for, the feature that was demanded but never used, and&hellip;here&rsquo;s the kicker; over-engineering. Some examples are &ldquo;the performance improvement that was not required&rdquo; and &ldquo;the N-tier-highly-scalable-plugin-architecture-driven-workflow-system for the five person internal admin application&rdquo;. These are all examples of work being done that did not result in monetary value being added to the business. How many times have you heard &ldquo;its a cool feature all right, no one <em>uses</em> it, but it is cool.</li>
+<li><p><strong>Inventory</strong>: We don&rsquo;t have inventory though, right? Sure we do. Partially completed features on pause due to something else being today&rsquo;s most pressing concern, half-migrated database systems, licenses for products never used. It&rsquo;s all virtual &ldquo;stock&rdquo; or <em>work in progress</em>. Someone has produced a part of a thing, and that thing has not yet been put together.</p>
 
-<h3>Shared Vision</h3>
+<blockquote><p><em>&ldquo;Work in progress is a real killer&rdquo;</em></p>
 
-<p>Nissan are big on shared vision. Our tour guides, both ex Nissan employees, bleed Nissan. It was clear that they understood Nissan&rsquo;s vision and were proud to be associated with them. Nissan work hard to install a sense of shared values in their staff. Information radiators are everyone throughput the plant - both static and display screens.  The primary metric on the shop floor is efficiency - which seems to be the number of cars rolling off the line compared to target.  On the day I visited the plant was running at 108% efficiency. A similar metric for Bede might be the number of successful production deployments achieved in a given time period.  Right now I&rsquo;d estimate we push out 5-10 builds into production each week.</p>
+<p>From Nissan&rsquo;s talk on manufacturing wastage</p></blockquote></li>
+<li><p><strong>Transportation</strong>:This is the one that I had to think about longest and hardest. In the virtual world we don&rsquo;t really &ldquo;transport&rdquo; goods, and generally data-transfer costs are pretty negligible. True, if you are moving data between two locations that have really slow connections, and the connections are flaky, but this is not really a fair comparison with the manufacturing version. Transportation is about moving between two factories or workstations, our example on reliable connections above would more be akin to reliable power and conveyor belts. Instead, perhaps the time taken to deploy and prepare environments for QA might be a better example, as we are moving between the software equivalents of workstations - states of a work item. If deployment takes a long time, or worse, you have to spend time manually reseting your QA environment to a &ldquo;known good&rdquo;, then this is time when you are trying to move the item between &ldquo;in development&rdquo; and &ldquo;in QA&rdquo;. Its neither one nor the other. We would say it was &ldquo;transitioning&rdquo;.</p></li>
+<li><strong>Non-value adding</strong>: The same comments on legal processes apply equally to software development. Data protection/privacy and PCI compliance being common ones. In the online gaming world we tend to have things like &ldquo;Know your customer&rdquo; (understanding if multiple user accounts are really on real person) that we need to do to be good netizens, but don&rsquo;t directly add to the bottom line. Of course, in many if not all &ldquo;non-value adding&rdquo; requirements, they generally do actually add a form of value, called <em>goodwill</em>. If you are seen to a fair player, good safety record or whatever, then people have a tendency to put their trust in you, rather than your competitor. Its very hard to measure the direct impact. You could also argue that legal requirements are worth the <em>entire value of your company</em> if someone is going to shut you down if you don&rsquo;t comply ;)</li>
+<li><strong>Idle Time</strong>: It&rsquo;s not too hard to see this one. Team city build times. Deployment times between environments. How long <em>does</em> your machine take to load visual studio anyway ;). What about waiting for a firewall change to be put in place by ops for a new service you&rsquo;ve just written and want to deploy to your dev environment for the first time? Are you going to switch task for the five minutes it takes (or 20 if you are still deploying Azure Cloud Services). A lot of this time is just dead, because your choices are to continue to focus on the task at hand (i.e. do nothing for x minutes) or to context-switch to something else. Since a lot of intellectual tasks can take fifteen plus minutes to get into, and fifteen to get out of again, you&rsquo;re not going to do too well here! (Also, you&rsquo;ve just introduced new <em>work in progress</em>).</li>
+<li><strong>Operator Motions</strong>: Manually refactoring all the namespaces of classes in a folder, adding &ldquo;begin method&rdquo; and &ldquo;end method&rdquo; logging to classes, opening the azure portal and clicking the &ldquo;connect&rdquo; option to download an RDP file, before opening a password store to find the unique username/password details for that machine, these are all examples of &ldquo;motions&rdquo; that waste potentially significant amounts of time, repeatedly.</li>
+<li><strong>Poor Quality</strong>: Definitely a distinct bane of the current software industry, manufacturing definitely has us there. Again, the double whammy of redoing something already done, and the fact that you have to context switch to do it/might need to work outside your normal delivery process makes this a bitter pill</li>
+</ol>
 
-<p>Despite employees showing a strong sense of Nissan pride, they know that efficiency relative to other plants will determine whether Sunderland receives future car models for manufacture, implying expansion and job security. This presents an interesting dichotomy - staff are passionate about Nissan as a brand, but have a local basis - they are in direct competition with other global Nissan car plants to ensure long term security.  Interestingly, Bede has 3 software development offices - Newcastle, London and Sofia.  We&rsquo;ve worked hard to break down inter office rivalries, and have many product teams that span at least one office boundary.  In this sense, Bede&rsquo;s world of bits frees it from Nissan&rsquo;s physical limitations in terms of delivery across a distributed estate.</p>
 
-<h3>Continuous, relentless delivery to production</h3>
-
-<p>Production workers understand that nothing can be allowed to stop the line. It&rsquo;s the shared responsibility of every employee to do whatever it takes to minimise downtime.  I heard that stoppages cost something like £10,000 per minute. This has two separate parallels in the software world.  Firstly, the production effort - keeping the build green, ensuring that only quality builds are deployed into environments. Through careful application of continuous integration, testing and sandbox deployments, especially with Bede&rsquo;s SOA, we strive to minimise the amount of time that the line is down (e.g. environments are broken). We&rsquo;ve recently added an isolated automation testing environment at the head of our CI pipeline, to perform smoke tests on builds before automatically deploying into our first visible development environment. This increases the overall stability of the development environment at the cost of adding some time between commits being available for developer testing. We opted to make this trade off to focus on stability, since multiple product teams shares a common development environment.</p>
-
-<p><img class="center" src="/images/octopus-dashboard.png" title="&lsquo;Continuous Integration Dashboard&rsquo; &lsquo;Continuous Integration Dashboard&rsquo;" ></p>
-
-<p>Secondly, uptime in production - Bede manages the production environments for its clients, so relentless monitoring of servers and applications is required to keep the status green and exceed stated SLA uptimes. Of course Nissan&rsquo;s relationship with their product continues long after delivery too, though a most shared approach for managing that client relationship exists in the form of dealerships.</p>
-
-<p><img class="center" src="/images/ops-nr-dashboard.jpg" title="&lsquo;Environment Monitoring&rsquo; &lsquo;Environment Monitoring&rsquo;" ></p>
-
-<h3>QA</h3>
-
-<p>Quality Assurance at the Nissan plant boils down to accountability.  As each chassis passes a workstation, the fitter stamps a card (yes, a physical piece of paper) with their own personalised stamp. In this way they&rsquo;re taking direct responsibility for the quality of the work they are performing. The card forms part of the permanent history of the car, it is never destroyed. As a result, fitters must take responsibility for their work.  Dedicated Quality Assurance staff do exist in the plant, but their job exists to catch unforeseen errors. I like the idea of producers being so closely linked to the produced artifacts. We already have the commit data for every release, but we don&rsquo;t publicise it internally at the moment, this is something I&rsquo;m going to mull over&hellip;  I do think that as our usage of automation testing improves, so our testers are freed from having to spend the majority of their time writing automation suites, and can focus more on exploratory testing, like the Nissan QAs.</p>
-
-<p><img class="center" src="/images/bt-commiters.png" title="&lsquo;Commit statistics for a Bede component&rsquo; &lsquo;Commit statistics for a Bede component&rsquo;" ></p>
-
-<h3>Kaizen</h3>
-
-<p>Kaizen is a fancy word for continuous improvement. Key to this is accepting that process nirvana is an unachievable state, but that there is always something that can be done to move you closer to perfection. Suggestions for process improvement are grass roots as well as management driven. I think we can say the same for Bede - after working hard on Agile process, we are starting to find that team members initiate as much process change as managers. We&rsquo;ve worked hard to create a <a href="https://hbr.org/2013/01/to-increase-innovation-take-th/">smart-fail</a> culture, where employees feel confident to try things out.  Nissan don&rsquo;t offer incentives for improvements. An employee could suggest an improvement that saves the plant 1% of its running costs, but the staff member won&rsquo;t see a penny of that. At first I thought this was backward - why not incentivise staff to suggest improvements; but perhaps Nissan have nailed the culture so well that staff see it as their duty to continuously improve process.</p>
-
-<h3>Leverage your bottlenecks</h3>
-
-<p>At one particular work centre, the chassis lifts up and passes overhead so that fitters can tighten up some bolts on the underside of the vehicle. The air tool used for this job is obviously very heavy, it used to be a difficult job and production managers complained of fatigue and minor injury rates at the workstation. Staff suggested building a semi-robotic arm, essentially taking the weight of the tool, but allowing the operator to position it as necessary. The plant&rsquo;s internal engineering team obliged, and the problem is now solved. This is a great example of leveraging the bottleneck at this workstation. For more on bottlenecks and constraints theory, see the reading recommendations at the end of this post. The obvious comparison in the world of bits is automation. Reducing repetition, with its accompanying opportunities for mistakes and time wastage.</p>
-
-<h3>Staff Liquidity</h3>
-
-<p>Nissan has a dedicated training academy on site, in partnership with a local college.  The main goal of training is to get new employees up to the point that they can effectively perform at least 3 different workstation tasks to an acceptable level - staff are rotated frequently, even within shifts.  This kind of staff liquidity ensures that when there&rsquo;s a bout of flu going around, the production line doesn&rsquo;t grind to a halt - there are others trained to pick up the slack in any workstation. If things get desperate, line supervisors and managers are expected to get down to the shop floor and keep things running.</p>
-
-<p>Liquidity is something that Bede software teams are still working to improve.  We&rsquo;ve removed as many dependencies on specific individuals as possible, but there isn&rsquo;t yet perfect liquidity. Paul has blogged previously on this subject, in <a href="http://engineering.bedegaming.com/blog/2014/10/16/who-is-your-brent/">Who is your brent</a>. I think the KPI for staff liquidity is when we proactively move &lsquo;key&rsquo; staff between teams. This has always been a long term aim - keeping engineers fresh by moving them around and exposing them to new problems, helping good ideas and practices to pollinate between teams, and further increasing liquidity.</p>
-
-<p>Enjoyed this article? You should probably read <a href="http://www.amazon.co.uk/The-Phoenix-Project-Helping-Business-ebook/dp/B00AZRBLHO">The Phoenix Project</a>, or even better, go back to the source with <a href="http://www.amazon.co.uk/Goal-Process-Ongoing-Improvement-ebook/dp/B002LHRM2O/ref=sr_1_1?s=digital-text&amp;ie=UTF8&amp;qid=1415278766&amp;sr=1-1&amp;keywords=the+goal">The Goal</a></p>
+<p>So there you go! Perhaps software engineering is not that different from manufacturing. If these wastage points can all be found to have equivalents, then maybe its far too soon to say &ldquo;but manufacturing is different because of all the predictability&rdquo;. Perhaps its just because we aren&rsquo;t very good at predicting yet&hellip;</p>
 ]]></content>
   </entry>
   

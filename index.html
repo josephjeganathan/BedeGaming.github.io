@@ -65,7 +65,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/12/01/Waste-In-Software-Development/">Waste in Software Development</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/12/01/waste-in-software-development/">Waste in Software Development</a></h1>
     
     
       <p class="meta">
@@ -92,37 +92,12 @@
 
 <ol>
 <li><strong>Over-Production</strong>: Making more cars than you need is expensive. you used more people, and now you have to store them somewhere. In the past large car companies might be paying a farmer for use of fields to store the vehicles in until they could be sold. The long term storage is doubly damaging, as rodents tend to love making their homes in the vehicles</li>
-<li><strong>Inventory or Stock</strong>: Again, having more parts in inventory than required takes up storage space, and you may already have paid for the materials. At best, you&rsquo;ve paid too soon, at worst those items may never be required.</li>
-<li><strong>Transportation</strong>: This is a big one for manufacturing. Any time you move anything anywhere it costs you money. This could be between factories, where fuel costs add up and traffic delays can ruin your scheduling, or it could be within the factory, where a worker has to cover a part of the floor to get a tool or component. Nissan (and Toyota) take this very seriously. As manufacturing has predictable material costs and value of product, they can actually put a cost &ldquo;per worker footstep&rdquo; to every action within the business. Saving 6-10 footsteps for a process could save thousands of pounds per year</li>
-<li><strong>Non Value Adding</strong>: For example legal or safety processes. These things are generally mandatory</li>
-<li><strong>Idle Time</strong>: Time waiting for the next item to be delivered to at your workstation is time that does not add value. In the world of manufacturing this is more opportunity to reduce the number of people required for a workstation</li>
-<li><strong>Operator Motions</strong>: Bending over to pick stuff up, twisting in under a hood, clambering into the cabin to screw in bolts, or two people working on achieving a single task. Nissan have some really awesome solutions to these problems, for example; instead of scrambling into the cabin to tighten bolts (and probably injure yourself on all the various spiky and sharp edges), they now slide into the cabin on a machine mounted seat that can swivel in and out as the car moves down the line</li>
-<li><strong>Poor Quality</strong>: Obvious enough, and one most people are familiar with, but having to fix an item already through the production line is firstly rework, and secondly slower than if it was originally done correctly. Each quality issue is one less car that can go out the factory doors that day. I do find it interesting that its at the bottom of the list for Nissan. They&rsquo;ve obviously removed a lot of the occurrences of this to the point where it is maybe not their most pressing problem</li>
-</ol>
-
-
-<p>I&rsquo;ve been thinking on the differences between what we (software developers) do, and what Nissan (manufacturing) does. Off-the-cuff comments after the tour among colleagues suggested that yes, we probably suffered from at least three of these, but because we are writing software we cannot overproduce, and we don&rsquo;t hold inventory or stock.</p>
-
-<p>On closer reflection though, I think that there are clear parallels between the two industries. Here is my take on an equivalent &ldquo;seven wastes&rdquo;</p>
-
-<ol>
-<li><strong>Over-Production</strong>: The feature that was implemented but not asked for, the feature that was demanded but never used, and&hellip;here&rsquo;s the kicker; over-engineering. Some examples are &ldquo;the performance improvement that was not required&rdquo; and &ldquo;the N-tier-highly-scalable-plugin-architecture-driven-workflow-system for the five person internal admin application&rdquo;. These are all examples of work being done that did not result in monetary value being added to the business. How many times have you heard &ldquo;its a cool feature all right, no one <em>uses</em> it, but it is cool.</li>
-<li><p><strong>Inventory</strong>: We don&rsquo;t have inventory though, right? Sure we do. Partially completed features on pause due to something else being today&rsquo;s most pressing concern, half-migrated database systems, licenses for products never used. It&rsquo;s all virtual &ldquo;stock&rdquo; or <em>work in progress</em>. Someone has produced a part of a thing, and that thing has not yet been put together.</p>
-
-<blockquote><p><em>&ldquo;Work in progress is a real killer&rdquo;</em></p>
-
-<p>From Nissan&rsquo;s talk on manufacturing wastage</p></blockquote></li>
-<li><p><strong>Transportation</strong>:This is the one that I had to think about longest and hardest. In the virtual world we don&rsquo;t really &ldquo;transport&rdquo; goods, and generally data-transfer costs are pretty negligible. true, if you are moving data between two locations that have really slow connections, and the connections are flaky, but this is not really a fair comparison with the manufacturing version. Transportation is about moving between two factories or workstations, our example on reliable connections above would more be akin to reliable power and conveyor belts. Instead, perhaps the time taken to deploy and prepare environments for QA might be a better example, as we are moving between the software equivalents of workstations - states of a work item. If deployment takes a long time, or worse, you have to spend time manually reseting your QA environment to a &ldquo;known good&rdquo;, then this is time when you are trying to move the item between &ldquo;in development&rdquo; and &ldquo;in QA&rdquo;. Its neither one nor the other. We would say it was &ldquo;transitioning&rdquo;.</p></li>
-<li><strong>Non-value adding</strong>: The same comments on legal processes apply equally to software development. Data protection/privacy and PCI compliance being common ones. In the online gaming world we tend to have things like &ldquo;Know your customer&rdquo; (understanding if multiple user accounts are really on real person) that we need to do to be good netizens, but don&rsquo;t directly add to the bottom line. Of course, in many if not all &ldquo;non-value adding&rdquo; requirements, they generally do actually add a form of value, called <em>goodwill</em>. If you are seen to a fair player, good safety record or whaever, then people have a tendency to put their trust in you, rather than your competitor. Its very hard to measure the direct impact. You could also argue that legal requirements are worth the <em>entire value of your company</em> if someone is going to shut you down if you don&rsquo;t comply ;)</li>
-<li><strong>Idle Time</strong>: It&rsquo;s not too hard to see this one. Team city build times. Deployment times between environments.  . How long <em>does</em> your machine take to load visual studio anyway ;). What about waiting for a firewall change to be put in place by ops for a new service you&rsquo;ve just written and want to deploy to your dev environment for the first time? Are you going to switch task for the five minutes it takes (or 20 if you are still deploying Azure Cloud Services). A lot of this time is just dead, because your choices are to continue to focus on the task at hand (i.e. do nothing for x minutes) or to context-switch to something else. Since a lot of intellectual tasks can take fifteen plus minutes to get into, and fifteen to get out of again, you&rsquo;re not going to do too well here! (Also, you&rsquo;ve just introduced new <em>work in progress</em>).</li>
-<li><strong>Operator Motions</strong>: Manually refactoring all the namespaces of classes in a folder, adding &ldquo;begin method&rdquo; and &ldquo;end method&rdquo; logging to classes, opening the azure portal and clicking the &ldquo;connect&rdquo; option to download an RDP file, before opening a password store to find the unique username/password details for that machine, these are all examples of &ldquo;motions&rdquo; that waste potentially significant amounts of time, repeatedly.</li>
-<li><strong>Poor Quality</strong>: Definitely a distinct bane of the current software industry, manufacturing definitely has us there. Again, the double whammy of redoing something already done, and the fact that you have to context switch to do it/might need to work outside your normal delivery process makes this a bitter pill</li>
-</ol>
-
-
-<p>So there you go! Perhaps software engineering is not that different from manufacturing. If these wastage points can all be found to have equivalents, then maybe its far too soon to say &ldquo;but manufacturing is different because of all the predictability&rdquo;. Perhaps its just because we aren&rsquo;t very good at predicting yet&hellip;</p>
-</div>
+<li><strong>Inventory or Stock</strong>: Again, </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/12/01/waste-in-software-development/">more &rarr;</a>
+    </footer>
   
 
 
@@ -359,7 +334,7 @@
   
 
 
-<time datetime="2014-10-20T15:55:00+00:00" pubdate data-updated="true"></time>
+<time datetime="2014-10-20T16:55:00+01:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -400,7 +375,7 @@
   
 
 
-<time datetime="2014-10-16T17:19:00+00:00" pubdate data-updated="true"></time>
+<time datetime="2014-10-16T18:19:00+01:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -439,7 +414,7 @@
   
 
 
-<time datetime="2014-10-16T14:23:57+00:00" pubdate data-updated="true"></time>
+<time datetime="2014-10-16T15:23:57+01:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -479,7 +454,7 @@
   
 
 
-<time datetime="2014-10-15T17:13:05+00:00" pubdate data-updated="true"></time>
+<time datetime="2014-10-15T18:13:05+01:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -511,7 +486,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/12/01/Waste-In-Software-Development/">Waste In Software Development</a>
+        <a href="/blog/2014/12/01/waste-in-software-development/">Waste In Software Development</a>
       </li>
     
       <li class="post">
