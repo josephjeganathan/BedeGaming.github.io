@@ -69,6 +69,58 @@ We leverage the "InstancePerRequest" for several contextual services, as it mean
 This is great, as we now don't have to add the "userAppKey" to each and every method signature.
 
 ##Instance Per Request for non-web applications
-< other times you want to use this - for example message event handling >
+It's great that Autofac has such rich built in support for ASP.NET MVC and WebApi applications, but sometimes you are working other forms of application that appear to meet the same pattern. A classic example of this is any "message processing application" - for example, an azure worker role that listens for Azure Service Bus messages, but it could be any message consumer (including just listening on a socket for data). In such cases your context is the message that arrives, and in reality this is no different to an Http request - its just a message format we have all gotten really used to.
+
+So how do we deal with providing an "Instance Per Request" in these scenarios? Thankfully Autofac is fully designed to help us out here.
+
+##Scoping our Request
+Autofac allows you to create a ```scope``` at any time in your code. If you register your dependencies correctly, using ```InstancePerLifetimeScope```, Autofac will construct a new object inside that scope if none already exists 
+
+    builder.RegisterType<MyWorkService>().As<IWorkService>().InstancePerLifetimeScope();
+
+We can make our own scope as follows:
+
+	static void Main(string[] args)
+	{
+	    //Composition Root
+	    var builder = new ContainerBuilder();
+	    builder.RegisterType<MyWorkService>().As<IWorkService>().InstancePerLifetimeScope();
+	    builder.RegisterType<MyOneOfAKindService>().As<IOneOfAKindService>().InstancePerLifetimeScope();
+	    _container = builder.Build();
+	
+	    var rootScope = _container.BeginLifetimeScope();
+	    for (int i = 0; i < 5; i++)
+	    {
+	        var oneOfAKind = rootScope.Resolve<IOneOfAKindService>();
+	
+	        using (var scope = _container.BeginLifetimeScope()) 
+	        {
+	            Console.WriteLine("Handing Event " + i);
+				
+				// we will get a one and only one instance for each iteration of the for loop, no matter
+				//how many times we call scope.Resolve<IWorkService>()
+	            HandledEvent(oneOfAKind, scope.Resolve<IWorkService>()); 
+	        }
+	    }
+	
+	    Console.ReadKey();
+	}
+
+Here we use the ```Resolve``` method on a scope to get hold of our implementation. Autofac checks how you registered the implementation against the interface, and decides when to give you a new instance or a current one. We can make this more specific, and basically create our own "InstancePerRequest" registration with:
+
+	builder.RegisterType<MessageContext>().As<IMessageContext>().InstancePerLifetimeScope("MessageRequest");
+
+	using (var scope = _container.BeginLifetimeScope("MessageRequest")) 
+	{
+		//...
+		var context = scope.Resolve<IMessageContext>();
+		var message = GetRawMessageFromBus();
+		MapMessageToContext(message, context);
+
+		//assume that this is overridden, and/or leads to construction of an object that takes 
+		//an IMessageContext interface
+		HandleMessage(context); 
+	}
 
 
+The code above is fairly basic, but proves the point. Revise it and package it up a little and you can a context aware framework that works very nicely with Autofac.
