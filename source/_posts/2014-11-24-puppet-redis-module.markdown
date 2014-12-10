@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "BedeGaming Puppet Module for Redis"
+title: "Bede Gaming Puppet Module for Redis"
 date: 2014-11-24 16:30:00 +0000
 comments: true
 author: Rob Rankin

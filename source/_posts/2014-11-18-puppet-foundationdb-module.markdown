@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "BedeGaming Puppet Module for FoundationDB"
+title: "Bede Gaming Puppet Module for FoundationDB"
 date: 2014-11-18 16:30:00 +0000
 comments: true
 author: Rob Rankin
