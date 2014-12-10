@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Adding Request Scope for Non-Web Applications"
+title: "Adding InstancePerRequest to Non-Web Applications"
 date: 2014-12-09 17:02:00 +0100
 comments: true
 author: Paul Devenney
