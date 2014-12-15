@@ -4,7 +4,7 @@
   <title><![CDATA[Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-12-10T16:05:46+00:00</updated>
+  <updated>2014-12-15T17:31:09+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -14,63 +14,136 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Bede Gaming at µCon 2014]]></title>
-    <link href="http://engineering.bedegaming.com/blog/2014/12/10/bede-gaming-at-ucon-2014/"/>
-    <updated>2014-12-10T14:15:55+00:00</updated>
-    <id>http://engineering.bedegaming.com/blog/2014/12/10/bede-gaming-at-ucon-2014</id>
-    <content type="html"><![CDATA[<p>Microservices have gained more and more popularity in the software community during the past couple of years, up to the point that SkillsMatter has dedicated them an entire convention in London, µCon. I was lucky enough to participate  and here are some of the ideas that have been discussed.<!-- more --></p>
+    <title type="html"><![CDATA[Adding InstancePerRequest to Non-Web Applications]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2014/12/09/Adding-InstancePerRequest-to-Non-Web-Apps/"/>
+    <updated>2014-12-09T16:02:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2014/12/09/Adding-InstancePerRequest-to-Non-Web-Apps</id>
+    <content type="html"><![CDATA[<p>Here at Bede we use <a href="http://autofac.org/">Autofac</a> a lot. It&rsquo;s an excellent <a href="http://en.wikipedia.org/wiki/Inversion_of_control">IoC</a> container which allows us to create well structured code focused on interfaces rather than implementations. If you are not familiar with IoC, or it&rsquo;s most commonly used form of <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>, I&rsquo;d suggest the essential (.NET) reading of <a href="http://www.amazon.co.uk/Dependency-Injection-NET-Mark-Seemann/dp/1935182501">Dependency Injection in .NET</a> as a primer.</p>
 
-<h2>What is a micro service?</h2>
+<p>A typical basic example would be at the beginning of our application (called the &ldquo;composition root&rdquo;) to do something like</p>
 
-<p>It’s always a good idea to start with a clear definition, so here is what <a href="http://en.wikipedia.org/wiki/Microservices">Wikipedia</a> has to say on the matter:</p>
+<pre><code>var builder = new ContainerBuilder();
+builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;();
+_container = builder.Build();
+</code></pre>
 
-<blockquote><p>&ldquo;Microservices is a software architecture design pattern, in which complex applications are composed of small, independent processes communicating with each other using language-agnostic APIs. These services are small, highly decoupled and focus on doing a small task.&rdquo;</p></blockquote>
+<p>This says that any time someone asks for an <code>IWorkService</code> that they should have that satisfied with a <code>MyWorkService</code> implementation. This leaves you free to write code like</p>
 
-<p>This seems appropriate, but leaves some open questions: how small a microservices should actually be? and what about the tasks? Somebody answers this questions by saying that a microservice shouldn’t be more than one hundred lines of code. Unfortunately, this looks like quite a silly rule of thumb. The best way to answer both questions is by thinking of microservices as Object Orientation applied to software design. A microservice becomes the counterpart of a class, and the single responsibility principle defines what small means: enough logic to be able to perform a single task, and no more than that.</p>
+<pre><code>public class MyController : ApiController
+{
+    private readonly IWorkService _workService;
 
-<h2>What’s all the fuss about?</h2>
+    public ProfilesController(IWorkService workService)
+    {
+        _workService  = workService;
+    }
+}
+</code></pre>
 
-<p>In the late ‘60, Conway made an interesting sociological observation:</p>
+<p>&hellip;and not be worried about where that <code>IWorkService</code> is going to come from. It&rsquo;s a critical pattern for clean, re-usable, testable code, and one we use consistently throughout the business in all our apps.</p>
 
-<blockquote><p>&ldquo;organizations which design systems &hellip; are constrained to produce designs which are copies of the communication structures of these organizations&rdquo; [1]</p></blockquote>
+<h2>IoC Containers and the Web - Instance Per Request</h2>
 
-<p>This allows us identify a relation between Agile principles and Microservices: the principles have changed how software is built and how the teams interact, and, following from Conway’s law, this has changed how systems are designed. In some way, we could even go to the extent of saying that microservices are the natural expression of an Agile software development.</p>
+<p>IoC containers like Autofac come ready prepared to hook into web and API applications (my example controller above would fail to run if I had not hooked up Autofac). We find ourselves naturally starting to depend upon Autofacs built in help for scoping dependencies. For example if we changed the <code>IWorkService</code> registration above to</p>
 
-<p>As much as the sociological explanation can be interesting, microservices have also several technical  benefits:</p>
+<pre><code>var builder = new ContainerBuilder();
+builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().InstancePerRequest();
+_container = builder.Build();
+</code></pre>
 
-<ol>
-<li>Scalability : the only way you can scale a monolith is running several copies of the entire service. With a microservices approach, we can chose the which ones we need multiple instances of.</li>
-<li>Easy to understand and maintain : being small and covering a single task, a microservice is much easier to understand and to maintain than a single, huge piece of software.</li>
-<li>Easy to deploy : to bring even the smallest change to a monolith service in production, means deploy the entirety of it, with possible downtime and all the related problems. With microservices instead, the deployment of a single one of them can be done without bringing the entire infrastructure down.</li>
-<li>Failure resilient : a failure in a monolithic application, means a failure of the entire service. On the other hand, the failure of a single microservice doesn’t reflect into a paralysis of the entire infrastructure.</li>
-<li>Loosely coupled</li>
-</ol>
+<p>We actually change <em>when</em> a new <code>MyWorkService</code> is constructed. Before it would be <em>any time</em> a contructor asked for an <code>IWorkService</code>. Now it is only once for each web request. We could go a step further and do</p>
 
+<pre><code>var builder = new ContainerBuilder();
+builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().SingleInstance();
+_container = builder.Build();
+</code></pre>
 
-<h2>What’s the catch?</h2>
+<p>&hellip;and now we will only ever construct one object and hand it out every time we are asked to satisfy the <code>IWorkService</code> class.</p>
 
-<p>Unfortunately microservices are not the panacea of all evils. They indeed help removing the complexity from the service layer, but they push it down to the network layer. The two main problems that arise when dealing with a microservices infrastructure are discovery and handling of failures.</p>
+<p>These techniques are excellent - because it allows us to ensure that objects that are &ldquo;costly&rdquo; to instantiate are only constructed when absolutely needed, and further, items that are created once &ldquo;per request&rdquo; in a web application can essentially persist context of that request within the service (username, request parameters, caller IP Address, etc.)</p>
 
-<h3>Discovery</h3>
+<p>We leverage the &ldquo;InstancePerRequest&rdquo; for several contextual services, as it means that you can assign context values to service properties, rather than as parameters of its methods. For example:</p>
 
-<p>With a monolith, everything sits in one place, so resources location doesn’t really pose any issue. This is becomes a problem when you have hundreds of microservices that need to communicate with each other.</p>
+<pre><code>public ProfilesController(IWorkService workService)
+{
+    _workService  = workService;
+}
 
-<p>The naive solution is to use a different url per service, and pass those in from the outside: this means that every time a single microservice address changes, all its consumers need to be updated. Things get even more complicated if we have several instances of a microservice that we want to consume: what if the one we know the address of is offline, but we have some other up and running?
-The standard solution to this problem is a discovery micro service, that points us to the service we are asking for. Furthermore, to help other developers explore the service, a new standard has been suggested: adding a  <code>/disco</code> endpoint to each microservice, listing the available endpoints and a short description of each one of them. [2]s</p>
+public HttpResponseMessage Update(Profile profile)
+{
+    List&lt;string&gt; values;
+    Request.Headers.TryGetValues("userAppKey", out values)
+    _workService.AppKey = values[0];
 
-<h3>Handling Failures</h3>
+    ...
 
-<p>Being resilient to failures is a good property for a system, but it raises the problem of identifying when one of the many microservices shuts down, and not hammering it until it’s restarted. Both problems can be solved using the circuit breaker pattern, explored in detail <a href="http://martinfowler.com/bliki/CircuitBreaker.html">in this blog post</a> by Martin Fowler.</p>
+    _workService.DoStuff(profile);
+    _workService.DoMoreStuff();
+}
+</code></pre>
 
-<h2>Final thoughts</h2>
+<p>This is great, as we now don&rsquo;t have to add the &ldquo;userAppKey&rdquo; to each and every method signature.</p>
 
-<p>Microservices are not the final goal: as developers, that remains building software that satisfies the business requirements. But they are a very powerful tool we have in our arsenal, and that can help us reaching the goal, and building overall better software.</p>
+<h2>Instance Per Request for non-web applications</h2>
 
-<p>References</p>
+<p>It&rsquo;s great that Autofac has such rich built in support for ASP.NET MVC and WebApi applications, but sometimes you are working other forms of application that appear to meet the same pattern. A classic example of this is any &ldquo;message processing application&rdquo; - for example, an azure worker role that listens for Azure Service Bus messages, but it could be any message consumer (including just listening on a socket for data). In such cases your context is the message that arrives, and in reality this is no different to an Http request - its just a message format we have all gotten really used to.</p>
 
-<p>[1] : Conway, Melvin E. (April 1968), &ldquo;<a href="http://www.melconway.com/research/committees.html">How do Committees Invent?</a>&rdquo;, <a href="http://en.wikipedia.org/wiki/Datamation">Datamation</a> 14</p>
+<p>So how do we deal with providing an &ldquo;Instance Per Request&rdquo; in these scenarios? Thankfully Autofac is fully designed to help us out here.</p>
 
-<p>[2] : Greg Young, “The future of Microservices”, µCon 2014</p>
+<h2>Scoping our Request</h2>
+
+<p>Autofac allows you to create a <code>scope</code> at any time in your code. If you register your dependencies correctly, using <code>InstancePerLifetimeScope</code>, Autofac will construct a new object inside that scope if none already exists</p>
+
+<pre><code>builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().InstancePerLifetimeScope();
+</code></pre>
+
+<p>We can make our own scope as follows:</p>
+
+<pre><code>static void Main(string[] args)
+{
+    //Composition Root
+    var builder = new ContainerBuilder();
+    builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().InstancePerLifetimeScope();
+    builder.RegisterType&lt;MyOneOfAKindService&gt;().As&lt;IOneOfAKindService&gt;().InstancePerLifetimeScope();
+    _container = builder.Build();
+
+    var rootScope = _container.BeginLifetimeScope();
+    for (int i = 0; i &lt; 5; i++)
+    {
+        var oneOfAKind = rootScope.Resolve&lt;IOneOfAKindService&gt;();
+
+        using (var scope = _container.BeginLifetimeScope()) 
+        {
+            Console.WriteLine("Handing Event " + i);
+
+            // we will get a one and only one instance for each iteration of the for loop, no matter
+            //how many times we call scope.Resolve&lt;IWorkService&gt;()
+            HandledEvent(oneOfAKind, scope.Resolve&lt;IWorkService&gt;()); 
+        }
+    }
+
+    Console.ReadKey();
+}
+</code></pre>
+
+<p>Here we use the <code>Resolve</code> method on a scope to get hold of our implementation. Autofac checks how you registered the implementation against the interface, and decides when to give you a new instance or a current one. We can make this more specific, and basically create our own &ldquo;InstancePerRequest&rdquo; registration with:</p>
+
+<pre><code>builder.RegisterType&lt;MessageContext&gt;().As&lt;IMessageContext&gt;().InstancePerLifetimeScope("MessageRequest");
+
+using (var scope = _container.BeginLifetimeScope("MessageRequest")) 
+{
+    //...
+    var context = scope.Resolve&lt;IMessageContext&gt;();
+    var message = GetRawMessageFromBus();
+    MapMessageToContext(message, context);
+
+    //assume that this is overridden, and/or leads to construction of an object that takes 
+    //an IMessageContext interface
+    HandleMessage(context); 
+}
+</code></pre>
+
+<p>The code above is fairly basic, but proves the point. Revise it and package it up a little and you can a context aware framework that works very nicely with Autofac.</p>
 ]]></content>
   </entry>
   
@@ -122,7 +195,7 @@ The standard solution to this problem is a discovery micro service, that points 
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Bede Gaming Puppet Module for Redis]]></title>
+    <title type="html"><![CDATA[BedeGaming Puppet Module for Redis]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module/"/>
     <updated>2014-11-24T16:30:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module</id>
@@ -149,7 +222,7 @@ The standard solution to this problem is a discovery micro service, that points 
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Bede Gaming Puppet Module for FoundationDB]]></title>
+    <title type="html"><![CDATA[BedeGaming Puppet Module for FoundationDB]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/11/18/puppet-foundationdb-module/"/>
     <updated>2014-11-18T16:30:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/11/18/puppet-foundationdb-module</id>
