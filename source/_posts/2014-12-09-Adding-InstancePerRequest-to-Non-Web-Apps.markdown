@@ -21,7 +21,7 @@ This says that any time someone asks for an ```IWorkService``` that they should 
     {
 		private readonly IWorkService _workService;
 
-		public ProfilesController(IWorkService workService)
+		public MyController(IWorkService workService)
 		{
 			_workService  = workService;
 		}
@@ -49,12 +49,12 @@ These techniques are excellent - because it allows us to ensure that objects tha
 
 We leverage the "InstancePerRequest" for several contextual services, as it means that you can assign context values to service properties, rather than as parameters of its methods. For example:
 
-	public ProfilesController(IWorkService workService)
+	public MyController(IWorkService workService)
 	{
 		_workService  = workService;
 	}
 
-	public HttpResponseMessage Update(Profile profile)
+	public HttpResponseMessage Update(MyRequest request)
 	{
 		List<string> values;
 		Request.Headers.TryGetValues("userAppKey", out values)
@@ -62,7 +62,7 @@ We leverage the "InstancePerRequest" for several contextual services, as it mean
 
 		...
 
-		_workService.DoStuff(profile);
+		_workService.DoStuff(request);
 		_workService.DoMoreStuff();
 	}
 
