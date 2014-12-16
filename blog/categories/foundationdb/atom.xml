@@ -4,7 +4,7 @@
   <title><![CDATA[Category: foundationdb | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/foundationdb/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-12-15T17:31:39+00:00</updated>
+  <updated>2014-12-16T08:01:12+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[The Dev-ops 80-20 Rule For Selecting A Database]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/16/the-dev-ops-80-20-rule-for-selecting-a-database/"/>
-    <updated>2014-10-16T14:23:57+00:00</updated>
+    <updated>2014-10-16T15:23:57+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/16/the-dev-ops-80-20-rule-for-selecting-a-database</id>
     <content type="html"><![CDATA[<p>You&rsquo;re probably already familiar with the 80-20 rule, less catchily known as the <a href="http://en.wikipedia.org/wiki/Pareto_principle">pareto principle</a> - the idea that you spend about 20% of the time it takes to complete a project building out the first 80% of the features, with the remaining 80% of the duration to complete the elusive final 20%.  There are countless applications of this idea - kind of like when you’ve just learnt a new word, examples start to crop up everywhere.  The most recent example I’ve come across describes the amount of time spent working with persistence technologies from the point of view of developers and operations.  But first some background.
  <!-- more -->
