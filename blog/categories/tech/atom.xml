@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-12-16T12:11:41+00:00</updated>
+  <updated>2014-12-16T12:13:51+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Bede Gaming Puppet Module for Redis]]></title>
+    <title type="html"><![CDATA[BedeGaming Puppet Module for Redis]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module/"/>
     <updated>2014-11-24T16:30:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/11/24/puppet-redis-module</id>
@@ -41,7 +41,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Bede Gaming Puppet Module for FoundationDB]]></title>
+    <title type="html"><![CDATA[BedeGaming Puppet Module for FoundationDB]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/11/18/puppet-foundationdb-module/"/>
     <updated>2014-11-18T16:30:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/11/18/puppet-foundationdb-module</id>
