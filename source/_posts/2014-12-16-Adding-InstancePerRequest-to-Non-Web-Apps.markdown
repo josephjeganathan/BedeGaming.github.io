@@ -1,27 +1,29 @@
 ---
 layout: post
 title: "Adding InstancePerRequest to Non-Web Applications"
-date: 2014-12-09 17:02:00 +0100
+date: 2014-12-16 17:02:00 +0100
 comments: true
 author: Paul Devenney
-categories: code,autofac,.NET
+categories: code, autofac, .NET
 ---
 
 Here at Bede we use [Autofac](http://autofac.org/) a lot. It's an excellent [IoC](http://en.wikipedia.org/wiki/Inversion_of_control) container which allows us to create well structured code focused on interfaces rather than implementations. If you are not familiar with IoC, or it's most commonly used form of [Dependency Injection](http://en.wikipedia.org/wiki/Dependency_injection), I'd suggest the essential (.NET) reading of [Dependency Injection in .NET](http://www.amazon.co.uk/Dependency-Injection-NET-Mark-Seemann/dp/1935182501) as a primer.
 
-A typical basic example would be at the beginning of our application (called the "composition root") to do something like 
+A typical basic example would be at the beginning of our application (called the "composition root") to do something like:
 
     var builder = new ContainerBuilder();
     builder.RegisterType<MyWorkService>().As<IWorkService>();
     _container = builder.Build();
 
-This says that any time someone asks for an ```IWorkService``` that they should have that satisfied with a ```MyWorkService``` implementation. This leaves you free to write code like
+<!-- more -->
+
+This says that any time someone asks for an ```IWorkService``` that they should have that satisfied with a ```MyWorkService``` implementation. This leaves you free to write code like...
 
     public class MyController : ApiController
     {
 		private readonly IWorkService _workService;
 
-		public MyController(IWorkService workService)
+		public ProfilesController(IWorkService workService)
 		{
 			_workService  = workService;
 		}
@@ -49,12 +51,12 @@ These techniques are excellent - because it allows us to ensure that objects tha
 
 We leverage the "InstancePerRequest" for several contextual services, as it means that you can assign context values to service properties, rather than as parameters of its methods. For example:
 
-	public MyController(IWorkService workService)
+	public ProfilesController(IWorkService workService)
 	{
 		_workService  = workService;
 	}
 
-	public HttpResponseMessage Update(MyRequest request)
+	public HttpResponseMessage Update(Profile profile)
 	{
 		List<string> values;
 		Request.Headers.TryGetValues("userAppKey", out values)
@@ -62,7 +64,7 @@ We leverage the "InstancePerRequest" for several contextual services, as it mean
 
 		...
 
-		_workService.DoStuff(request);
+		_workService.DoStuff(profile);
 		_workService.DoMoreStuff();
 	}
 
@@ -123,4 +125,4 @@ Here we use the ```Resolve``` method on a scope to get hold of our implementatio
 	}
 
 
-The code above is fairly basic, but proves the point. Revise it and package it up a little and you can a context aware framework that works very nicely with Autofac.
+The code above is fairly basic, but proves the point. Revise it and package it up a little and you have a context aware framework that works very nicely with Autofac.
