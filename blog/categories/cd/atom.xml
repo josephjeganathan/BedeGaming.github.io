@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cd, | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/cd/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-12-16T12:14:24+00:00</updated>
+  <updated>2014-12-26T21:16:10+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -30,7 +30,7 @@
 </ol>
 
 
-<p><img class="center" src="/images/nissan-chair.jpg" title="&lsquo;Nissan sliding chair device&rsquo; &lsquo;Nissan sliding chair device&rsquo;" ></p>
+<p>{% img center /images/nissan-chair.jpg &lsquo;Nissan sliding chair device&rsquo; &lsquo;Nissan sliding chair device&rsquo; %}</p>
 
 <ol>
 <li><strong>Poor Quality</strong>: Obvious enough, and one most people are familiar with, but having to fix an item already through the production line is firstly rework, and secondly slower than if it was originally done correctly. Each quality issue is one less car that can go out the factory doors that day. I do find it interesting that its at the bottom of the list for Nissan. They&rsquo;ve obviously removed a lot of the occurrences of this to the point where it is maybe not their most pressing problem</li>

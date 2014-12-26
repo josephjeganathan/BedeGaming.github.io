@@ -4,7 +4,7 @@
   <title><![CDATA[Category: agile | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/agile/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-12-16T12:14:24+00:00</updated>
+  <updated>2014-12-26T21:16:10+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -20,7 +20,7 @@
     <id>http://engineering.bedegaming.com/blog/2014/11/06/cd-in-action-at-nissan-sunderland</id>
     <content type="html"><![CDATA[<p>The Nissan UK car plant at Sunderland produces almost as many cars every year as Italy’s entire automative industry. It’s a mammoth site.  Each of the four production lines in this factory is capable of producing one car every minute, continuously. As in 24x7x365. True continuous delivery into production. I was lucky enough to be invited on a factory tour by the good people at the <a href="http://www.entrepreneursforum.net">entrepreneurs forum</a> recently. It was fascinating to see how Nissan have engineered every aspect of production to minimise waste and keep the line flowing. At Bede I&rsquo;ve spent a lot of my time trying to enable agile teams to deliver high quality software into production as fast as possible, so after the factory tour my mind was left reeling with comparisons between Nissan and Bede&rsquo;s approaches to Continuous Delivery.</p>
 
-<p><img class="center" src="/images/nissan-plant.jpg" title="&lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo; &lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo;" >
+<p>{% img center /images/nissan-plant.jpg &lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo; &lsquo;Aerial view of Nissan UK plant at Sunderland&rsquo; %}
 <em>Source: <a href="http://www.themanufacturer.com/articles/nissan-smashes-uk-output-record-at-sunderland-plant/">http://themanufacturer.com</a></em></p>
 
 <!-- more -->
@@ -28,7 +28,7 @@
 
 <p>I&rsquo;ve visited a few factories in a previous life, but I&rsquo;ve never visited a car production line: it&rsquo;s quite something to behold. Chassis are on a continuously moving conveyer, separated by a few feet, and move along the factory floor passing a succession of workstations.  The production conveyer moves at a constant speed - every work station has 60 seconds to perform its assigned tasks.  Some workstations have a single task to perform, others fit multiple parts to the chassis. Larger jobs are split up between multiple work stations.  Everything possible is done to ease the job of the fitter.  This is done by minimising the physical movements required, minimising risk of a line stoppage, reducing waste and maximising the amount of useful work that can be done in 60 seconds.</p>
 
-<p><img class="center" src="/images/nissan-line.jpg" title="&lsquo;Nissan UK Qashqai production line&rsquo; &lsquo;Nissan UK Qashqai production line&rsquo;" >
+<p>{% img center /images/nissan-line.jpg &lsquo;Nissan UK Qashqai production line&rsquo; &lsquo;Nissan UK Qashqai production line&rsquo; %}
 <em>Source: <a href="http://petrolblog.com/2012/05/rising-sunderland-a-british-success-story/">http://petrolblog.com/</a></em></p>
 
 <p>Some rambling thoughts from the visit:</p>
@@ -43,17 +43,17 @@
 
 <p>Production workers understand that nothing can be allowed to stop the line. It&rsquo;s the shared responsibility of every employee to do whatever it takes to minimise downtime.  I heard that stoppages cost something like £10,000 per minute. This has two separate parallels in the software world.  Firstly, the production effort - keeping the build green, ensuring that only quality builds are deployed into environments. Through careful application of continuous integration, testing and sandbox deployments, especially with Bede&rsquo;s SOA, we strive to minimise the amount of time that the line is down (e.g. environments are broken). We&rsquo;ve recently added an isolated automation testing environment at the head of our CI pipeline, to perform smoke tests on builds before automatically deploying into our first visible development environment. This increases the overall stability of the development environment at the cost of adding some time between commits being available for developer testing. We opted to make this trade off to focus on stability, since multiple product teams shares a common development environment.</p>
 
-<p><img class="center" src="/images/octopus-dashboard.png" title="&lsquo;Continuous Integration Dashboard&rsquo; &lsquo;Continuous Integration Dashboard&rsquo;" ></p>
+<p>{% img center /images/octopus-dashboard.png &lsquo;Continuous Integration Dashboard&rsquo; &lsquo;Continuous Integration Dashboard&rsquo; %}</p>
 
 <p>Secondly, uptime in production - Bede manages the production environments for its clients, so relentless monitoring of servers and applications is required to keep the status green and exceed stated SLA uptimes. Of course Nissan&rsquo;s relationship with their product continues long after delivery too, though a most shared approach for managing that client relationship exists in the form of dealerships.</p>
 
-<p><img class="center" src="/images/ops-nr-dashboard.jpg" title="&lsquo;Environment Monitoring&rsquo; &lsquo;Environment Monitoring&rsquo;" ></p>
+<p>{% img center /images/ops-nr-dashboard.jpg &lsquo;Environment Monitoring&rsquo; &lsquo;Environment Monitoring&rsquo; %}</p>
 
 <h3>QA</h3>
 
 <p>Quality Assurance at the Nissan plant boils down to accountability.  As each chassis passes a workstation, the fitter stamps a card (yes, a physical piece of paper) with their own personalised stamp. In this way they&rsquo;re taking direct responsibility for the quality of the work they are performing. The card forms part of the permanent history of the car, it is never destroyed. As a result, fitters must take responsibility for their work.  Dedicated Quality Assurance staff do exist in the plant, but their job exists to catch unforeseen errors. I like the idea of producers being so closely linked to the produced artifacts. We already have the commit data for every release, but we don&rsquo;t publicise it internally at the moment, this is something I&rsquo;m going to mull over&hellip;  I do think that as our usage of automation testing improves, so our testers are freed from having to spend the majority of their time writing automation suites, and can focus more on exploratory testing, like the Nissan QAs.</p>
 
-<p><img class="center" src="/images/bt-commiters.png" title="&lsquo;Commit statistics for a Bede component&rsquo; &lsquo;Commit statistics for a Bede component&rsquo;" ></p>
+<p>{% img center /images/bt-commiters.png &lsquo;Commit statistics for a Bede component&rsquo; &lsquo;Commit statistics for a Bede component&rsquo; %}</p>
 
 <h3>Kaizen</h3>
 
