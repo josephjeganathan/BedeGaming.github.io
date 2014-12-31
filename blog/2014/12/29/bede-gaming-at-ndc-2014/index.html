@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bede gaming at NDC 2014 - Bede Engineering</title>
+  <meta name="author" content="Bede Gaming Ltd">
+
+  
+  <meta name="description" content="User identity and how we control access to systems has change a lot over the last decade or so, especially in the .net space. At Bede we are looking &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2014/12/29/bede-gaming-at-ndc-2014/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Bede Engineering" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:engineering.bedegaming.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+            Bede Engineering
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bede Gaming at NDC 2014</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-29T13:00:00+00:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>User identity and how we control access to systems has change a lot over the last decade or so, especially in the .net space.   At Bede we are looking to provide some significant updates to our authentication and access control services.  With those goals in in mind a couple members of our platform services team attended an Identity workshop at ndc London in December hosted by <a href="http://brockallen.com/">Brock Allen</a> and <a href="http://leastprivilege.com/">Dominick Baier</a> here are some of the topic areas we covered.</p>
+
+<h2>First Some History..</h2>
+
+<p>Back in 2002 with the first release of .net and ASP.net Identity and authentication in our applications basically boiled down to these two interfaces</p>
+
+<pre><code>interface IIdentity
+{
+    bool IsAuthenticated {get;}
+    string AuthentictaionType {get;}
+    string Name {get;}
+}
+
+interace IPrinipal
+{
+    IIdentity Identity {get;}
+    bool IsInRole(string roleName);
+}   
+</code></pre>
+
+<p>This was how we secured our UI or applications using the couple of inbuilt authentication mechanisms provided by the .net framework e.g. Windows auth or Asp.net forms authentication.  These mechanism both handled validating user credentials, making identities (WindowsIdentity and FormIdentity respectively) and principals of the relevant type for us and popping them on the Thread.CurrentPrincipal.  Happy days problem solved move on.. Right?</p>
+
+<p>Well we did have a huge disconnect between how we handled security in our applications and in our services.  On the front end we may have been using forms authentication while our service used something like <a href="http://en.wikipedia.org/wiki/WS-Security">wsSecurity</a>.</p>
+
+<p>Then our application started getting more complicated, now our users may log into our web applications which in turn accesses back end services (which we also want to secure), but they can also use native client or smart phone applications.  These native apps may connect directly to our backend service or via public APIs.  We may also want third party applications to access subsets of our users data or allow users to log into our systems using there existing social media accounts.</p>
+
+<p><img class="center" src="/images/Typical" title="Typical Application authentication Scenario" alt="Typical Application authentication Scenario"></p>
+
+<p>The solution is that we have a single place where we handle user authentication and manage user identities using a standard set of protocols that all our different clients can understand and that&rsquo;s where OpenID Connect comes in.</p>
+
+<h2>OpenID Connect</h2>
+
+<p>I bet your asking yourself is this not the problem that <a href="http://saml.xml.org/">SAML</a> was meant to solve (well maybe only some of you are asking yourself that). Yes and it works.  But you have to keep in mind</p>
+
+<blockquote><p>&ldquo;SAML is the windows XP of Identity&rdquo; <a href="Craig">1</a></p></blockquote>
+
+<ul>
+<li>It was built 12 years ago</li>
+<li>Its no longer developed</li>
+<li>No body works on it</li>
+<li>Its not the future</li>
+</ul>
+
+
+<p>Well then why can&rsquo;t we just use OAuth2 that popular now right well yes but OAuth2 is as I&rsquo;m sure we all know <a href="http://oauth.net/articles/authentication/">not an authentication protocol</a> its just a protocol for handling API access tokens. Lots of companies have tried to turn OAuth2 into an authentication protocol which is not a trivial problem.  The result of this is that we now have a lot of organisation with their own <a href="https://oauth.io/providers">flavor</a> of OAuth2.  Now you have facebook style OAuth and twitter style OAuth and we end up needing a client library for each. This trend of role your own authentication protocol has resulted in some fairly high profile hacks over the last few years.</p>
+
+<p>So what&rsquo;s <a href="http://openid.net/connect/">OpenID Connect</a> well</p>
+
+<blockquote><p>&ldquo;OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol.&rdquo;</p></blockquote>
+
+<p>What it does is to allow us to use OAuth2 for authentication by:</p>
+
+<ul>
+<li>Defines authentication protocol on top of OAuth2.
+Where as OAuth2 is primarily used for API access token OpenID defines an identity token that can be used to identify a specific user.</li>
+<li>Defines a standard <a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">token types</a> which OAuth does not do, which makes it interoperable.</li>
+<li>Defines standard cryptography that tell us how our token are protected no more role your own.</li>
+<li>Defines how you validate a token</li>
+<li>Defines work flows for native applications, browsers and servers.</li>
+</ul>
+
+
+<p>This means we can now do authentication and API access control in a single protocol.</p>
+
+<h2>Identity Server</h2>
+
+<p>Thinktecture <a href="https://github.com/thinktecture/Thinktecture.IdentityServer.v3">IdentityServer</a> is an open source OpenID Connect secure token server implementation. There are a host of none .net <a href="http://openid.net/developers/libraries/">implementations</a> as well. Secure token server have three major endpoints:</p>
+
+<ul>
+<li><strong>Authorise</strong> provide the pages the user is redirected to to allow them to login, it is basically responsible for rendering the UI</li>
+<li><strong>Token</strong> deal with the identity and access control tokens</li>
+<li><strong>User info</strong> give additional user detail like a profile</li>
+</ul>
+
+
+<h2>Flows</h2>
+
+<p>There a different work flows supported by OpenID connect that allow you to authenticate different types of application.</p>
+
+<ul>
+<li><strong>Implicit Flow</strong> for native/browser/web apps user is redirected to login</li>
+<li><strong>Authorisation Code Flow</strong> for server based applications</li>
+<li><strong>Hybrid Flow</strong> for applications combining both</li>
+</ul>
+
+
+<p>The simplest example is probably the implicit flow.  A user wishes to log into a web application, the application redirects the user to our authorisation server with this query string</p>
+
+<pre><code>GET /authorize
+?client_id=app1
+&amp;redirect_uri=https://app1.com/login
+&amp;response_type=id_token
+&amp;response_mode=form_post
+&amp;scope=openid email
+</code></pre>
+
+<p>This identifies the application, where we want the user redirected to when they have authenticated, what response we are looking for in this case a token, how we want it back this time as a form post and the scope of information we want to know about the user here we are asking for their identity (<em>&ldquo;openid&rdquo;</em>) and their email.</p>
+
+<p>The user will be asked to authenticate some how by our secure token server.  This could be username and password or using some third party social media site.  They may then be asked to give consent for the scopes we have requested and when that is complete a token containing the information requested will be posted back to us.</p>
+
+<p>Using the same set of protocols and secure token server we came request access token for our API so that we can control access to our services.</p>
+
+<h2>What in this token</h2>
+
+<p>The token we get back from our client are <a href="http://jwt.io/">json web token</a>.  These token are a set of users claims represented as a json object that&rsquo;s base64 encoded and then digitally signed. It provides a URL safe way of transferring user identities in a format that can be validated by any client.</p>
+
+<p>A claims is just a statement about the user:</p>
+
+<blockquote><p>&ldquo;bob email is <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#111;&#98;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x62;&#111;&#x62;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a> or bob is an admin&rdquo;</p></blockquote>
+
+<p>they are usually represented as key value pairs e.g. &ldquo;email&rdquo;:&ldquo;<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x62;&#111;&#98;&#64;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#98;&#x6f;&#x62;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a>&rdquo;.</p>
+
+<p>The claims in the json web token are part of user the identity information that we have request and is determined by the scope we asked for.</p>
+
+<p><strong>Example claims</strong></p>
+
+<pre><code>{
+  "sub": 1234567890,
+  "name": "John Doe",
+  "email": "Johndoe@email.com"    
+}
+</code></pre>
+
+<p>&ldquo;sub&rdquo; in the above example is the unique identifier for a specific user this will be provided when we request the openid scope.</p>
+
+<h2>What this mean for my application</h2>
+
+<p>This all mean we now have a set of protocols that allow us to manage user identity and access control for a range of application and client types from one single secure token server.</p>
+
+<p>In the .net space we still have the two interfaces we are familiar with IIdentity and IPrincipal but now we can inherit from a common set of claims based implementation.</p>
+
+<pre><code>class ClaimsIdentity : IIdentity
+{
+    IEnumerable&lt;Claim&gt; Claim {get;}
+}
+
+class ClaimsPrincipal : IPrincipal
+{
+    ReadOnlyCollection&lt;ClaimsIdentity&gt; Identities {get;}
+}   
+</code></pre>
+
+<p>All our users claims are provided in the openid token given to us by our secure token server.</p>
+
+<p>References</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Richard Forrest</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-29T13:00:00+00:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/access/'>access</a>, <a class='category' href='/blog/categories/control/'>control,</a>, <a class='category' href='/blog/categories/identity/'>identity,</a>, <a class='category' href='/blog/categories/oauth/'>oauth</a>, <a class='category' href='/blog/categories/openid/'>openid,</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+ 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2014-12-29-bede-gaming-at-ndc-2014.markdown">Fork me on github</a>		
+	</p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2014/12/29/bede-gaming-at-ndc-2014/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2014/12/29/bede-gaming-at-ndc-2014/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/10/bede-gaming-at-ucon-2014/" title="Previous Post: Bede Gaming at µCon 2014">&laquo; Bede Gaming at µCon 2014</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<img src="/images/bede-logo.png" border="0">
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/29/bede-gaming-at-ndc-2014/">Bede gaming at NDC 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/10/bede-gaming-at-ucon-2014/">Bede Gaming at µCon 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/09/Adding-InstancePerRequest-to-Non-Web-Apps/">Adding InstancePerRequest to Non-Web Applications</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/01/waste-in-software/">Waste In Software</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/24/puppet-redis-module/">Bede Gaming Puppet Module for Redis</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/BedeGaming">@BedeGaming</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'BedeGaming',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Bede_Engineers"  data-widget-id="531784519318134784"  data-link-color="#1863a1" data-tweet-limit="6" data-chrome="noheader nofooter transparent noscrollbar">Tweets by @Bede_Engineers</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </ul>
+  
+    <a href="http://twitter.com/Bede_Engineers" class="twitter-follow-button" data-show-count="false">Follow @Bede_Engineers</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Bede Gaming Ltd -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

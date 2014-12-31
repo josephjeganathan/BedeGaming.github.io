@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: access | Bede Engineering]]></title>
+  <link href="http://engineering.bedegaming.com/blog/categories/access/atom.xml" rel="self"/>
+  <link href="http://engineering.bedegaming.com/"/>
+  <updated>2014-12-31T15:54:34+00:00</updated>
+  <id>http://engineering.bedegaming.com/</id>
+  <author>
+    <name><![CDATA[Bede Gaming Ltd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bede gaming at NDC 2014]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2014/12/29/bede-gaming-at-ndc-2014/"/>
+    <updated>2014-12-29T13:00:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2014/12/29/bede-gaming-at-ndc-2014</id>
+    <content type="html"><![CDATA[<p>User identity and how we control access to systems has change a lot over the last decade or so, especially in the .net space.   At Bede we are looking to provide some significant updates to our authentication and access control services.  With those goals in in mind a couple members of our platform services team attended an Identity workshop at ndc London in December hosted by <a href="http://brockallen.com/">Brock Allen</a> and <a href="http://leastprivilege.com/">Dominick Baier</a> here are some of the topic areas we covered.</p>
+
+<h2>First Some History..</h2>
+
+<p>Back in 2002 with the first release of .net and ASP.net Identity and authentication in our applications basically boiled down to these two interfaces</p>
+
+<pre><code>interface IIdentity
+{
+    bool IsAuthenticated {get;}
+    string AuthentictaionType {get;}
+    string Name {get;}
+}
+
+interace IPrinipal
+{
+    IIdentity Identity {get;}
+    bool IsInRole(string roleName);
+}   
+</code></pre>
+
+<p>This was how we secured our UI or applications using the couple of inbuilt authentication mechanisms provided by the .net framework e.g. Windows auth or Asp.net forms authentication.  These mechanism both handled validating user credentials, making identities (WindowsIdentity and FormIdentity respectively) and principals of the relevant type for us and popping them on the Thread.CurrentPrincipal.  Happy days problem solved move on.. Right?</p>
+
+<p>Well we did have a huge disconnect between how we handled security in our applications and in our services.  On the front end we may have been using forms authentication while our service used something like <a href="http://en.wikipedia.org/wiki/WS-Security">wsSecurity</a>.</p>
+
+<p>Then our application started getting more complicated, now our users may log into our web applications which in turn accesses back end services (which we also want to secure), but they can also use native client or smart phone applications.  These native apps may connect directly to our backend service or via public APIs.  We may also want third party applications to access subsets of our users data or allow users to log into our systems using there existing social media accounts.</p>
+
+<p><img class="center" src="/images/Typical" title="Application.png &lsquo;Typical Application authentication Scenario&rsquo; &lsquo;Typical Application authentication Scenario&rsquo;" ></p>
+
+<p>The solution is that we have a single place where we handle user authentication and manage user identities using a standard set of protocols that all our different clients can understand and that&rsquo;s where OpenID Connect comes in.</p>
+
+<h2>OpenID Connect</h2>
+
+<p>I bet your asking yourself is this not the problem that <a href="http://saml.xml.org/">SAML</a> was meant to solve (well maybe only some of you are asking yourself that). Yes and it works.  But you have to keep in mind</p>
+
+<blockquote><p>&ldquo;SAML is the windows XP of Identity&rdquo; <a href="Craig">1</a></p></blockquote>
+
+<ul>
+<li>It was built 12 years ago</li>
+<li>Its no longer developed</li>
+<li>No body works on it</li>
+<li>Its not the future</li>
+</ul>
+
+
+<p>Well then why can&rsquo;t we just use OAuth2 that popular now right well yes but OAuth2 is as I&rsquo;m sure we all know <a href="http://oauth.net/articles/authentication/">not an authentication protocol</a> its just a protocol for handling API access tokens. Lots of companies have tried to turn OAuth2 into an authentication protocol which is not a trivial problem.  The result of this is that we now have a lot of organisation with their own <a href="https://oauth.io/providers">flavor</a> of OAuth2.  Now you have facebook style OAuth and twitter style OAuth and we end up needing a client library for each. This trend of role your own authentication protocol has resulted in some fairly high profile hacks over the last few years.</p>
+
+<p>So what&rsquo;s <a href="http://openid.net/connect/">OpenID Connect</a> well</p>
+
+<blockquote><p>&ldquo;OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol.&rdquo;</p></blockquote>
+
+<p>What it does is to allow us to use OAuth2 for authentication by:</p>
+
+<ul>
+<li>Defines authentication protocol on top of OAuth2.
+Where as OAuth2 is primarily used for API access token OpenID defines an identity token that can be used to identify a specific user.</li>
+<li>Defines a standard <a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">token types</a> which OAuth does not do, which makes it interoperable.</li>
+<li>Defines standard cryptography that tell us how our token are protected no more role your own.</li>
+<li>Defines how you validate a token</li>
+<li>Defines work flows for native applications, browsers and servers.</li>
+</ul>
+
+
+<p>This means we can now do authentication and API access control in a single protocol.</p>
+
+<h2>Identity Server</h2>
+
+<p>Thinktecture <a href="https://github.com/thinktecture/Thinktecture.IdentityServer.v3">IdentityServer</a> is an open source OpenID Connect secure token server implementation. There are a host of none .net <a href="http://openid.net/developers/libraries/">implementations</a> as well. Secure token server have three major endpoints:</p>
+
+<ul>
+<li><strong>Authorise</strong> provide the pages the user is redirected to to allow them to login, it is basically responsible for rendering the UI</li>
+<li><strong>Token</strong> deal with the identity and access control tokens</li>
+<li><strong>User info</strong> give additional user detail like a profile</li>
+</ul>
+
+
+<h2>Flows</h2>
+
+<p>There a different work flows supported by OpenID connect that allow you to authenticate different types of application.</p>
+
+<ul>
+<li><strong>Implicit Flow</strong> for native/browser/web apps user is redirected to login</li>
+<li><strong>Authorisation Code Flow</strong> for server based applications</li>
+<li><strong>Hybrid Flow</strong> for applications combining both</li>
+</ul>
+
+
+<p>The simplest example is probably the implicit flow.  A user wishes to log into a web application, the application redirects the user to our authorisation server with this query string</p>
+
+<pre><code>GET /authorize
+?client_id=app1
+&amp;redirect_uri=https://app1.com/login
+&amp;response_type=id_token
+&amp;response_mode=form_post
+&amp;scope=openid email
+</code></pre>
+
+<p>This identifies the application, where we want the user redirected to when they have authenticated, what response we are looking for in this case a token, how we want it back this time as a form post and the scope of information we want to know about the user here we are asking for their identity (<em>&ldquo;openid&rdquo;</em>) and their email.</p>
+
+<p>The user will be asked to authenticate some how by our secure token server.  This could be username and password or using some third party social media site.  They may then be asked to give consent for the scopes we have requested and when that is complete a token containing the information requested will be posted back to us.</p>
+
+<p>Using the same set of protocols and secure token server we came request access token for our API so that we can control access to our services.</p>
+
+<h2>What in this token</h2>
+
+<p>The token we get back from our client are <a href="http://jwt.io/">json web token</a>.  These token are a set of users claims represented as a json object that&rsquo;s base64 encoded and then digitally signed. It provides a URL safe way of transferring user identities in a format that can be validated by any client.</p>
+
+<p>A claims is just a statement about the user:</p>
+
+<blockquote><p>&ldquo;bob email is <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#98;&#111;&#x62;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#98;&#x6f;&#98;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a> or bob is an admin&rdquo;</p></blockquote>
+
+<p>they are usually represented as key value pairs e.g. &ldquo;email&rdquo;:&ldquo;<a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x62;&#111;&#x62;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#98;&#x6f;&#x62;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a>&rdquo;.</p>
+
+<p>The claims in the json web token are part of user the identity information that we have request and is determined by the scope we asked for.</p>
+
+<p><strong>Example claims</strong></p>
+
+<pre><code>{
+  "sub": 1234567890,
+  "name": "John Doe",
+  "email": "Johndoe@email.com"    
+}
+</code></pre>
+
+<p>&ldquo;sub&rdquo; in the above example is the unique identifier for a specific user this will be provided when we request the openid scope.</p>
+
+<h2>What this mean for my application</h2>
+
+<p>This all mean we now have a set of protocols that allow us to manage user identity and access control for a range of application and client types from one single secure token server.</p>
+
+<p>In the .net space we still have the two interfaces we are familiar with IIdentity and IPrincipal but now we can inherit from a common set of claims based implementation.</p>
+
+<pre><code>class ClaimsIdentity : IIdentity
+{
+    IEnumerable&lt;Claim&gt; Claim {get;}
+}
+
+class ClaimsPrincipal : IPrincipal
+{
+    ReadOnlyCollection&lt;ClaimsIdentity&gt; Identities {get;}
+}   
+</code></pre>
+
+<p>All our users claims are provided in the openid token given to us by our secure token server.</p>
+
+<p>References</p>
+]]></content>
+  </entry>
+  
+</feed>

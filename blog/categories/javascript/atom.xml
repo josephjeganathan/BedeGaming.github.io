@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2014-12-26T21:16:10+00:00</updated>
+  <updated>2014-12-31T15:54:34+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[How the current mobile landscape affects developers]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/"/>
-    <updated>2014-10-20T16:55:00+01:00</updated>
+    <updated>2014-10-20T15:55:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape</id>
     <content type="html"><![CDATA[<p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
 
@@ -29,7 +29,7 @@
 
 <p>Another interesting point is the disappearance of the &ldquo;Other&rdquo; OS&rsquo;s. In 2011 this figure occupied 30% of the market, it now comprises a tiny 0.7%. My opinion here is that this is mainly to do with some of the big mobile handset manufactors moving away from Symbian as their primary platform. Samsung and Sony Ericsson have of course moved to Android whereas Nokia have adopted the Windows Phone OS. So what does this mean for developers?</p>
 
-<p>{% img center /images/smartphone-os-market-share.png &lsquo;Smartphone OS Market Share&rsquo; &lsquo;Smartphone OS Market Share&rsquo; %}</p>
+<p><img class="center" src="/images/smartphone-os-market-share.png" title="&lsquo;Smartphone OS Market Share&rsquo; &lsquo;Smartphone OS Market Share&rsquo;" ></p>
 
 <p><em>Source: <a href="http://www.idc.com/prodserv/smartphone-os-market-share.jsp">idc.com</a></em></p>
 
@@ -104,7 +104,7 @@
 
 <p>All the major mobile platforms support apps built in HTML5. Whether its an app to be published on the app store built with something like <a href="http://cordova.apache.org/">Apache Cordova</a> or one of its distributions, <a href="http://phonegap.com/">PhoneGap</a> is one of the more popular names or a web app saved from the web - Google and Apple are definitely getting behind the HTML5 revolution! An article over at <a href="http://www.sencha.com/blog/apple-shows-love-for-html5-with-ios-8">Sencha</a> details how iOS 8 adds support for many more HTML5 features, couple this with the recent addition of the &lsquo;Nitro&rsquo; Javascript engine to UIWebView and you can see how Apple are embracing HTML5.</p>
 
-<p>{% img center /images/ios-html5-support.png &lsquo;iOS HTML5 feature support comparison&rsquo; &lsquo;iOS HTML5 feature support comparison&rsquo; %}</p>
+<p><img class="center" src="/images/ios-html5-support.png" title="&lsquo;iOS HTML5 feature support comparison&rsquo; &lsquo;iOS HTML5 feature support comparison&rsquo;" ></p>
 
 <p><em>Source: <a href="http://caniuse.com">caniuse.com</a></em></p>
 
