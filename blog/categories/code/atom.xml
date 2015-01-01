@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: code, | Bede Engineering]]></title>
+  <link href="http://engineering.bedegaming.com/blog/categories/code/atom.xml" rel="self"/>
+  <link href="http://engineering.bedegaming.com/"/>
+  <updated>2015-01-01T18:57:11+00:00</updated>
+  <id>http://engineering.bedegaming.com/</id>
+  <author>
+    <name><![CDATA[Bede Gaming Ltd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Adding InstancePerRequest to Non-Web Applications]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2014/12/16/Adding-InstancePerRequest-to-Non-Web-Apps/"/>
+    <updated>2014-12-16T16:02:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2014/12/16/Adding-InstancePerRequest-to-Non-Web-Apps</id>
+    <content type="html"><![CDATA[<p>Here at Bede we use <a href="http://autofac.org/">Autofac</a> a lot. It&rsquo;s an excellent <a href="http://en.wikipedia.org/wiki/Inversion_of_control">IoC</a> container which allows us to create well structured code focused on interfaces rather than implementations. If you are not familiar with IoC, or it&rsquo;s most commonly used form of <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>, I&rsquo;d suggest the essential (.NET) reading of <a href="http://www.amazon.co.uk/Dependency-Injection-NET-Mark-Seemann/dp/1935182501">Dependency Injection in .NET</a> as a primer.</p>
+
+<p>A typical basic example would be at the beginning of our application (called the &ldquo;composition root&rdquo;) to do something like:</p>
+
+<pre><code>var builder = new ContainerBuilder();
+builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;();
+_container = builder.Build();
+</code></pre>
+
+<!-- more -->
+
+
+<p>This says that any time someone asks for an <code>IWorkService</code> that they should have that satisfied with a <code>MyWorkService</code> implementation. This leaves you free to write code like&hellip;</p>
+
+<pre><code>public class MyController : ApiController
+{
+    private readonly IWorkService _workService;
+
+    public ProfilesController(IWorkService workService)
+    {
+        _workService  = workService;
+    }
+}
+</code></pre>
+
+<p>&hellip;and not be worried about where that <code>IWorkService</code> is going to come from. It&rsquo;s a critical pattern for clean, re-usable, testable code, and one we use consistently throughout the business in all our apps.</p>
+
+<h2>IoC Containers and the Web - Instance Per Request</h2>
+
+<p>IoC containers like Autofac come ready prepared to hook into web and API applications (my example controller above would fail to run if I had not hooked up Autofac). We find ourselves naturally starting to depend upon Autofacs built in help for scoping dependencies. For example if we changed the <code>IWorkService</code> registration above to</p>
+
+<pre><code>var builder = new ContainerBuilder();
+builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().InstancePerRequest();
+_container = builder.Build();
+</code></pre>
+
+<p>We actually change <em>when</em> a new <code>MyWorkService</code> is constructed. Before it would be <em>any time</em> a contructor asked for an <code>IWorkService</code>. Now it is only once for each web request. We could go a step further and do</p>
+
+<pre><code>var builder = new ContainerBuilder();
+builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().SingleInstance();
+_container = builder.Build();
+</code></pre>
+
+<p>&hellip;and now we will only ever construct one object and hand it out every time we are asked to satisfy the <code>IWorkService</code> class.</p>
+
+<p>These techniques are excellent - because it allows us to ensure that objects that are &ldquo;costly&rdquo; to instantiate are only constructed when absolutely needed, and further, items that are created once &ldquo;per request&rdquo; in a web application can essentially persist context of that request within the service (username, request parameters, caller IP Address, etc.)</p>
+
+<p>We leverage the &ldquo;InstancePerRequest&rdquo; for several contextual services, as it means that you can assign context values to service properties, rather than as parameters of its methods. For example:</p>
+
+<pre><code>public ProfilesController(IWorkService workService)
+{
+    _workService  = workService;
+}
+
+public HttpResponseMessage Update(Profile profile)
+{
+    List&lt;string&gt; values;
+    Request.Headers.TryGetValues("userAppKey", out values)
+    _workService.AppKey = values[0];
+
+    ...
+
+    _workService.DoStuff(profile);
+    _workService.DoMoreStuff();
+}
+</code></pre>
+
+<p>This is great, as we now don&rsquo;t have to add the &ldquo;userAppKey&rdquo; to each and every method signature.</p>
+
+<h2>Instance Per Request for non-web applications</h2>
+
+<p>It&rsquo;s great that Autofac has such rich built in support for ASP.NET MVC and WebApi applications, but sometimes you are working other forms of application that appear to meet the same pattern. A classic example of this is any &ldquo;message processing application&rdquo; - for example, an azure worker role that listens for Azure Service Bus messages, but it could be any message consumer (including just listening on a socket for data). In such cases your context is the message that arrives, and in reality this is no different to an Http request - its just a message format we have all gotten really used to.</p>
+
+<p>So how do we deal with providing an &ldquo;Instance Per Request&rdquo; in these scenarios? Thankfully Autofac is fully designed to help us out here.</p>
+
+<h2>Scoping our Request</h2>
+
+<p>Autofac allows you to create a <code>scope</code> at any time in your code. If you register your dependencies correctly, using <code>InstancePerLifetimeScope</code>, Autofac will construct a new object inside that scope if none already exists</p>
+
+<pre><code>builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().InstancePerLifetimeScope();
+</code></pre>
+
+<p>We can make our own scope as follows:</p>
+
+<pre><code>static void Main(string[] args)
+{
+    //Composition Root
+    var builder = new ContainerBuilder();
+    builder.RegisterType&lt;MyWorkService&gt;().As&lt;IWorkService&gt;().InstancePerLifetimeScope();
+    builder.RegisterType&lt;MyOneOfAKindService&gt;().As&lt;IOneOfAKindService&gt;().InstancePerLifetimeScope();
+    _container = builder.Build();
+
+    var rootScope = _container.BeginLifetimeScope();
+    for (int i = 0; i &lt; 5; i++)
+    {
+        var oneOfAKind = rootScope.Resolve&lt;IOneOfAKindService&gt;();
+
+        using (var scope = _container.BeginLifetimeScope()) 
+        {
+            Console.WriteLine("Handing Event " + i);
+
+            // we will get a one and only one instance for each iteration of the for loop, no matter
+            //how many times we call scope.Resolve&lt;IWorkService&gt;()
+            HandledEvent(oneOfAKind, scope.Resolve&lt;IWorkService&gt;()); 
+        }
+    }
+
+    Console.ReadKey();
+}
+</code></pre>
+
+<p>Here we use the <code>Resolve</code> method on a scope to get hold of our implementation. Autofac checks how you registered the implementation against the interface, and decides when to give you a new instance or a current one. We can make this more specific, and basically create our own &ldquo;InstancePerRequest&rdquo; registration with:</p>
+
+<pre><code>builder.RegisterType&lt;MessageContext&gt;().As&lt;IMessageContext&gt;().InstancePerLifetimeScope("MessageRequest");
+
+using (var scope = _container.BeginLifetimeScope("MessageRequest")) 
+{
+    //...
+    var context = scope.Resolve&lt;IMessageContext&gt;();
+    var message = GetRawMessageFromBus();
+    MapMessageToContext(message, context);
+
+    //assume that this is overridden, and/or leads to construction of an object that takes 
+    //an IMessageContext interface
+    HandleMessage(context); 
+}
+</code></pre>
+
+<p>The code above is fairly basic, but proves the point. Revise it and package it up a little and you have a context aware framework that works very nicely with Autofac.</p>
+]]></content>
+  </entry>
+  
+</feed>
