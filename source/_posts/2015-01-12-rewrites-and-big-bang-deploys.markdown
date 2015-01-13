@@ -7,7 +7,7 @@ categories: deployment microservices
 author: Andy Wardle
 ---
 
-Developers love to rewrite things. It's always more exciting to work on Greenfield development. More often than not the code you are working on was written by someone else and it is poorly written, hard to understand or worse case it doesn’t do what the business require. As well as that there are always shiny new things (developers LOVE shiny new things) which developers want to use (reactive extensions, event sourcing etc etc) and usually it is not feasible to implement this in an existing service (note: I am not advocating rewriting a service just for sake of some new technology or style).
+Developers love to rewrite things. It's always more exciting to work on Greenfield development. More often than not the code you are working on was written by someone else and it is poorly written, hard to understand or worse case it doesn’t do what the business requires. In addition, there are always shiny new things (developers LOVE shiny new things) which developers want to use (reactive extensions, event sourcing etc etc) and it's not usually feasible to implement these in an existing service (note: I am not advocating rewriting a service just for sake of some new technology or style).
 
 <!-- more -->
 
@@ -21,7 +21,7 @@ Some of the reasons why we have gone for full rewrites over trying our best to j
 * The existing service was a monolith (got to start somewhere!). Pulling functionality out and making single responsibility services gives the ability to do a rewrite (especially as we have a much better understanding of the business these days)
 * The existing service is not scalable enough for future needs
 
-Now that we have quiet a bit of experience in performing these rewrites we have honed the method of how we integrate them into the platform without causing any detrimental affect to the players. The original service rewrites would be deployed as a big bang release. It would immediately be released to all sites and players and as good as our planning and testing might have been, when releasing code into the wild users always do things you don’t expect. Worse case is you aren’t even able to rollback the change and you perform firefighting to fix the issues as soon as possible.
+Now that we have quiet a bit of experience in performing these rewrites we have honed the method of how we integrate them into the platform without causing any detrimental affect to users. The original service rewrites would be deployed as a big bang release. It would immediately be released to all sites and players and as good as our planning and testing might have been, when releasing code into the wild users always do things you don’t expect. Worse case is you aren’t even able to rollback the change and you perform firefighting to fix the issues as soon as possible.
 
 These days we have two ways we can combat this to minimise impact to our players:
 
@@ -34,13 +34,13 @@ Feature switching is a widely known topic and you can find lots of information a
 
 The diagram above shows the flow of traffic and how we split it off so that we can test the new service with real production traffic without impacting the existing service. We have a very small application sitting beside NGINX which is our request Tee. This takes the incoming request and duplicates it. The main request carries on to the existing service and the response that is returned is sent back upstream as per normal. The duplicated request is then asynchronously sent to the new version of the service, the response back from the new service is logged and then sent to /dev/null.
 
-Sitting in front of the new service is a micro service. Its job is to take the incoming request which is in the format the existing service understands and maps it to the contract of the new service and send it to the new service. It then does the same for the response, mapping from new contract to old contract. Having this mapper service in place allows us to switch to the new service without having to update all upstream clients in one go. We can update them as an when the teams are able. Then, once all upstream clients are updated to communicate directly with the new service we can delete the mapper service with no ill effect.
+Sitting in front of the new service is a micro service. Its job is to take the incoming request which is in the format the existing service understands and maps it to the contract of the new service and send it to the new service. It then does the same for the response, mapping from new contract to old contract. Having this mapper service in place allows us to switch to the new service without having to update all upstream clients in one go. We can update them as and when the teams are able. Once all upstream clients are updated to communicate directly with the new service we can delete the mapper service.
 
-The next benefit from doing this side by side running is we can do data comparison between both services to make sure that data between services match. As the services within our platform all publish messages asynchronously for downstream consumers to use we created an application which consumes messages from both versions of the service and then does data comparisons to make sure everything matches up. Any discrepancies are logged and allow us to then check what might have caused the issue and resolve it.
+The next benefit from doing side by side running is we can do data comparison between both services to make sure that data between services match. As the services within our platform all publish messages asynchronously for downstream consumers to use we created an application which consumes messages from both versions of the service and then does data comparisons to make sure everything matches up. Any discrepancies are logged and allow us to then check what might have caused the issue and resolve it.
 
 We have used this method for our most recent service and has given us the confidence to know that:
 The new service runs as expected and the data is valid
 The new service performs as expected (response times, memory / cpu usage etc)
 We can release the new service with no impact to upstream clients
 
-Going forward, if we ever need to do another service rewrite (I don’t expect we will but you never know with these things) we will be using both feature switching and side by side running to allow us a high degree of confidence that we won’t negatively impact the gaming experience for our players.
+Going forward, if we ever need to do another service rewrite (I don’t expect we will but you never know with these things) we will be using both feature switching and side by side running to give us a high degree of confidence that we won’t negatively impact the gaming experience for our players.
