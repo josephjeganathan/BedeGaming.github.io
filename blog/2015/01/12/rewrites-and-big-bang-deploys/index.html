@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Rewrites and big bang deploys - Bede Engineering</title>
+  <meta name="author" content="Bede Gaming Ltd">
+
+  
+  <meta name="description" content="Developers love to rewrite things. It&rsquo;s always more exciting to work on Greenfield development. More often than not the code you are working on &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2015/01/12/rewrites-and-big-bang-deploys/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Bede Engineering" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:engineering.bedegaming.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+            Bede Engineering
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rewrites and Big Bang Deploys</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-12T12:37:14+00:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Developers love to rewrite things. It&rsquo;s always more exciting to work on Greenfield development. More often than not the code you are working on was written by someone else and it is poorly written, hard to understand or worse case it doesn’t do what the business require. As well as that there are always shiny new things (developers LOVE shiny new things) which developers want to use (reactive extensions, event sourcing etc etc) and usually it is not feasible to implement this in an existing service (note: I am not advocating rewriting a service just for sake of some new technology or style).</p>
+
+<!-- more -->
+
+
+<p>Most of the time though, the business will not let us spend potentially months rewriting a service for no good reason. Why spend a small fortune in developer time rewriting something when at the end of it the business will usually just get the same amount of business functionality out of it instead of having months of extra features delivering more business value. Having said that, there are times when rewriting a service (or application) will actually give greater business value in the future over near term gains of adding features to the existing service.</p>
+
+<p>Here at Bede we’ve been lucky (or possibly unlucky depending on your point of view) to have been given the chance to rewrite a few of our services from scratch. We’ve been able to show enough business benefit from doing it that the powers that be were willing to go a few months without any major feature development as they could see that short term pain will give long term gain.</p>
+
+<p>Some of the reasons why we have gone for full rewrites over trying our best to just update the existing codebase:</p>
+
+<ul>
+<li>The existing service was written by an outsourcing company and wasn’t well managed. Hence the service didn’t fully meet the business requirements and was also very difficult to maintain</li>
+<li>The existing service was a monolith (got to start somewhere!). Pulling functionality out and making single responsibility services gives the ability to do a rewrite (especially as we have a much better understanding of the business these days)</li>
+<li>The existing service is not scalable enough for future needs</li>
+</ul>
+
+
+<p>Now that we have quiet a bit of experience in performing these rewrites we have honed the method of how we integrate them into the platform without causing any detrimental affect to the players. The original service rewrites would be deployed as a big bang release. It would immediately be released to all sites and players and as good as our planning and testing might have been, when releasing code into the wild users always do things you don’t expect. Worse case is you aren’t even able to rollback the change and you perform firefighting to fix the issues as soon as possible.</p>
+
+<p>These days we have two ways we can combat this to minimise impact to our players:</p>
+
+<ul>
+<li>Feature Switching</li>
+<li>Side by side running</li>
+</ul>
+
+
+<p>Feature switching is a widely known topic and you can find lots of information about it across the internet. Within this blog post I want to cover side by side running in a bit more depth as I feel this has given us huge confidence in knowing how our new services will react when released into Production.</p>
+
+<p><img class="center" src="/images/tee.png" title="Request flow using Tee" alt="Request flow using Tee"></p>
+
+<p>The diagram above shows the flow of traffic and how we split it off so that we can test the new service with real production traffic without impacting the existing service. We have a very small application sitting beside NGINX which is our request Tee. This takes the incoming request and duplicates it. The main request carries on to the existing service and the response that is returned is sent back upstream as per normal. The duplicated request is then asynchronously sent to the new version of the service, the response back from the new service is logged and then sent to /dev/null.</p>
+
+<p>Sitting in front of the new service is a micro service. Its job is to take the incoming request which is in the format the existing service understands and maps it to the contract of the new service and send it to the new service. It then does the same for the response, mapping from new contract to old contract. Having this mapper service in place allows us to switch to the new service without having to update all upstream clients in one go. We can update them as an when the teams are able. Then, once all upstream clients are updated to communicate directly with the new service we can delete the mapper service with no ill effect.</p>
+
+<p>The next benefit from doing this side by side running is we can do data comparison between both services to make sure that data between services match. As the services within our platform all publish messages asynchronously for downstream consumers to use we created an application which consumes messages from both versions of the service and then does data comparisons to make sure everything matches up. Any discrepancies are logged and allow us to then check what might have caused the issue and resolve it.</p>
+
+<p>We have used this method for our most recent service and has given us the confidence to know that:
+The new service runs as expected and the data is valid
+The new service performs as expected (response times, memory / cpu usage etc)
+We can release the new service with no impact to upstream clients</p>
+
+<p>Going forward, if we ever need to do another service rewrite (I don’t expect we will but you never know with these things) we will be using both feature switching and side by side running to allow us a high degree of confidence that we won’t negatively impact the gaming experience for our players.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Andy Wardle</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-12T12:37:14+00:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/deployment/'>deployment</a>, <a class='category' href='/blog/categories/microservices/'>microservices</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+ 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2015-01-12-rewrites-and-big-bang-deploys.markdown">Fork me on github</a>		
+	</p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2015/01/12/rewrites-and-big-bang-deploys/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2015/01/12/rewrites-and-big-bang-deploys/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/29/bede-gaming-at-ndc-2014/" title="Previous Post: Bede gaming at NDC 2014">&laquo; Bede gaming at NDC 2014</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<img src="/images/bede-logo.png" border="0">
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/12/rewrites-and-big-bang-deploys/">Rewrites and big bang deploys</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/29/bede-gaming-at-ndc-2014/">Bede gaming at NDC 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/10/bede-gaming-at-ucon-2014/">Bede Gaming at µCon 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/09/Adding-InstancePerRequest-to-Non-Web-Apps/">Adding InstancePerRequest to Non-Web Applications</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/01/waste-in-software/">Waste In Software</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/BedeGaming">@BedeGaming</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'BedeGaming',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Bede_Engineers"  data-widget-id="531784519318134784"  data-link-color="#1863a1" data-tweet-limit="6" data-chrome="noheader nofooter transparent noscrollbar">Tweets by @Bede_Engineers</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </ul>
+  
+    <a href="http://twitter.com/Bede_Engineers" class="twitter-follow-button" data-show-count="false">Follow @Bede_Engineers</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Bede Gaming Ltd -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

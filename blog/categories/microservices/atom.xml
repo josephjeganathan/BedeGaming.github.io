@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: microservices, | Bede Engineering]]></title>
+  <title><![CDATA[Category: microservices | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/microservices/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-01-01T19:05:43+00:00</updated>
+  <updated>2015-01-16T15:59:52+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -14,63 +14,54 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Bede Gaming at µCon 2014]]></title>
-    <link href="http://engineering.bedegaming.com/blog/2014/12/10/bede-gaming-at-ucon-2014/"/>
-    <updated>2014-12-10T14:15:55+00:00</updated>
-    <id>http://engineering.bedegaming.com/blog/2014/12/10/bede-gaming-at-ucon-2014</id>
-    <content type="html"><![CDATA[<p>Microservices have gained more and more popularity in the software community during the past couple of years, up to the point that SkillsMatter has dedicated them an entire convention in London, µCon. I was lucky enough to participate  and here are some of the ideas that have been discussed.<!-- more --></p>
+    <title type="html"><![CDATA[Rewrites and big bang deploys]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2015/01/12/rewrites-and-big-bang-deploys/"/>
+    <updated>2015-01-12T12:37:14+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2015/01/12/rewrites-and-big-bang-deploys</id>
+    <content type="html"><![CDATA[<p>Developers love to rewrite things. It&rsquo;s always more exciting to work on Greenfield development. More often than not the code you are working on was written by someone else and it is poorly written, hard to understand or worse case it doesn’t do what the business require. As well as that there are always shiny new things (developers LOVE shiny new things) which developers want to use (reactive extensions, event sourcing etc etc) and usually it is not feasible to implement this in an existing service (note: I am not advocating rewriting a service just for sake of some new technology or style).</p>
 
-<h2>What is a micro service?</h2>
-
-<p>It’s always a good idea to start with a clear definition, so here is what <a href="http://en.wikipedia.org/wiki/Microservices">Wikipedia</a> has to say on the matter:</p>
-
-<blockquote><p>&ldquo;Microservices is a software architecture design pattern, in which complex applications are composed of small, independent processes communicating with each other using language-agnostic APIs. These services are small, highly decoupled and focus on doing a small task.&rdquo;</p></blockquote>
-
-<p>This seems appropriate, but leaves some open questions: how small a microservices should actually be? and what about the tasks? Somebody answers this questions by saying that a microservice shouldn’t be more than one hundred lines of code. Unfortunately, this looks like quite a silly rule of thumb. The best way to answer both questions is by thinking of microservices as Object Orientation applied to software design. A microservice becomes the counterpart of a class, and the single responsibility principle defines what small means: enough logic to be able to perform a single task, and no more than that.</p>
-
-<h2>What’s all the fuss about?</h2>
-
-<p>In the late ‘60, Conway made an interesting sociological observation:</p>
-
-<blockquote><p>&ldquo;organizations which design systems &hellip; are constrained to produce designs which are copies of the communication structures of these organizations&rdquo; [1]</p></blockquote>
-
-<p>This allows us identify a relation between Agile principles and Microservices: the principles have changed how software is built and how the teams interact, and, following from Conway’s law, this has changed how systems are designed. In some way, we could even go to the extent of saying that microservices are the natural expression of an Agile software development.</p>
-
-<p>As much as the sociological explanation can be interesting, microservices have also several technical  benefits:</p>
-
-<ol>
-<li>Scalability : the only way you can scale a monolith is running several copies of the entire service. With a microservices approach, we can chose the which ones we need multiple instances of.</li>
-<li>Easy to understand and maintain : being small and covering a single task, a microservice is much easier to understand and to maintain than a single, huge piece of software.</li>
-<li>Easy to deploy : to bring even the smallest change to a monolith service in production, means deploy the entirety of it, with possible downtime and all the related problems. With microservices instead, the deployment of a single one of them can be done without bringing the entire infrastructure down.</li>
-<li>Failure resilient : a failure in a monolithic application, means a failure of the entire service. On the other hand, the failure of a single microservice doesn’t reflect into a paralysis of the entire infrastructure.</li>
-<li>Loosely coupled</li>
-</ol>
+<!-- more -->
 
 
-<h2>What’s the catch?</h2>
+<p>Most of the time though, the business will not let us spend potentially months rewriting a service for no good reason. Why spend a small fortune in developer time rewriting something when at the end of it the business will usually just get the same amount of business functionality out of it instead of having months of extra features delivering more business value. Having said that, there are times when rewriting a service (or application) will actually give greater business value in the future over near term gains of adding features to the existing service.</p>
 
-<p>Unfortunately microservices are not the panacea of all evils. They indeed help removing the complexity from the service layer, but they push it down to the network layer. The two main problems that arise when dealing with a microservices infrastructure are discovery and handling of failures.</p>
+<p>Here at Bede we’ve been lucky (or possibly unlucky depending on your point of view) to have been given the chance to rewrite a few of our services from scratch. We’ve been able to show enough business benefit from doing it that the powers that be were willing to go a few months without any major feature development as they could see that short term pain will give long term gain.</p>
 
-<h3>Discovery</h3>
+<p>Some of the reasons why we have gone for full rewrites over trying our best to just update the existing codebase:</p>
 
-<p>With a monolith, everything sits in one place, so resources location doesn’t really pose any issue. This is becomes a problem when you have hundreds of microservices that need to communicate with each other.</p>
+<ul>
+<li>The existing service was written by an outsourcing company and wasn’t well managed. Hence the service didn’t fully meet the business requirements and was also very difficult to maintain</li>
+<li>The existing service was a monolith (got to start somewhere!). Pulling functionality out and making single responsibility services gives the ability to do a rewrite (especially as we have a much better understanding of the business these days)</li>
+<li>The existing service is not scalable enough for future needs</li>
+</ul>
 
-<p>The naive solution is to use a different url per service, and pass those in from the outside: this means that every time a single microservice address changes, all its consumers need to be updated. Things get even more complicated if we have several instances of a microservice that we want to consume: what if the one we know the address of is offline, but we have some other up and running?
-The standard solution to this problem is a discovery micro service, that points us to the service we are asking for. Furthermore, to help other developers explore the service, a new standard has been suggested: adding a  <code>/disco</code> endpoint to each microservice, listing the available endpoints and a short description of each one of them. [2]s</p>
 
-<h3>Handling Failures</h3>
+<p>Now that we have quiet a bit of experience in performing these rewrites we have honed the method of how we integrate them into the platform without causing any detrimental affect to the players. The original service rewrites would be deployed as a big bang release. It would immediately be released to all sites and players and as good as our planning and testing might have been, when releasing code into the wild users always do things you don’t expect. Worse case is you aren’t even able to rollback the change and you perform firefighting to fix the issues as soon as possible.</p>
 
-<p>Being resilient to failures is a good property for a system, but it raises the problem of identifying when one of the many microservices shuts down, and not hammering it until it’s restarted. Both problems can be solved using the circuit breaker pattern, explored in detail <a href="http://martinfowler.com/bliki/CircuitBreaker.html">in this blog post</a> by Martin Fowler.</p>
+<p>These days we have two ways we can combat this to minimise impact to our players:</p>
 
-<h2>Final thoughts</h2>
+<ul>
+<li>Feature Switching</li>
+<li>Side by side running</li>
+</ul>
 
-<p>Microservices are not the final goal: as developers, that remains building software that satisfies the business requirements. But they are a very powerful tool we have in our arsenal, and that can help us reaching the goal, and building overall better software.</p>
 
-<p>References</p>
+<p>Feature switching is a widely known topic and you can find lots of information about it across the internet. Within this blog post I want to cover side by side running in a bit more depth as I feel this has given us huge confidence in knowing how our new services will react when released into Production.</p>
 
-<p>[1] : Conway, Melvin E. (April 1968), &ldquo;<a href="http://www.melconway.com/research/committees.html">How do Committees Invent?</a>&rdquo;, <a href="http://en.wikipedia.org/wiki/Datamation">Datamation</a> 14</p>
+<p><img class="center" src="/images/tee.png" title="&lsquo;Request flow using Tee&rsquo; &lsquo;Request flow using Tee&rsquo;" ></p>
 
-<p>[2] : Greg Young, “The future of Microservices”, µCon 2014</p>
+<p>The diagram above shows the flow of traffic and how we split it off so that we can test the new service with real production traffic without impacting the existing service. We have a very small application sitting beside NGINX which is our request Tee. This takes the incoming request and duplicates it. The main request carries on to the existing service and the response that is returned is sent back upstream as per normal. The duplicated request is then asynchronously sent to the new version of the service, the response back from the new service is logged and then sent to /dev/null.</p>
+
+<p>Sitting in front of the new service is a micro service. Its job is to take the incoming request which is in the format the existing service understands and maps it to the contract of the new service and send it to the new service. It then does the same for the response, mapping from new contract to old contract. Having this mapper service in place allows us to switch to the new service without having to update all upstream clients in one go. We can update them as an when the teams are able. Then, once all upstream clients are updated to communicate directly with the new service we can delete the mapper service with no ill effect.</p>
+
+<p>The next benefit from doing this side by side running is we can do data comparison between both services to make sure that data between services match. As the services within our platform all publish messages asynchronously for downstream consumers to use we created an application which consumes messages from both versions of the service and then does data comparisons to make sure everything matches up. Any discrepancies are logged and allow us to then check what might have caused the issue and resolve it.</p>
+
+<p>We have used this method for our most recent service and has given us the confidence to know that:
+The new service runs as expected and the data is valid
+The new service performs as expected (response times, memory / cpu usage etc)
+We can release the new service with no impact to upstream clients</p>
+
+<p>Going forward, if we ever need to do another service rewrite (I don’t expect we will but you never know with these things) we will be using both feature switching and side by side running to allow us a high degree of confidence that we won’t negatively impact the gaming experience for our players.</p>
 ]]></content>
   </entry>
   
