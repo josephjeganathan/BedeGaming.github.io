@@ -98,8 +98,4 @@ Originally Orchestra was setup to build using AMD modules with the RequireJS too
 
 Gulp is also unable to run these tasks concurrently, as that isn't supported by the RequireJS compiler. We needed to look at the alternatives. Browserify came up trumps - it allowed us to use the same module pattern across browser apps and Node.js apps and also solved the 2 problems I mentioned above: Your development version is the same as the production build, it compiles and provides sourcemaps (the overhead for the compile step when using [watchify](https://github.com/substack/watchify) is milliseconds) and the build time per theme was reduced to 18 seconds - when you add the benefit of building all themes concurrently, its easy to see why this was a wise move for us!
 
-That's it for part 1, in Part 2 I'll cover changes that were made as more apps began to use the Orchestra framework.
-
-
-
-
+That's it for part 1, in part 2 I'll cover changes that were made as more apps began to use the Orchestra framework.
