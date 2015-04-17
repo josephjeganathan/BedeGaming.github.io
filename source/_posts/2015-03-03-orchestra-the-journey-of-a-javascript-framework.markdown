@@ -16,9 +16,9 @@ Recently I've been excitedly talking to my colleagues about Orchestra, a "Super 
 
 The chances are, you're probably reading this wondering what on Earth Orchestra actually is. In a nutshell, it's a purpose built Javascript framework for large scale applications. Harnessing the flexibility of [MarionetteJS](http://marionettejs.com/) framework, it gives us the tools we need to enable us to implement some battle tested patterns for large scale Javascript applications.
 
-It was built with the modularity and flexibility of the Bede platform in mind. Apps are split into smaller reuseable components: Chat, Tickets, Countdown etc for the Bingo Client, what this means is, should we decide we want a chat client in another game, we just include the orchestra-chat component and provide its config and 'it will just work'. It has built in support for theming and localisation, allowing us to easily skin up new designs based on existing components. Our Bingo client is a great example of this in action. All of the bingo clients use the same core codebase, with a different theme and language file.
+It was built with the modularity and flexibility of the Bede platform in mind. Apps are split into smaller reusable  components: Chat, Tickets, Countdown etc for the Bingo Client, what this means is, should we decide we want a chat client in another game, we just include the orchestra-chat component and provide its config and 'it will just work'. It has built in support for theming and localisation, allowing us to easily skin up new designs based on existing components. Our Bingo client is a great example of this in action. All of the bingo clients use the same core codebase, with a different theme and language file.
 
-Even in its early days it was clear Orchestra was going to be a great fit for Bingo but now we have taken this a step further with a series of changes, and built our Slots Client using the same framework. The aim of this post is to explain the changes we made and the rational behind them.
+Even in its early days it was clear Orchestra was going to be a great fit for Bingo but now we have taken this a step further with a series of changes, and built our Slots Client using the same framework. The aim of this post is to explain the changes we made and the rationale behind them.
 
 ## The battle of the Javascript Build Tools
 
