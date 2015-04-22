@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-02-03T14:03:15+00:00</updated>
+  <updated>2015-04-22T13:36:42+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -14,9 +14,104 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Orchestra - The Journey of a Javascript Framework]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/"/>
+    <updated>2015-04-16T14:00:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework</id>
+    <content type="html"><![CDATA[<p>A lot of my colleagues are probably sick and tired of hearing me talk about this super awesome framework we have built in the Bede Games Studio, so I thought I&rsquo;d give them all a break a write a blog post about it instead!</p>
+
+<!-- more -->
+
+
+<h2>What is Orchestra?</h2>
+
+<p>The chances are you&rsquo;re probably reading this wondering what on Earth Orchestra actually is&hellip; in a nutshell - a purpose built Javascript framework for large scale applications. Harnessing the flexibility of <a href="http://marionettejs.com/">MarionetteJS</a> framework to give us the tools we need and enable us to implement some battle tested patterns for large scale Javascript applications (probably one for a different blog post!).</p>
+
+<p>It was built with the modularity and flexibility of the Bede platform in mind, apps are split into smaller reuseable components: Chat, Tickets, Countdown etc for Bingo, what this means is that should we decide we want a chat client in another game - we just include the orchestra-chat component and provide its config and &lsquo;it will just work&rsquo;. It has built in support for theming and localisation allowing us to easily skin up new designs based on existing components, our Bingo client is a great example of this in action. All of bingo clients use the same core codebase, with a different theme and language file.</p>
+
+<p>Even in its early days it was clear Orchestra was going to be a great fit for Bingo but now we have taken this a step further with a series of changes and have built out our Slots Client using the same framework, the aim of this post is to explain the changes we made and the rational behind them.</p>
+
+<h2>The battle of the Javascript Build Tools</h2>
+
+<p>If I had a £ for every article I&rsquo;ve read with this heading as the title I&rsquo;d be an extremely rich man and would probably be writing this post from my yacht in the Bahamas - unfortunately that is not the case. So, originally <a href="http://gruntjs.com">Grunt</a> was the build tool used for our JS projects at Bede, it was amazing - everyone loved it but then something changed&hellip; <a href="http://gulpjs.com">Gulp</a> came along.</p>
+
+<p>Now before you all think this is another case of simply jumping on a bandwagon, let me provide some justification for converting our build from Grunt to Gulp. We know that Gulp provides two main benefits:</p>
+
+<ol>
+<li>Code over configuration</li>
+<li>Speed</li>
+</ol>
+
+
+<p>But what difference do these make to our apps? Code over configuration is something that is quite a difficult sell, however take a look at this snippet from our old Gruntfile:</p>
+
+<pre><code class="js">less: {
+    development: {
+        options: {
+            sourceMap: true,
+            ieCompat: true,
+            customFunctions: {
+                'assets-path': function (less, path) {
+                    return '/assets/media/' + path.value;
+                }
+            }
+        },
+        files: {
+            'assets/css/bingostars/desktop.css': ['assets/less/themes/bingostars/desktop/main.less'],
+            'assets/css/bingostars/mobile.css': ['assets/less/themes/bingostars/mobile/main.less'],
+            'assets/css/healthbingo/desktop.css': ['assets/less/themes/healthbingo/desktop/main.less'],
+            'assets/css/healthbingo/mobile.css': ['assets/less/themes/healthbingo/mobile/main.less'],
+            'assets/css/stv/desktop.css': ['assets/less/themes/stv/desktop/main.less'],
+            'assets/css/stv/mobile.css': ['assets/less/themes/stv/mobile/main.less'],
+            'assets/css/betvictor/desktop.css': ['assets/less/themes/betvictor/desktop/main.less'],
+            'assets/css/betvictor/mobile.css': ['assets/less/themes/betvictor/mobile/main.less'],
+            'assets/css/lovebingo/desktop.css': ['assets/less/themes/lovebingo/desktop/main.less'],
+            'assets/css/lovebingo/mobile.css': ['assets/less/themes/lovebingo/mobile/main.less']
+        }
+    }
+}
+</code></pre>
+
+<p>and compare it to:</p>
+
+<pre><code class="js">var lessTaskNames = ['cleanCSS'].concat(themeTaskGenerator('less', function (theme, platform) {
+  return gulp.src('assets/less/themes/' + theme.name + '/' + platform + '/main.less')
+    .pipe(less({
+      modifyVars: {
+        'asset-path': '"/assets"'
+      }
+    }))
+    .pipe(rename(platform + '.css'))
+    .pipe(gulp.dest('assets/css/' + theme.name + '/'));
+}));
+</code></pre>
+
+<p>from our new Gulp task, straight away you can see the reduced lines of code, but perhaps hidden in here is what I would consider a bigger benefit. Notice the list of output files in the Grunt config? This grows with every new theme, but because Gulp is code based, we can simply iterate over a <code>themes</code> array.</p>
+
+<p>Something that is not such a difficult sell is the time this move shaved off our build task. Before Gulp we built 6 themes in a total time of 8 minutes, now after the conversion we are building 12 themes in 6 minutes - I think we can class that as a win. There are 2 main reasons for this speed benefit, the first being tasks are ran concurrently by default whereas Grunt will only run tasks asynchronously. The second being that Gulp makes use of <code>pipe</code> which is native in node and most popular OS&rsquo;s this means that whereas Grunt is required to create temporary files for its tasks, Gulp can pipe a file into its next task.</p>
+
+<h2>The battle of the Javascript Module Loaders</h2>
+
+<p>I&rsquo;m guessing you can see a theme appearing here, yet another well trodden path in the plethora of JavaScript blogs/articles is the comparison of the different module loaders available. For me there are 3 main contenders: <a href="http://requirejs.org">RequireJS</a> which will load in AMD modules, <a href="http://browserify.org">Browserify</a> which will load in CommonJS modules and <a href="http://webpack.github.io">Webpack</a> which will load anything and everything. It should be noted that ES6 brings a new module pattern, which the community hope will bring some unity. It is possible to start using these new ES6 features now with the help of <a href="http://babeljs.io/">Babel</a> which will transpile ES6 modules to either AMD or CommonJS until they are widely available. I&rsquo;ve dabbled with Babel a bit and have some friends that work on the Babel project, it looks amazing, but we&rsquo;re not switching just yet! :smile:</p>
+
+<p>Originally Orchestra was setup to build using AMD modules with the RequireJS tool, this was something that hindered us for a couple of reasons:</p>
+
+<ol>
+<li>The modules are loaded at the same time during development vs concatenated during a production build.</li>
+<li>The build time was around 60seconds per theme using RequireJS.</li>
+</ol>
+
+
+<p>Gulp was also unable to run these tasks concurrently as that isn&rsquo;t supported by the RequireJS compiler, we needed to look at the alternatives. Browserify came up trumps - it allowed us to use the same module pattern across browser apps and Node.js apps and also solved the 2 problems I mentioned above: Your development version is the same as the production build, it compiles and provides sourcemaps (the overhead for the compile step when using <a href="https://github.com/substack/watchify">watchify</a> is milliseconds) and the build time per theme was reduced to 18seconds - when you add the benefit of building all themes concurrently its easy to see why this was a wise move!</p>
+
+<p>Thats it for part 1, in Part 2 I&rsquo;ll cover changes that were made as more apps began to use the Orchestra framework.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[How the current mobile landscape affects developers]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/"/>
-    <updated>2014-10-20T16:55:00+01:00</updated>
+    <updated>2014-10-20T15:55:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape</id>
     <content type="html"><![CDATA[<p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
 

@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Orchestra - The Journey of a Javascript Framework - Bede Engineering</title>
+  <meta name="author" content="Bede Gaming Ltd">
+
+  
+  <meta name="description" content="A lot of my colleagues are probably sick and tired of hearing me talk about this super awesome framework we have built in the Bede Games Studio, so I &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Bede Engineering" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:engineering.bedegaming.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+            Bede Engineering
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Orchestra - the Journey of a Javascript Framework</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-16T14:00:00+00:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>A lot of my colleagues are probably sick and tired of hearing me talk about this super awesome framework we have built in the Bede Games Studio, so I thought I&rsquo;d give them all a break a write a blog post about it instead!</p>
+
+<!-- more -->
+
+
+<h2>What is Orchestra?</h2>
+
+<p>The chances are you&rsquo;re probably reading this wondering what on Earth Orchestra actually is&hellip; in a nutshell - a purpose built Javascript framework for large scale applications. Harnessing the flexibility of <a href="http://marionettejs.com/">MarionetteJS</a> framework to give us the tools we need and enable us to implement some battle tested patterns for large scale Javascript applications (probably one for a different blog post!).</p>
+
+<p>It was built with the modularity and flexibility of the Bede platform in mind, apps are split into smaller reuseable components: Chat, Tickets, Countdown etc for Bingo, what this means is that should we decide we want a chat client in another game - we just include the orchestra-chat component and provide its config and &lsquo;it will just work&rsquo;. It has built in support for theming and localisation allowing us to easily skin up new designs based on existing components, our Bingo client is a great example of this in action. All of bingo clients use the same core codebase, with a different theme and language file.</p>
+
+<p>Even in its early days it was clear Orchestra was going to be a great fit for Bingo but now we have taken this a step further with a series of changes and have built out our Slots Client using the same framework, the aim of this post is to explain the changes we made and the rational behind them.</p>
+
+<h2>The battle of the Javascript Build Tools</h2>
+
+<p>If I had a £ for every article I&rsquo;ve read with this heading as the title I&rsquo;d be an extremely rich man and would probably be writing this post from my yacht in the Bahamas - unfortunately that is not the case. So, originally <a href="http://gruntjs.com">Grunt</a> was the build tool used for our JS projects at Bede, it was amazing - everyone loved it but then something changed&hellip; <a href="http://gulpjs.com">Gulp</a> came along.</p>
+
+<p>Now before you all think this is another case of simply jumping on a bandwagon, let me provide some justification for converting our build from Grunt to Gulp. We know that Gulp provides two main benefits:</p>
+
+<ol>
+<li>Code over configuration</li>
+<li>Speed</li>
+</ol>
+
+
+<p>But what difference do these make to our apps? Code over configuration is something that is quite a difficult sell, however take a look at this snippet from our old Gruntfile:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">less</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">development</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">sourceMap</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>          <span class="nx">ieCompat</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>          <span class="nx">customFunctions</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>              <span class="s1">&#39;assets-path&#39;</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="k">return</span> <span class="s1">&#39;/assets/media/&#39;</span> <span class="o">+</span> <span class="nx">path</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/bingostars/desktop.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/bingostars/desktop/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/bingostars/mobile.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/bingostars/mobile/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/healthbingo/desktop.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/healthbingo/desktop/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/healthbingo/mobile.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/healthbingo/mobile/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/stv/desktop.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/stv/desktop/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/stv/mobile.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/stv/mobile/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/betvictor/desktop.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/betvictor/desktop/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/betvictor/mobile.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/betvictor/mobile/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/lovebingo/desktop.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/lovebingo/desktop/main.less&#39;</span><span class="p">],</span>
+</span><span class='line'>          <span class="s1">&#39;assets/css/lovebingo/mobile.css&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;assets/less/themes/lovebingo/mobile/main.less&#39;</span><span class="p">]</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and compare it to:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">lessTaskNames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cleanCSS&#39;</span><span class="p">].</span><span class="nx">concat</span><span class="p">(</span><span class="nx">themeTaskGenerator</span><span class="p">(</span><span class="s1">&#39;less&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">theme</span><span class="p">,</span> <span class="nx">platform</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="s1">&#39;assets/less/themes/&#39;</span> <span class="o">+</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">platform</span> <span class="o">+</span> <span class="s1">&#39;/main.less&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">less</span><span class="p">({</span>
+</span><span class='line'>      <span class="nx">modifyVars</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s1">&#39;asset-path&#39;</span><span class="o">:</span> <span class="s1">&#39;&quot;/assets&quot;&#39;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}))</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">rename</span><span class="p">(</span><span class="nx">platform</span> <span class="o">+</span> <span class="s1">&#39;.css&#39;</span><span class="p">))</span>
+</span><span class='line'>    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">&#39;assets/css/&#39;</span> <span class="o">+</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="p">}));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>from our new Gulp task, straight away you can see the reduced lines of code, but perhaps hidden in here is what I would consider a bigger benefit. Notice the list of output files in the Grunt config? This grows with every new theme, but because Gulp is code based, we can simply iterate over a <code>themes</code> array.</p>
+
+<p>Something that is not such a difficult sell is the time this move shaved off our build task. Before Gulp we built 6 themes in a total time of 8 minutes, now after the conversion we are building 12 themes in 6 minutes - I think we can class that as a win. There are 2 main reasons for this speed benefit, the first being tasks are ran concurrently by default whereas Grunt will only run tasks asynchronously. The second being that Gulp makes use of <code>pipe</code> which is native in node and most popular OS&rsquo;s this means that whereas Grunt is required to create temporary files for its tasks, Gulp can pipe a file into its next task.</p>
+
+<h2>The battle of the Javascript Module Loaders</h2>
+
+<p>I&rsquo;m guessing you can see a theme appearing here, yet another well trodden path in the plethora of JavaScript blogs/articles is the comparison of the different module loaders available. For me there are 3 main contenders: <a href="http://requirejs.org">RequireJS</a> which will load in AMD modules, <a href="http://browserify.org">Browserify</a> which will load in CommonJS modules and <a href="http://webpack.github.io">Webpack</a> which will load anything and everything. It should be noted that ES6 brings a new module pattern, which the community hope will bring some unity. It is possible to start using these new ES6 features now with the help of <a href="http://babeljs.io/">Babel</a> which will transpile ES6 modules to either AMD or CommonJS until they are widely available. I&rsquo;ve dabbled with Babel a bit and have some friends that work on the Babel project, it looks amazing, but we&rsquo;re not switching just yet! :smile:</p>
+
+<p>Originally Orchestra was setup to build using AMD modules with the RequireJS tool, this was something that hindered us for a couple of reasons:</p>
+
+<ol>
+<li>The modules are loaded at the same time during development vs concatenated during a production build.</li>
+<li>The build time was around 60seconds per theme using RequireJS.</li>
+</ol>
+
+
+<p>Gulp was also unable to run these tasks concurrently as that isn&rsquo;t supported by the RequireJS compiler, we needed to look at the alternatives. Browserify came up trumps - it allowed us to use the same module pattern across browser apps and Node.js apps and also solved the 2 problems I mentioned above: Your development version is the same as the production build, it compiles and provides sourcemaps (the overhead for the compile step when using <a href="https://github.com/substack/watchify">watchify</a> is milliseconds) and the build time per theme was reduced to 18seconds - when you add the benefit of building all themes concurrently its easy to see why this was a wise move!</p>
+
+<p>Thats it for part 1, in Part 2 I&rsquo;ll cover changes that were made as more apps began to use the Orchestra framework.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Andrew Humphreys</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-16T14:00:00+00:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+ 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2015-03-03-orchestra-the-journey-of-a-javascript-framework.markdown">Fork me on github</a>		
+	</p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/01/12/rewrites-and-big-bang-deploys/" title="Previous Post: Rewrites and big bang deploys">&laquo; Rewrites and big bang deploys</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<img src="/images/bede-logo.png" border="0">
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/">Orchestra - The Journey of a Javascript Framework</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/12/rewrites-and-big-bang-deploys/">Rewrites and big bang deploys</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/29/bede-gaming-at-ndc-2014/">Bede gaming at NDC 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/10/bede-gaming-at-ucon-2014/">Bede Gaming at µCon 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/09/Adding-InstancePerRequest-to-Non-Web-Apps/">Adding InstancePerRequest to Non-Web Applications</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/BedeGaming">@BedeGaming</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'BedeGaming',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Bede_Engineers"  data-widget-id="531784519318134784"  data-link-color="#1863a1" data-tweet-limit="6" data-chrome="noheader nofooter transparent noscrollbar">Tweets by @Bede_Engineers</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </ul>
+  
+    <a href="http://twitter.com/Bede_Engineers" class="twitter-follow-button" data-show-count="false">Follow @Bede_Engineers</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Bede Gaming Ltd -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

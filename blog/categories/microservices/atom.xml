@@ -4,7 +4,7 @@
   <title><![CDATA[Category: microservices | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/microservices/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-02-03T14:03:15+00:00</updated>
+  <updated>2015-04-22T13:36:42+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -18,14 +18,10 @@
     <link href="http://engineering.bedegaming.com/blog/2015/01/12/rewrites-and-big-bang-deploys/"/>
     <updated>2015-01-12T12:37:14+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/01/12/rewrites-and-big-bang-deploys</id>
-    <content type="html"><![CDATA[<p>Developers love to rewrite code:</p>
-
-<ul>
-<li>It&rsquo;s always more exciting to work on Greenfield development.</li>
-<li>The code you are working on was written by someone else and it is poorly written, hard to understand, or worse case, it doesn’t do what the business requires.</li>
-<li>There are always shiny new things which developers want to use (reactive extensions, event sourcing etc. etc.) and it&rsquo;s not usually feasible to implement these in an existing service</li>
-</ul>
-
+    <content type="html"><![CDATA[<p>Developers love to rewrite code:
+* It&rsquo;s always more exciting to work on Greenfield development.
+* The code you are working on was written by someone else and it is poorly written, hard to understand, or worse case, it doesn’t do what the business requires.
+* There are always shiny new things which developers want to use (reactive extensions, event sourcing etc. etc.) and it&rsquo;s not usually feasible to implement these in an existing service</p>
 
 <!-- more -->
 
@@ -36,24 +32,16 @@
 
 <p>Here at Bede we’ve been lucky (or possibly unlucky depending on your point of view) to have been given the chance to rewrite a few of our services from scratch. We’ve been able to show enough business benefit from doing it that the powers that be are willing to go a few months without any major feature development as they could see that short term pain will give long term gain.</p>
 
-<p>Some of the reasons why we have gone for full rewrites over trying to just update the existing codebase:</p>
-
-<ul>
-<li>The existing service was written by an outsourced company, and wasn’t well managed, resulting in the service not meeting the business requirements</li>
-<li>The existing service was a monolith. Pulling functionality out and making single responsibility services gives the ability to do a rewrite (especially as we have a much better understanding of business requirements)</li>
-<li>The existing service is not scalable enough for future needs</li>
-</ul>
-
+<p>Some of the reasons why we have gone for full rewrites over trying to just update the existing codebase:
+* The existing service was written by an outsourced company, and wasn’t well managed, resulting in the service not meeting the business requirements
+* The existing service was a monolith. Pulling functionality out and making single responsibility services gives the ability to do a rewrite (especially as we have a much better understanding of business requirements)
+* The existing service is not scalable enough for future needs</p>
 
 <p>Now that we have a bit of experience in performing these rewrites, we have honed the method of how we integrate them into the platform without causing any detrimental affect to users. The original service rewrites would be deployed as a ‘big bang’ release. It would immediately be released to all sites and players, and as good as our planning and testing might have been, when releasing code into the wild users always do things you don’t expect. Worse case is you aren’t even able to rollback the change and you perform firefighting to fix the issues as soon as possible.</p>
 
-<p>We have two ways we can combat this to minimise impact to our players:</p>
-
-<ul>
-<li>Feature Switching</li>
-<li>Side by side running</li>
-</ul>
-
+<p>We have two ways we can combat this to minimise impact to our players:
+* Feature Switching
+* Side by side running</p>
 
 <p>Feature switching is a widely known topic and a lot of information about it is available across the internet. Within this blog post, I want to cover side by side running in a bit more depth, as I feel this has given us huge confidence in knowing how our new services will react when released into Production.</p>
 
@@ -69,14 +57,10 @@
 
 <p>The next benefit from doing side by side running is we can do data comparison between both services to make sure that data between services match. As the services within our platform all publish messages asynchronously, we created an application which consumes messages from both versions of the service and then compares the data. Any discrepancies are logged, which allows us to then find and resolve the issue.</p>
 
-<p>We have used this method for our most recent service and it has given us the confidence to know that:</p>
-
-<ul>
-<li>The new service runs as expected and the data is valid</li>
-<li>The new service performs as expected (response times, memory / cpu usage etc)</li>
-<li>We can release the new service with no impact to upstream clients</li>
-</ul>
-
+<p>We have used this method for our most recent service and it has given us the confidence to know that:
+* The new service runs as expected and the data is valid
+* The new service performs as expected (response times, memory / cpu usage etc)
+* We can release the new service with no impact to upstream clients</p>
 
 <p>Going forward, if we ever need to do another service rewrite, we will be using both feature switching and side by side running to give us a high degree of confidence that we won’t negatively impact the gaming experience for our players.</p>
 ]]></content>
