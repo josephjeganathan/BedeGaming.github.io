@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-04-22T13:38:14+00:00</updated>
+  <updated>2015-04-22T13:38:55+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -112,7 +112,7 @@ For me there are 3 main contenders:
 
 <p>Gulp is also unable to run these tasks concurrently, as that isn&rsquo;t supported by the RequireJS compiler. We needed to look at the alternatives. Browserify came up trumps - it allowed us to use the same module pattern across browser apps and Node.js apps and also solved the 2 problems I mentioned above: Your development version is the same as the production build, it compiles and provides sourcemaps (the overhead for the compile step when using <a href="https://github.com/substack/watchify">watchify</a> is milliseconds) and the build time per theme was reduced to 18 seconds - when you add the benefit of building all themes concurrently, its easy to see why this was a wise move for us!</p>
 
-<p>That&rsquo;s it for part 1, in Part 2 I&rsquo;ll cover changes that were made as more apps began to use the Orchestra framework.</p>
+<p>That&rsquo;s it for part 1, in part 2 I&rsquo;ll cover changes that were made as more apps began to use the Orchestra framework.</p>
 ]]></content>
   </entry>
   
