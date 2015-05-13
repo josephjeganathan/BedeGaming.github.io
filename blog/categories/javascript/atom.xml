@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-04-22T13:41:05+00:00</updated>
+  <updated>2015-05-13T17:25:17+01:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -16,9 +16,9 @@
   <entry>
     <title type="html"><![CDATA[Orchestra - The Journey of a Javascript Framework Part 1]]></title>
     <link href="http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/"/>
-    <updated>2015-04-16T14:00:00+00:00</updated>
+    <updated>2015-04-16T15:00:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework</id>
-    <content type="html"><![CDATA[<p>Recently I&rsquo;ve been excitedly talking to my colleagues about Orchestra, a &ldquo;Super awesome framework&rdquo; we have built in the Bede Games Studio, so I thought I&rsquo;d give them all a break a write a blog post about it instead!</p>
+    <content type="html"><![CDATA[<p>Recently I&rsquo;ve been excitedly talking to my colleagues about Orchestra, a &ldquo;Super awesome framework&rdquo; we have built in the Bede Games Studio, so I&rsquo;ve decided to give them all a break and write a blog post instead!</p>
 
 <!-- more -->
 
@@ -27,13 +27,13 @@
 
 <p>The chances are, you&rsquo;re probably reading this wondering what on Earth Orchestra actually is. In a nutshell, it&rsquo;s a purpose built Javascript framework for large scale applications. Harnessing the flexibility of <a href="http://marionettejs.com/">MarionetteJS</a> framework, it gives us the tools we need to enable us to implement some battle tested patterns for large scale Javascript applications.</p>
 
-<p>It was built with the modularity and flexibility of the Bede platform in mind. Apps are split into smaller reusable  components: Chat, Tickets, Countdown etc for the Bingo Client, what this means is, should we decide we want a chat client in another game, we just include the orchestra-chat component and provide its config and &lsquo;it will just work&rsquo;. It has built in support for theming and localisation, allowing us to easily skin up new designs based on existing components. Our Bingo client is a great example of this in action. All of the bingo clients use the same core codebase, with a different theme and language file.</p>
+<p>It was built with the modularity and flexibility of the Bede platform in mind. Apps are split into smaller reusable  components: Chat, Tickets, Countdown etc for our Bingo Client. If we need to add a chat client to another game, we simply include the orchestra-chat component, provide its config, and &lsquo;it just works&rsquo;. It has built in support for theming and localisation, allowing us to easily skin up new designs based on existing components. Our Bingo client is a great example of this in action. All of Bede&rsquo;s bingo clients use the same core codebase, with a different theme and language file.</p>
 
 <p>Even in its early days it was clear Orchestra was going to be a great fit for Bingo but now we have taken this a step further with a series of changes, and built our Slots Client using the same framework. The aim of this post is to explain the changes we made and the rationale behind them.</p>
 
 <h2>The battle of the Javascript Build Tools</h2>
 
-<p>If I had a £ for every article I&rsquo;ve read with this heading as the title I&rsquo;d be an extremely rich man and would probably be writing this post from my yacht in the Bahamas. So, originally <a href="http://gruntjs.com">Grunt</a> was the build tool used for all our JS projects at Bede, it was amazing - everyone loved it, but, then something changed&hellip; <a href="http://gulpjs.com">Gulp</a> came along.</p>
+<p>If I had £1 for every article I&rsquo;ve read with this heading as the title I&rsquo;d be an extremely rich man and would probably be writing this post from my yacht in the Bahamas. In the begining <a href="http://gruntjs.com">Grunt</a> was the build tool used for all Bede&rsquo;s JS projects, it was amazing - everyone loved it, but, then something changed&hellip; <a href="http://gulpjs.com">Gulp</a> came along.</p>
 
 <p>Now before you all think this is another case of simply jumping on a bandwagon, let me provide some justification for converting our build from Grunt to Gulp. We know that Gulp provides two main benefits:</p>
 
@@ -88,17 +88,25 @@
 
 <p>From our new Gulp task, straight away you can see the reduced lines of code, but perhaps hidden in here is what I would consider a bigger benefit. Notice the list of output files in the Grunt config? This grows with every new theme, but because Gulp is code based, we can simply iterate over a <code>themes</code> array.</p>
 
-<p>Something that is not such a difficult sell is the time shaved off our build task. Before Gulp we built 6 themes in a total time of 8 minutes, now, after the conversion, we are building 12 themes in 6 minutes - I think we can class that as a win. There are 2 main reasons for this speed benefit:
-* Tasks are ran concurrently by default, whereas Grunt will only run tasks asynchronously.
-* Gulp makes use of <code>pipe</code> which is native in node and most popular OS&rsquo;s. This means that whereas Grunt is required to create temporary files for its tasks, Gulp can pipe a file into its next task.</p>
+<p>Something that is not such a difficult sell is the time shaved off our build task. Before Gulp we built 6 themes in a total time of 8 minutes, now, after the conversion, we are building 12 themes in 6 minutes - I think we can class that as a win. There are 2 main reasons for this speed benefit:</p>
+
+<ul>
+<li>Gulp tasks run concurrently by default, whereas Grunt runs tasks one at a time</li>
+<li>Gulp makes use of <code>pipe</code> which is native in node and most popular OS&rsquo;s. This means that whereas Grunt is required to create temporary files for its tasks, Gulp can pipe a file into its next task.</li>
+</ul>
+
 
 <h2>The battle of the Javascript Module Loaders</h2>
 
 <p>I&rsquo;m guessing you can see a theme appearing here, yet another well trodden path in the plethora of JavaScript blogs/articles is the comparison of the different module loaders available.
-For me there are 3 main contenders:
-* <a href="http://requirejs.org">RequireJS</a> which will load in AMD modules
-* <a href="http://browserify.org">Browserify</a> which will load in CommonJS modules and
-* <a href="http://webpack.github.io">Webpack</a> which will load anything and everything.</p>
+For me there are 3 main contenders:</p>
+
+<ul>
+<li><a href="http://requirejs.org">RequireJS</a> which will load in AMD modules</li>
+<li><a href="http://browserify.org">Browserify</a> which will load in CommonJS modules and</li>
+<li><a href="http://webpack.github.io">Webpack</a> which will load anything and everything.</li>
+</ul>
+
 
 <p>It should be noted that ES6 brings a new module pattern, which the community hopes will bring some unity. It is possible to start using these new ES6 features now with the help of <a href="http://babeljs.io/">Babel</a> which, will transpile ES6 modules to either AMD or CommonJS until they are widely available. I&rsquo;ve dabbled with Babel a bit and have some friends that work on the Babel project, it looks amazing, but we&rsquo;re not switching just yet! :smile:</p>
 
@@ -119,7 +127,7 @@ For me there are 3 main contenders:
   <entry>
     <title type="html"><![CDATA[How the current mobile landscape affects developers]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/"/>
-    <updated>2014-10-20T15:55:00+00:00</updated>
+    <updated>2014-10-20T16:55:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape</id>
     <content type="html"><![CDATA[<p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
 
