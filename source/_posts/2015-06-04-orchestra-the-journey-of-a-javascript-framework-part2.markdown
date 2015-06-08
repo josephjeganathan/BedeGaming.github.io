@@ -35,7 +35,7 @@ However, by default the loader will first search the `node_modules` folder (by d
 var component = require('orchestra-chat');
 ```
 
-Utilising the NPM package manager has enabled us to remove components from the applications and include them in the applications dependencies so they are installed at build time. This brings our folder structure to what we have today:
+Utilising the NPM package manager has enabled us to remove components from the applications and include them in the application's dependencies so they are installed at build time. This brings our folder structure to what we have today:
 
 {% img center /images/new-folder-structure.png 'new application folder structure' %}
 
@@ -49,7 +49,7 @@ This reduces code duplication and simplifes our modules, rather than pulling in 
 
 ## The Future...
 
-The aim for Orchestra would be to release it to the community and Open Source the library. Tthere is still some work to do - but it isn't far off. 
+The aim for Orchestra would be to release it to the community and Open Source the library. There is still some work to do - but it isn't far off. 
 Our [Yeoman generator]( http://yeoman.io/) is quite out of date and needs updating for our new application structure, PR's welcome [here](https://github.com/BedeGaming/protege). 
 Now that Orchestra is a library rather than a framework, we aren't necessarily limited to game applications.
 
