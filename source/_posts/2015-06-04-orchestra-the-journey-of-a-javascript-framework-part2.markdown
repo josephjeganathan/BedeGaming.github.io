@@ -35,7 +35,7 @@ However, by default the loader will first search the `node_modules` folder (by d
 var component = require('orchestra-chat');
 ```
 
-Utilising the NPM package manager has enabled us to remove components from the applications and include them in the application's dependencies so they are installed at build time. This brings our folder structure to what we have today:
+Utilising the NPM package manager has enabled us to dynamically load in components for our applications. This brings our folder structure to what we have today:
 
 {% img center /images/new-folder-structure.png 'new application folder structure' %}
 
@@ -43,7 +43,7 @@ In addition to the streamlined folder structure, we are now able to avoid duplic
 
 ## Orchestra the library
 
-We needed to remove this common code from applications, the next logical step was to convert Orchestra itself into a library. It has proven to be an inspired decision. Orchestra is now a library with it's own opinions about what tools to use for certain jobs, it extends Marionette and [Backbone.Radio](https://github.com/marionettejs/backbone.radio), provides access to utility libraries such as [lodash](https://lodash.com/) and helpers for things such as translation, currency and local storage.
+We needed to remove the common code in `helpers`, `mixins` and `models`. The next logical step was to convert Orchestra itself into a library. It has proven to be an inspired decision. Orchestra is now a library with it's own opinions about what tools to use for certain jobs, it extends Marionette and [Backbone.Radio](https://github.com/marionettejs/backbone.radio), provides access to utility libraries such as [lodash](https://lodash.com/) and helpers for things such as translation, currency and local storage.
 
 This reduces code duplication and simplifes our modules, rather than pulling in each dependency individually, we simply include Orchestra and know that it has all the tools we need.
 
