@@ -114,7 +114,7 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>var component = require('orchestra-chat');</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Utilising the NPM package manager has enabled us to remove components from the applications and include them in the applications dependencies so they are installed at build time. This brings our folder structure to what we have today:</p>
+<p>Utilising the NPM package manager has enabled us to dynamically load in components for our applications. This brings our folder structure to what we have today:</p>
 
 <p><img class="center" src="/images/new-folder-structure.png" title="'new application folder structure'" ></p>
 
@@ -122,13 +122,13 @@
 
 <h2>Orchestra the library</h2>
 
-<p>We needed to remove this common code from applications, the next logical step was to convert Orchestra itself into a library. It has proven to be an inspired decision. Orchestra is now a library with it&rsquo;s own opinions about what tools to use for certain jobs, it extends Marionette and <a href="https://github.com/marionettejs/backbone.radio">Backbone.Radio</a>, provides access to utility libraries such as <a href="https://lodash.com/">lodash</a> and helpers for things such as translation, currency and local storage.</p>
+<p>We needed to remove the common code in <code>helpers</code>, <code>mixins</code> and <code>models</code>. The next logical step was to convert Orchestra itself into a library. It has proven to be an inspired decision. Orchestra is now a library with it&rsquo;s own opinions about what tools to use for certain jobs, it extends Marionette and <a href="https://github.com/marionettejs/backbone.radio">Backbone.Radio</a>, provides access to utility libraries such as <a href="https://lodash.com/">lodash</a> and helpers for things such as translation, currency and local storage.</p>
 
 <p>This reduces code duplication and simplifes our modules, rather than pulling in each dependency individually, we simply include Orchestra and know that it has all the tools we need.</p>
 
 <h2>The Future&hellip;</h2>
 
-<p>The aim for Orchestra would be to release it to the community and Open Source the library. Tthere is still some work to do - but it isn&rsquo;t far off.
+<p>The aim for Orchestra would be to release it to the community and Open Source the library. There is still some work to do - but it isn&rsquo;t far off.
 Our <a href="http://yeoman.io/">Yeoman generator</a> is quite out of date and needs updating for our new application structure, PR&rsquo;s welcome <a href="https://github.com/BedeGaming/protege">here</a>.
 Now that Orchestra is a library rather than a framework, we aren&rsquo;t necessarily limited to game applications.</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-06-08T13:39:04+00:00</updated>
+  <updated>2015-06-08T13:39:39+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -47,7 +47,7 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>var component = require('orchestra-chat');</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Utilising the NPM package manager has enabled us to remove components from the applications and include them in the applications dependencies so they are installed at build time. This brings our folder structure to what we have today:</p>
+<p>Utilising the NPM package manager has enabled us to dynamically load in components for our applications. This brings our folder structure to what we have today:</p>
 
 <p><img class="center" src="http://engineering.bedegaming.com/images/new-folder-structure.png" title="'new application folder structure'" ></p>
 
@@ -55,13 +55,13 @@
 
 <h2>Orchestra the library</h2>
 
-<p>We needed to remove this common code from applications, the next logical step was to convert Orchestra itself into a library. It has proven to be an inspired decision. Orchestra is now a library with it&rsquo;s own opinions about what tools to use for certain jobs, it extends Marionette and <a href="https://github.com/marionettejs/backbone.radio">Backbone.Radio</a>, provides access to utility libraries such as <a href="https://lodash.com/">lodash</a> and helpers for things such as translation, currency and local storage.</p>
+<p>We needed to remove the common code in <code>helpers</code>, <code>mixins</code> and <code>models</code>. The next logical step was to convert Orchestra itself into a library. It has proven to be an inspired decision. Orchestra is now a library with it&rsquo;s own opinions about what tools to use for certain jobs, it extends Marionette and <a href="https://github.com/marionettejs/backbone.radio">Backbone.Radio</a>, provides access to utility libraries such as <a href="https://lodash.com/">lodash</a> and helpers for things such as translation, currency and local storage.</p>
 
 <p>This reduces code duplication and simplifes our modules, rather than pulling in each dependency individually, we simply include Orchestra and know that it has all the tools we need.</p>
 
 <h2>The Future&hellip;</h2>
 
-<p>The aim for Orchestra would be to release it to the community and Open Source the library. Tthere is still some work to do - but it isn&rsquo;t far off.
+<p>The aim for Orchestra would be to release it to the community and Open Source the library. There is still some work to do - but it isn&rsquo;t far off.
 Our <a href="http://yeoman.io/">Yeoman generator</a> is quite out of date and needs updating for our new application structure, PR&rsquo;s welcome <a href="https://github.com/BedeGaming/protege">here</a>.
 Now that Orchestra is a library rather than a framework, we aren&rsquo;t necessarily limited to game applications.</p>
 
@@ -377,9 +377,9 @@ Where as OAuth2 is primarily used for API access token OpenID defines an identit
 
 <p>A claims is just a statement about the user:</p>
 
-<blockquote><p>&ldquo;bob email is <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#x62;&#x6f;&#98;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x62;&#111;&#98;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a> or bob is an admin&rdquo;</p></blockquote>
+<blockquote><p>&ldquo;bob email is <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x62;&#111;&#x62;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x62;&#111;&#98;&#64;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a> or bob is an admin&rdquo;</p></blockquote>
 
-<p>they are usually represented as key value pairs e.g. &ldquo;email&rdquo;:&ldquo;<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x62;&#x6f;&#x62;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#98;&#x6f;&#98;&#64;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;</a>&rdquo;.</p>
+<p>they are usually represented as key value pairs e.g. &ldquo;email&rdquo;:&ldquo;<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#98;&#x6f;&#98;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#98;&#x6f;&#98;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a>&rdquo;.</p>
 
 <p>The claims in the json web token are part of user the identity information that we have request and is determined by the scope we asked for.</p>
 
