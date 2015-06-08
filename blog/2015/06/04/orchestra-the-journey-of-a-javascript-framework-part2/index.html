@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Orchestra - The Journey of a Javascript Framework Part 2 - Bede Engineering</title>
+  <meta name="author" content="Bede Gaming Ltd">
+
+  
+  <meta name="description" content="In part 1 of of this series I wrote about how we refined our build process using Gulp and Browserify, these changes also made a significant impact on &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Bede Engineering" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:engineering.bedegaming.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+            Bede Engineering
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Orchestra - the Journey of a Javascript Framework Part 2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-04T14:00:00+00:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In part 1 of of this series I wrote about how we refined our build process using Gulp and Browserify, these changes also made a significant impact on the structure of the Orchestra Framework. Part 2 covers how Orchestra transitioned from an all encompassing framework to a library that brings together our favourite tools.</p>
+
+<!-- more -->
+
+
+<p>The initial vision for Orchestra was to create an application boilerplate that made use of a common toolset we could use for games. Libraries such as <a href="http://marionettejs.com/">MarionetteJS</a>, <a href="http://phaser.io/">Phaser.io</a> and <a href="https://github.com/goldfire/howler.js/">HowlerJS</a> are critical for us to deliver rich gaming content across multiple platforms. The initial application scaffold looked something like this:</p>
+
+<p><img class="center" src="/images/initial-app-structure.png" title="'initial application folder structure'" ></p>
+
+<p>Drilling further down the tree into the <code>components</code> directory you can see our &lsquo;reuseable&rsquo; components:</p>
+
+<p><img class="center" src="/images/components-directory.png" title="'initial components directory'" ></p>
+
+<p>The image aboves shows the components for one of our games, these components are meant to be reuseable so how do we include <code>orchestra-chat</code> in another repo? We copy/paste it. This obviously leads to a lot of code duplication across different applications, we had 2 applications running this way before we grew tired of ensuring both versions were up to date. With more applications in the pipeline we decided to restructure our boilerplate.</p>
+
+<h2>Browserify to the rescue</h2>
+
+<p>Browserify makes use of node&rsquo;s CommonJS module loader, to load our component we simply do:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var component = require('app/components/orchestra-chat');</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, by default the loader will first search the <code>node_modules</code> folder (by default all NPM packages are installed here), with this in mind we converted our components into NPM packages so they could be installed via NPM. Now to load our component we do:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var component = require('orchestra-chat');</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Utilising the NPM package manager has enabled us to remove components from the applications and include them in the application&rsquo;s dependencies so they are installed at build time. This brings our folder structure to what we have today:</p>
+
+<p><img class="center" src="/images/new-folder-structure.png" title="'new application folder structure'" ></p>
+
+<p>In addition to the streamlined folder structure we are now able to avoid duplicating code across multiple repositories, utilising the power of the NPM package manager. You may also have noticed in the image above we have removed <code>helpers</code>, <code>mixins</code> and <code>models</code>. These directories also contained common code shared between applications, for example a translation helper, a currency display helper or a mixin for touch events. This was code that didn&rsquo;t belong in any particular component but was more part of the framework itself, what we did next was create an Orchestra library which became a dependency of the applications.</p>
+
+<h2>Orchestra the library</h2>
+
+<p>We needed to remove this common code from applications, the next logical step was to convert Orchestra itself into a library. It has proven to be an inspired decision. Orchestra is now a library with it&rsquo;s own opinions about what tools to use for certain jobs, it extends Marionette and <a href="https://github.com/marionettejs/backbone.radio">Backbone.Radio</a>, provides access to utility libraries such as <a href="https://lodash.com/">lodash</a> and helpers for things such as translation, currency and local storage.</p>
+
+<p>This reduces code duplication and simplifes our modules, rather than pulling in each dependency individually we simply include Orchestra and know that it has all the tools we need.</p>
+
+<h2>The Future&hellip;</h2>
+
+<p>My aim for Orchestra would be to release it to the community and Open Source the library, there is still some work to do - but it&rsquo;s not far off. Our Yeoman generator is quite out of date and needs updating for our new application structure, PR&rsquo;s welcome <a href="https://github.com/BedeGaming/protege">here</a>. Now that Orchestra is a library rather than a framework, we aren&rsquo;t necessarily limited to game applications.</p>
+
+<p><strong>Orchestra: Client-side <del>Game</del> CMS Widget Orchestration <del>Framework</del> Library</strong></p>
+
+<p>Coming next in this series I&rsquo;ll talk about how our applications hook together, an app having lots of separate components needs a good method of communcation. Ill go in depth with our event architecture and explain why <a href="https://facebook.github.io/flux/">Facebook&rsquo;s Flux Architecture</a> maybe isn&rsquo;t quite as innovative as many think&hellip;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Andrew Humphreys</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-04T14:00:00+00:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+ 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2015-06-04-orchestra-the-journey-of-a-javascript-framework-part2.markdown">Fork me on github</a>		
+	</p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/" title="Previous Post: Orchestra - The Journey of a Javascript Framework Part 1">&laquo; Orchestra - The Journey of a Javascript Framework Part 1</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<img src="/images/bede-logo.png" border="0">
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2/">Orchestra - The Journey of a Javascript Framework Part 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/">Orchestra - The Journey of a Javascript Framework Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/12/rewrites-and-big-bang-deploys/">Rewrites and big bang deploys</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/29/bede-gaming-at-ndc-2014/">Bede gaming at NDC 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/10/bede-gaming-at-ucon-2014/">Bede Gaming at µCon 2014</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/BedeGaming">@BedeGaming</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'BedeGaming',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Bede_Engineers"  data-widget-id="531784519318134784"  data-link-color="#1863a1" data-tweet-limit="6" data-chrome="noheader nofooter transparent noscrollbar">Tweets by @Bede_Engineers</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </ul>
+  
+    <a href="http://twitter.com/Bede_Engineers" class="twitter-follow-button" data-show-count="false">Follow @Bede_Engineers</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Bede Gaming Ltd -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
