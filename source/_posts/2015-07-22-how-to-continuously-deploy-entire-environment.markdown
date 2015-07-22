@@ -4,12 +4,12 @@ title: "How to continuously deploy an entire environment"
 date: 2015-07-22 15:00:00 +0100
 comments: true
 author: Rytis Bieliunas
-categories: agile automation cd octopusdeploy 
+categories: agile automation cd octopusdeploy
 ---
 
-At Bede we are using Octopus Deploy as our deployment automation system. We use it to promote our platform components from integration environment through development, QA to production. It worked wonderfully well for us. However Bede has grown. We have near 100 different projects in Octopus and now multiple production environments.
+At Bede we are using Octopus Deploy as our deployment automation system. We use it to promote the numerous components of our platform through various environments, from Integration, through Development and QA, and finally to Production. It's worked wonderfully well for us so far. However Bede has grown. We have near 100 different projects in Octopus and now, more importantly, multiple Production environments.
 
-What we need is a way to take QA'd environment, where we know all components work well together, and deploy the entire thing to another environment.
+What we needed was a way to take a QA'd environment, consisting of the entire set of components, and deploy that set, as one, to another environment.  This is what we're calling a "Platform Version".
 <!-- more -->
 
 Lucky for us Octopus Deploy exposes a complete API. That means every thing that you can do as a user can be automated.
@@ -19,6 +19,10 @@ And so we are building: **Conan The Deployer**
 {% img center /images/conan.jpg 'Conan The Deployer' 'Conan The Deployer' %}
 *He looks innocent enough here, but he can mess up your entire production environment*
 *Photo courtesy Universal Pictures/Everett Collection*
+
+Conan essentially acts as a coordination and orchaestration layer on top of Octopus Deploy, and a source of truth for the state of any given OD environment.  Conan records the state of an environment, either on demand or to schedule.  Conan can coordinate between multiple instances of Octopus Deploy, when for example you may have an OD instance per-client.
+
+Quick rundown of what we're using it for:
 
 First thing you need to do is take a snapshot, which captures all component release versions on selected environment:
 
