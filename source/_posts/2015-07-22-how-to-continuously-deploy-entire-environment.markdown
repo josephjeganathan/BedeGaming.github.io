@@ -20,9 +20,9 @@ And so we are building: **Conan The Deployer**
 *He looks innocent enough here, but he can mess up your entire production environment*
 *Photo courtesy Universal Pictures/Everett Collection*
 
-Conan essentially acts as a coordination and orchaestration layer on top of Octopus Deploy, and a source of truth for the state of any given OD environment.  Conan records the state of an environment, either on demand or to schedule.  Conan can coordinate between multiple instances of Octopus Deploy, when for example you may have an OD instance per-client.
+Conan essentially acts as a coordination and orchestration layer on top of Octopus Deploy, and a source of truth for the state of any given OD environment. It records the state of an environment, either on demand or to schedule. We're also considering it could coordinate between multiple instances of Octopus Deploy, when for example you may have an OD instance per-client.
 
-Quick rundown of what we're using it for:
+Quick rundown of how it works:
 
 First thing you need to do is take a snapshot, which captures all component release versions on selected environment:
 
