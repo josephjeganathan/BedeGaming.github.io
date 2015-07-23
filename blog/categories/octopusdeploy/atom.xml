@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopusdeploy | Bede Engineering]]></title>
+  <link href="http://engineering.bedegaming.com/blog/categories/octopusdeploy/atom.xml" rel="self"/>
+  <link href="http://engineering.bedegaming.com/"/>
+  <updated>2015-07-23T16:35:57+00:00</updated>
+  <id>http://engineering.bedegaming.com/</id>
+  <author>
+    <name><![CDATA[Bede Gaming Ltd]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to continuously deploy an entire environment]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2015/07/22/how-to-continuously-deploy-entire-environment/"/>
+    <updated>2015-07-22T14:00:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2015/07/22/how-to-continuously-deploy-entire-environment</id>
+    <content type="html"><![CDATA[<p>At Bede we are using Octopus Deploy as our deployment automation system. We use it to promote our platform components from integration environment through development, QA to production. It worked wonderfully well for us. However Bede has grown. We have near 100 different projects in Octopus and now multiple production environments.</p>
+
+<p>What we need is a way to take QA&rsquo;d environment, where we know all components work well together, and deploy the entire thing to another environment.</p>
+
+<!-- more -->
+
+
+<p>Lucky for us Octopus Deploy exposes a complete API. That means every thing that you can do as a user can be automated.</p>
+
+<p>And so we are building: <strong>Conan The Deployer</strong></p>
+
+<p><img class="center" src="/images/conan.jpg" title="&lsquo;Conan The Deployer&rsquo; &lsquo;Conan The Deployer&rsquo;" >
+<em>He looks innocent enough here, but he can mess up your entire production environment</em>
+<em>Photo courtesy Universal Pictures/Everett Collection</em></p>
+
+<p>First thing you need to do is take a snapshot, which captures all component release versions on selected environment:</p>
+
+<p><img class="center" src="/images/conan_dashboard.png" title="&lsquo;Conan Dashboard&rsquo; &lsquo;Conan Dashboard&rsquo;" ></p>
+
+<p>Then you compare it to an environment where you want to deploy that snapshot. This lets you see which components the deployment would upgrade, downgrade or ignore.</p>
+
+<p><img class="center" src="/images/conan_compare.png" title="&lsquo;Conan Compare&rsquo; &lsquo;Conan Compare&rsquo;" ></p>
+
+<p>Logging in to Conan is done using normal Octopus Deploy user credentials and we initiate all Octopus actions using those credentials. That means we get user management and access control for free.
+Review checks with Octopus if your user has access to deploy everything selected from the snapshot. Here you see final set of components and deploy the entire thing with one click of a button.</p>
+
+<p><img class="center" src="/images/conan_review.png" title="&lsquo;Conan Review&rsquo; &lsquo;Conan Review&rsquo;" ></p>
+
+<p>This is an early proof of concept project. We have plans for it!</p>
+]]></content>
+  </entry>
+  
+</feed>
