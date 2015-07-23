@@ -4,7 +4,7 @@
   <title><![CDATA[Category: agile | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/agile/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-07-23T16:35:57+00:00</updated>
+  <updated>2015-07-23T16:36:39+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -18,9 +18,9 @@
     <link href="http://engineering.bedegaming.com/blog/2015/07/22/how-to-continuously-deploy-entire-environment/"/>
     <updated>2015-07-22T14:00:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/07/22/how-to-continuously-deploy-entire-environment</id>
-    <content type="html"><![CDATA[<p>At Bede we are using Octopus Deploy as our deployment automation system. We use it to promote our platform components from integration environment through development, QA to production. It worked wonderfully well for us. However Bede has grown. We have near 100 different projects in Octopus and now multiple production environments.</p>
+    <content type="html"><![CDATA[<p>At Bede we are using Octopus Deploy as our deployment automation system. We use it to promote the numerous components of our platform through various environments, from Integration, through Development and QA, and finally to Production. It&rsquo;s worked wonderfully well for us so far. However Bede has grown. We have near 100 different projects in Octopus and now, more importantly, multiple Production environments.</p>
 
-<p>What we need is a way to take QA&rsquo;d environment, where we know all components work well together, and deploy the entire thing to another environment.</p>
+<p>What we needed was a way to take a QA&rsquo;d environment, consisting of the entire set of components, and deploy that set, as one, to another environment.  This is what we&rsquo;re calling a &ldquo;Platform Version&rdquo;.</p>
 
 <!-- more -->
 
@@ -32,6 +32,10 @@
 <p><img class="center" src="/images/conan.jpg" title="&lsquo;Conan The Deployer&rsquo; &lsquo;Conan The Deployer&rsquo;" >
 <em>He looks innocent enough here, but he can mess up your entire production environment</em>
 <em>Photo courtesy Universal Pictures/Everett Collection</em></p>
+
+<p>Conan essentially acts as a coordination and orchaestration layer on top of Octopus Deploy, and a source of truth for the state of any given OD environment.  Conan records the state of an environment, either on demand or to schedule.  Conan can coordinate between multiple instances of Octopus Deploy, when for example you may have an OD instance per-client.</p>
+
+<p>Quick rundown of what we&rsquo;re using it for:</p>
 
 <p>First thing you need to do is take a snapshot, which captures all component release versions on selected environment:</p>
 
