@@ -4,7 +4,7 @@
   <title><![CDATA[Category: automation | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/automation/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-07-23T16:38:54+00:00</updated>
+  <updated>2015-07-23T17:42:09+01:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[How to continuously deploy an entire environment]]></title>
     <link href="http://engineering.bedegaming.com/blog/2015/07/23/how-to-continuously-deploy-entire-environment/"/>
-    <updated>2015-07-23T17:00:00+00:00</updated>
+    <updated>2015-07-23T18:00:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/07/23/how-to-continuously-deploy-entire-environment</id>
     <content type="html"><![CDATA[<p>At Bede we are using <a href="https://octopusdeploy.com/">Octopus Deploy</a> as our deployment automation system. We use it to promote components of our platform through various environments, from Integration, through Development and QA, and finally to Production. It&rsquo;s worked wonderfully well for us so far. However Bede has grown. We have near 100 different projects in Octopus and now, more importantly, multiple Production environments.</p>
 
