@@ -20,7 +20,7 @@ Here is the issue in a single picture:
 
 What we needed was a way to take a QA'd environment, consisting of the entire set of components, and deploy that set, as one, to another environment.  This is what we're calling a "Platform Version".
 
-Lucky for us Octopus Deploy exposes a complete API. That means every thing that you can do as a user can be automated.
+Octopus Deploy might get such functionality some day as it is [one of their most requested features](https://octopusdeploy.uservoice.com/forums/170787-general/suggestions/5852439-encapsulate-deployment-of-multiple-projects-into-s). It seems however that is unlikely to happen in a foreseeable future. Lucky for us Octopus Deploy exposes a complete API. That means every thing that you can do as a user can be automated.
 
 And so we are building: **Conan The Deployer**
 
