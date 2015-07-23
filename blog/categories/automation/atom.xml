@@ -4,7 +4,7 @@
   <title><![CDATA[Category: automation | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/automation/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-07-23T16:36:39+00:00</updated>
+  <updated>2015-07-23T16:37:38+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -15,27 +15,33 @@
   
   <entry>
     <title type="html"><![CDATA[How to continuously deploy an entire environment]]></title>
-    <link href="http://engineering.bedegaming.com/blog/2015/07/22/how-to-continuously-deploy-entire-environment/"/>
-    <updated>2015-07-22T14:00:00+00:00</updated>
-    <id>http://engineering.bedegaming.com/blog/2015/07/22/how-to-continuously-deploy-entire-environment</id>
-    <content type="html"><![CDATA[<p>At Bede we are using Octopus Deploy as our deployment automation system. We use it to promote the numerous components of our platform through various environments, from Integration, through Development and QA, and finally to Production. It&rsquo;s worked wonderfully well for us so far. However Bede has grown. We have near 100 different projects in Octopus and now, more importantly, multiple Production environments.</p>
-
-<p>What we needed was a way to take a QA&rsquo;d environment, consisting of the entire set of components, and deploy that set, as one, to another environment.  This is what we&rsquo;re calling a &ldquo;Platform Version&rdquo;.</p>
+    <link href="http://engineering.bedegaming.com/blog/2015/07/23/how-to-continuously-deploy-entire-environment/"/>
+    <updated>2015-07-23T17:00:00+00:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2015/07/23/how-to-continuously-deploy-entire-environment</id>
+    <content type="html"><![CDATA[<p>At Bede we are using <a href="https://octopusdeploy.com/">Octopus Deploy</a> as our deployment automation system. We use it to promote components of our platform through various environments, from Integration, through Development and QA, and finally to Production. It&rsquo;s worked wonderfully well for us so far. However Bede has grown. We have near 100 different projects in Octopus and now, more importantly, multiple Production environments.</p>
 
 <!-- more -->
 
 
-<p>Lucky for us Octopus Deploy exposes a complete API. That means every thing that you can do as a user can be automated.</p>
+<p>Bede gaming platform is split into lots of small services which keeps development teams reasonably independent and productive as the platform grows, but it also makes deployment orchestration tricky. We want to make it easy to move changes through environments and so tools and processes are needed that minimize manual intervention and human error.</p>
+
+<p>Here is the issue in a single picture:</p>
+
+<p><img class="center" src="/images/odfullview.png" title="&lsquo;Octopus Deploy in Bede&rsquo; &lsquo;Octopus Deploy in Bede&rsquo;" >
+<em>There are many components! They must work well together and Octopus Deploy at this point only has tooling to work with one component at a time.</em></p>
+
+<p>What we needed was a way to take a QA&rsquo;d environment, consisting of the entire set of components, and deploy that set, as one, to another environment.  This is what we&rsquo;re calling a &ldquo;Platform Version&rdquo;.</p>
+
+<p>Octopus Deploy might get such functionality some day as it is <a href="https://octopusdeploy.uservoice.com/forums/170787-general/suggestions/5852439-encapsulate-deployment-of-multiple-projects-into-s">one of their most requested features</a>. It seems however that is unlikely to happen in a foreseeable future. Lucky for us Octopus Deploy exposes a complete API. That means every thing that you can do as a user can be automated.</p>
 
 <p>And so we are building: <strong>Conan The Deployer</strong></p>
 
 <p><img class="center" src="/images/conan.jpg" title="&lsquo;Conan The Deployer&rsquo; &lsquo;Conan The Deployer&rsquo;" >
-<em>He looks innocent enough here, but he can mess up your entire production environment</em>
-<em>Photo courtesy Universal Pictures/Everett Collection</em></p>
+<em>He looks innocent enough here, but he can mess up your entire production environment (Photo courtesy Universal Pictures/Everett Collection)</em></p>
 
-<p>Conan essentially acts as a coordination and orchaestration layer on top of Octopus Deploy, and a source of truth for the state of any given OD environment.  Conan records the state of an environment, either on demand or to schedule.  Conan can coordinate between multiple instances of Octopus Deploy, when for example you may have an OD instance per-client.</p>
+<p>Conan essentially acts as a coordination and orchestration layer on top of Octopus Deploy, and a source of truth for the state of any given OD environment. It records the state of an environment, either on demand or to schedule. We&rsquo;re also considering it could coordinate between multiple instances of Octopus Deploy, when for example you may have an OD instance per-client.</p>
 
-<p>Quick rundown of what we&rsquo;re using it for:</p>
+<p>Quick rundown of how it works:</p>
 
 <p>First thing you need to do is take a snapshot, which captures all component release versions on selected environment:</p>
 
@@ -45,8 +51,9 @@
 
 <p><img class="center" src="/images/conan_compare.png" title="&lsquo;Conan Compare&rsquo; &lsquo;Conan Compare&rsquo;" ></p>
 
-<p>Logging in to Conan is done using normal Octopus Deploy user credentials and we initiate all Octopus actions using those credentials. That means we get user management and access control for free.
-Review checks with Octopus if your user has access to deploy everything selected from the snapshot. Here you see final set of components and deploy the entire thing with one click of a button.</p>
+<p>Logging in to Conan is done using normal Octopus Deploy user credentials and all Conan actions are initiated using those credentials. That means access control, user management and some audit come for free.</p>
+
+<p>Review checks with Octopus if your user has access to deploy everything selected from the snapshot. Here you see final set of components and deploy the entire thing with one click of a button.</p>
 
 <p><img class="center" src="/images/conan_review.png" title="&lsquo;Conan Review&rsquo; &lsquo;Conan Review&rsquo;" ></p>
 
