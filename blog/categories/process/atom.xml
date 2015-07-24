@@ -4,7 +4,7 @@
   <title><![CDATA[Category: process | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/process/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-07-23T17:42:09+01:00</updated>
+  <updated>2015-07-24T07:17:01+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Who is your Brent?]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/16/who-is-your-brent/"/>
-    <updated>2014-10-16T18:19:00+01:00</updated>
+    <updated>2014-10-16T17:19:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/16/who-is-your-brent</id>
     <content type="html"><![CDATA[<p>In the book <a href="http://www.amazon.co.uk/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B00AZRBLHO/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1413480244&amp;sr=1-1&amp;keywords=the+phoenix+project">The Phoenix Project</a> one of the primary foils of the &ldquo;hero&rdquo; is a guy named Brent. Brent is critical to successful work. Production incident? Call Brent. Complex database query? Brent&rsquo;s your guy. Tracing down network packet drops? Brent is already on it.  On the face of it, he is what every ops team wants twenty of, but as the book shows it is easy to become so critically dependent on one person that they become a bottleneck for the organisation. Also, Brent has several bad habits. He drops everything he&rsquo;s doing to sort out what ever is being screamed about loudest, regardless of its actual priority. He&rsquo;s also a knowledge silo - because Brent built half the complex systems in the business, he knows <!-- more -->how to solve tricky problems with them all, but all the knowledge is in his head, to the point where most of the rest of the team won&rsquo;t touch those areas. Why would they? Brent can solve the issue in a tenth of the time, and more safely.</p>
 
