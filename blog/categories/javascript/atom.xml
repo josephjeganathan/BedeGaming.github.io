@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-10-05T10:54:11+01:00</updated>
+  <updated>2015-10-05T10:04:42+00:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Orchestra - Bede Gaming's Open Source JavaScript Framework]]></title>
     <link href="http://engineering.bedegaming.com/blog/2015/10/04/orchestra-open-source/"/>
-    <updated>2015-10-04T15:00:00+01:00</updated>
+    <updated>2015-10-04T14:00:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/10/04/orchestra-open-source</id>
     <content type="html"><![CDATA[<p>My previous posts on Orchestra have detailed the work that Bede employees have put in to move the framework from an application scaffold to a library useful for a multitude of applications. This work finally paid off when Bede released Orchestra to the JavaScript community.</p>
 
@@ -42,7 +42,7 @@
   <entry>
     <title type="html"><![CDATA[Orchestra - The Journey of a Javascript Framework Part 2]]></title>
     <link href="http://engineering.bedegaming.com/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2/"/>
-    <updated>2015-06-04T15:00:00+01:00</updated>
+    <updated>2015-06-04T14:00:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2</id>
     <content type="html"><![CDATA[<p>In part 1 of of this series I wrote about how we refined our build process using Gulp and Browserify, these changes also made a significant impact on the structure of the Orchestra Framework. Part 2 covers how Orchestra transitioned from an all encompassing framework to a library that brings together our favourite tools.</p>
 
@@ -98,7 +98,7 @@ Now that Orchestra is a library rather than a framework, we aren&rsquo;t necessa
   <entry>
     <title type="html"><![CDATA[Orchestra - The Journey of a Javascript Framework Part 1]]></title>
     <link href="http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/"/>
-    <updated>2015-04-16T15:00:00+01:00</updated>
+    <updated>2015-04-16T14:00:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework</id>
     <content type="html"><![CDATA[<p>Recently I&rsquo;ve been excitedly talking to my colleagues about Orchestra, a &ldquo;Super awesome framework&rdquo; we have built in the Bede Games Studio, so I thought I&rsquo;d give them all a break a write a blog post about it instead!</p>
 
@@ -201,7 +201,7 @@ For me there are 3 main contenders:
   <entry>
     <title type="html"><![CDATA[How the current mobile landscape affects developers]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/"/>
-    <updated>2014-10-20T16:55:00+01:00</updated>
+    <updated>2014-10-20T15:55:00+00:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape</id>
     <content type="html"><![CDATA[<p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
 
