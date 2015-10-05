@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Introducing Bede Engineering - Bede Engineering</title>
+  <title>Orchestra - Bede Gaming&#8217;s Open Source JavaScript Framework - Bede Engineering</title>
   <meta name="author" content="Bede Gaming Ltd">
 
   
-  <meta name="description" content="A long time in the hoping, not so long in the making (thanks to Octopress and Justin Kelly&rsquo;s Theme), we&rsquo;re pretty excited to finally be &hellip;">
+  <meta name="description" content="My previous posts on Orchestra have detailed the work that Bede employees have put in to move the framework from an application scaffold to a library &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2014/10/15/introducing-engineering-dot-bedegaming-dot-com/">
+  <link rel="canonical" href="http://engineering.bedegaming.com/blog/2015/10/04/orchestra-open-source/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,7 +62,7 @@
   
   <header>
     
-      <h1 class="entry-title">Introducing Bede Engineering</h1>
+      <h1 class="entry-title">Orchestra - Bede Gaming&#8217;s Open Source JavaScript Framework</h1>
     
     
       <p class="meta">
@@ -78,16 +78,31 @@
   
 
 
-<time datetime="2014-10-15T18:13:05+01:00" pubdate data-updated="true"></time>
+<time datetime="2015-10-04T15:00:00+01:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>A long time in the hoping, not so long in the making (thanks to <a href="http://octopress.org">Octopress</a> and <a href="https://github.com/wallace/justin-kelly-theme">Justin Kelly&rsquo;s Theme</a>), we&rsquo;re pretty excited to finally be able to show you our new engineering microsite.</p>
+<div class="entry-content"><p>My previous posts on Orchestra have detailed the work that Bede employees have put in to move the framework from an application scaffold to a library useful for a multitude of applications. This work finally paid off when Bede released Orchestra to the JavaScript community.</p>
 
-<p>We&rsquo;ve got some great posts lined up: everything from how we manage our army of servers to our approach to continuous delivery. In the meantime, you can browse some of our open source software using the links on the right.</p>
+<!-- more -->
+
+
+<p>Before the cynics jump onboard with the &ldquo;not another JavaScript framework&rdquo; statements, let me explain the reasoning behind the release and the different approach we are taking in comparsion to the competing MV<em> frameworks. Orchestra is not aiming to become an MV</em> framework, it is aiming to extend an existing, popular framework to provide a better entry point for adoption.</p>
+
+<p>Being a &ldquo;core team&rdquo; member for Backbone.Marionette, I spend most of my free time contributing to the popular Open Source project, Orchestra being released will not change that. In fact, it is my standing in the Marionette community that has pushed me to persue this release. Some of the common questions the team are asked are <em>&ldquo;How do I start building my Marionette application?&rdquo;</em> or <em>&ldquo;Where can I find a set of best practices for Marionette applications?&rdquo;</em>. Additionally, dependency problems are  common issues we find opened against our repo. The problem with maintaining such an unopinionated library is that there are so many examples of application architecture out there: some are brilliant, some are terrible. This is what Orchestra is looking to solve.</p>
+
+<p>Orchestra contains a collection of popular libraries used in many Marionette applications and aims to say &ldquo;If you are building a Marionette application, these are the tools you need&rdquo;. Dependency problems will be gone as Orchestra pulls in a known set of compatible versions, the library follows SemVer so you can trust we will not break your applications.</p>
+
+<p>Our library is more than just a collection of other libraries though, we have included helper methods used in production by Bede on our multi lingual, multi platform applications. Need to format a number as a currency - use our currency helper, need to change that currency from GBP to Euros for a particular theme, pass the helper the Euro locale and it will change it for you. If you are developing an application for use in multiple countries, our translation helper will allow you to use the power of i18n to provide locale specifc strings for each text item you display.</p>
+
+<p>For developers looking to launch applications on touch devices, Orchestra&rsquo;s touch helper extends Backbone&rsquo;s View with <code>hammerEvents</code> allowing Views to listen for touch actions. There are more helpers such as Visibility and Local Storage, be sure to read our <a href="https://github.com/BedeGaming/orchestra/blob/master/README.md">documentation</a> to find out more.</p>
+
+<p>The Orchestra library is still evolving and will continue to grow alongside Marionette, Marionette 3.0 will bring some great new features and, inspired by <a href="https://github.com/thejameskyle/marionette-wires">Marionette Wires</a>, we are continuing development on an official Orchestra Yeoman generator. It is my hope that this will give those who search for opinions on Marionette application development the starting point they need to rapidly produce top quality, well architected JavaScript applications.</p>
+
+<p>To keep up to date on Orchestra development, star our <a href="https://github.com/BedeGaming/orchestra/">repo</a>, or even better &ldquo;fork&rdquo; it and start contributing!</p>
 </div>
 
 
@@ -97,7 +112,7 @@
       
   
 
-<span class="byline author vcard">Posted by <span class="fn">Alex Butcher</span></span>
+<span class="byline author vcard">Posted by <span class="fn">Andrew Humphreys</span></span>
 
       
 
@@ -111,18 +126,24 @@
   
 
 
-<time datetime="2014-10-15T18:13:05+01:00" pubdate data-updated="true"></time>
+<time datetime="2015-10-04T15:00:00+01:00" pubdate data-updated="true"></time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
 
 
     </p>
     <p class="meta">
- 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2014-10-15-introducing-engineering-dot-bedegaming-dot-com.markdown">Fork me on github</a>		
+ 	  Corrections or additions? <a href="https://github.com/BedeGaming/BedeGaming.github.io/tree/source/source/_posts/2015-10-04-orchestra-open-source.markdown">Fork me on github</a>		
 	</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2014/10/15/introducing-engineering-dot-bedegaming-dot-com/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2014/10/15/introducing-engineering-dot-bedegaming-dot-com/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://engineering.bedegaming.com/blog/2015/10/04/orchestra-open-source/" data-via="Bede_Engineers" data-counturl="http://engineering.bedegaming.com/blog/2015/10/04/orchestra-open-source/" >Tweet</a>
   
   
   
@@ -131,8 +152,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2015/07/23/how-to-continuously-deploy-entire-environment/" title="Previous Post: How to continuously deploy an entire environment">&laquo; How to continuously deploy an entire environment</a>
       
-        <a class="basic-alignment right" href="/blog/2014/10/16/the-dev-ops-80-20-rule-for-selecting-a-database/" title="Next Post: The Dev-ops 80-20 Rule For Selecting A Database">The Dev-ops 80-20 Rule For Selecting A Database &raquo;</a>
       
     </p>
   </footer>

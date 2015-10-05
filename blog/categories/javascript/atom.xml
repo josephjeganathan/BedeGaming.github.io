@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Bede Engineering]]></title>
   <link href="http://engineering.bedegaming.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://engineering.bedegaming.com/"/>
-  <updated>2015-07-24T07:17:46+00:00</updated>
+  <updated>2015-10-05T10:54:11+01:00</updated>
   <id>http://engineering.bedegaming.com/</id>
   <author>
     <name><![CDATA[Bede Gaming Ltd]]></name>
@@ -14,9 +14,35 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Orchestra - Bede Gaming's Open Source JavaScript Framework]]></title>
+    <link href="http://engineering.bedegaming.com/blog/2015/10/04/orchestra-open-source/"/>
+    <updated>2015-10-04T15:00:00+01:00</updated>
+    <id>http://engineering.bedegaming.com/blog/2015/10/04/orchestra-open-source</id>
+    <content type="html"><![CDATA[<p>My previous posts on Orchestra have detailed the work that Bede employees have put in to move the framework from an application scaffold to a library useful for a multitude of applications. This work finally paid off when Bede released Orchestra to the JavaScript community.</p>
+
+<!-- more -->
+
+
+<p>Before the cynics jump onboard with the &ldquo;not another JavaScript framework&rdquo; statements, let me explain the reasoning behind the release and the different approach we are taking in comparsion to the competing MV<em> frameworks. Orchestra is not aiming to become an MV</em> framework, it is aiming to extend an existing, popular framework to provide a better entry point for adoption.</p>
+
+<p>Being a &ldquo;core team&rdquo; member for Backbone.Marionette, I spend most of my free time contributing to the popular Open Source project, Orchestra being released will not change that. In fact, it is my standing in the Marionette community that has pushed me to persue this release. Some of the common questions the team are asked are <em>&ldquo;How do I start building my Marionette application?&rdquo;</em> or <em>&ldquo;Where can I find a set of best practices for Marionette applications?&rdquo;</em>. Additionally, dependency problems are  common issues we find opened against our repo. The problem with maintaining such an unopinionated library is that there are so many examples of application architecture out there: some are brilliant, some are terrible. This is what Orchestra is looking to solve.</p>
+
+<p>Orchestra contains a collection of popular libraries used in many Marionette applications and aims to say &ldquo;If you are building a Marionette application, these are the tools you need&rdquo;. Dependency problems will be gone as Orchestra pulls in a known set of compatible versions, the library follows SemVer so you can trust we will not break your applications.</p>
+
+<p>Our library is more than just a collection of other libraries though, we have included helper methods used in production by Bede on our multi lingual, multi platform applications. Need to format a number as a currency - use our currency helper, need to change that currency from GBP to Euros for a particular theme, pass the helper the Euro locale and it will change it for you. If you are developing an application for use in multiple countries, our translation helper will allow you to use the power of i18n to provide locale specifc strings for each text item you display.</p>
+
+<p>For developers looking to launch applications on touch devices, Orchestra&rsquo;s touch helper extends Backbone&rsquo;s View with <code>hammerEvents</code> allowing Views to listen for touch actions. There are more helpers such as Visibility and Local Storage, be sure to read our <a href="https://github.com/BedeGaming/orchestra/blob/master/README.md">documentation</a> to find out more.</p>
+
+<p>The Orchestra library is still evolving and will continue to grow alongside Marionette, Marionette 3.0 will bring some great new features and, inspired by <a href="https://github.com/thejameskyle/marionette-wires">Marionette Wires</a>, we are continuing development on an official Orchestra Yeoman generator. It is my hope that this will give those who search for opinions on Marionette application development the starting point they need to rapidly produce top quality, well architected JavaScript applications.</p>
+
+<p>To keep up to date on Orchestra development, star our <a href="https://github.com/BedeGaming/orchestra/">repo</a>, or even better &ldquo;fork&rdquo; it and start contributing!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Orchestra - The Journey of a Javascript Framework Part 2]]></title>
     <link href="http://engineering.bedegaming.com/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2/"/>
-    <updated>2015-06-04T14:00:00+00:00</updated>
+    <updated>2015-06-04T15:00:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/06/04/orchestra-the-journey-of-a-javascript-framework-part2</id>
     <content type="html"><![CDATA[<p>In part 1 of of this series I wrote about how we refined our build process using Gulp and Browserify, these changes also made a significant impact on the structure of the Orchestra Framework. Part 2 covers how Orchestra transitioned from an all encompassing framework to a library that brings together our favourite tools.</p>
 
@@ -72,7 +98,7 @@ Now that Orchestra is a library rather than a framework, we aren&rsquo;t necessa
   <entry>
     <title type="html"><![CDATA[Orchestra - The Journey of a Javascript Framework Part 1]]></title>
     <link href="http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework/"/>
-    <updated>2015-04-16T14:00:00+00:00</updated>
+    <updated>2015-04-16T15:00:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2015/04/16/orchestra-the-journey-of-a-javascript-framework</id>
     <content type="html"><![CDATA[<p>Recently I&rsquo;ve been excitedly talking to my colleagues about Orchestra, a &ldquo;Super awesome framework&rdquo; we have built in the Bede Games Studio, so I thought I&rsquo;d give them all a break a write a blog post about it instead!</p>
 
@@ -175,7 +201,7 @@ For me there are 3 main contenders:
   <entry>
     <title type="html"><![CDATA[How the current mobile landscape affects developers]]></title>
     <link href="http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape/"/>
-    <updated>2014-10-20T15:55:00+00:00</updated>
+    <updated>2014-10-20T16:55:00+01:00</updated>
     <id>http://engineering.bedegaming.com/blog/2014/10/20/developers-and-the-changing-mobile-landscape</id>
     <content type="html"><![CDATA[<p>A colleague pointed me towards an interesting <a href="http://www.slideshare.net/robnyman/mobile-trends-web-native">presentation</a> that illustrates some dramatic shifts in the mobile market. I think it&rsquo;s important that mobile app developers take a close look at how this may impact apps they are working on. Here we discuss issues and possible solutions to the problems that may arise.</p>
 
